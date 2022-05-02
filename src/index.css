@@ -1,13 +1,50 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.navRight {
+  position: absolute;
+  right: 10px;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.btnConnect {
+  position: flex;
+  width: 130px;
+  height: 50.75px;
+  right: 5%;
+  top: 27px;
+  background: #35aef1;
+  border-radius: 37px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+}
+
+.navCreate {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px;
+
+  position: flex;
+  width: 56px;
+  height: 26px;
+
+  top: calc(50% - 26px / 2 - 2px);
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+}
+
+.navShop {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px;
+
+  position: flex;
+  width: 56px;
+  height: 26px;
+  left: calc(50% - 56px / 2 + 241.5px);
+  top: calc(50% - 26px / 2 - 1px);
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
 }
