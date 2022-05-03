@@ -9,7 +9,7 @@ import Order from "./components/pages/Order";
 function App() {
   return (
     <Router>
-      <div className="flex flex-col justify-between h-screen">
+      <div className="flex flex-col">
         <Navbar />
         <main>
           <Routes>
