@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/layout/Navbar";
+import Footer from "./components/layout/Footer";
 import Home from "./components/pages/Home";
 import Create from "./components/pages/Create";
 import Shop from "./components/pages/Shop";
@@ -20,6 +21,7 @@ function App() {
             <Route path="/order" element={<Order />} />
           </Routes>
         </main>
+        <Footer />
       </div>
     </Router>
   );

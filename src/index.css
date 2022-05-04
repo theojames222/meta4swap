@@ -19,6 +19,51 @@ nav {
   margin-bottom: 10px;
 }
 
+.content {
+  min-height: calc(100vh - 68px);
+}
+.Foot {
+  position: relative;
+  left: 0;
+  /* right: 0; */
+  bottom: 0;
+}
+.eth {
+  display: inline;
+  height: 20px;
+  margin: auto;
+}
+.homeHeader2 {
+  text-align: center;
+}
+.homeHeader {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 900;
+  color: rgba(43, 62, 135, 1);
+  align-items: center;
+  margin: auto;
+  padding: 10px;
+  justify-items: center;
+  display: flex;
+}
+.infoContent {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  color: rgba(104, 104, 104, 1);
+}
+.infoHeader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  color: rgba(43, 62, 135, 1);
+}
+.icon {
+  height: 150px;
+  width: 150px;
+  display: flex;
+}
 .nav2 {
   display: flex;
   margin: 0px 0px 0px;
@@ -43,7 +88,8 @@ nav {
 .formLabel3 {
   font-family: "Montserrat", sans-serif;
   font-weight: 500;
-  padding-right: 69px;
+  padding-right: 43px;
+  padding-top: 5px;
   justify-content: center;
 }
 .formLabel4 {
@@ -122,6 +168,7 @@ nav {
   top: calc(50% - 26px / 2 - 2px);
   font-family: "Montserrat", sans-serif;
   font-weight: 700;
+  color: rgba(43, 62, 135, 1);
 }
 
 .navShop {
@@ -137,4 +184,5 @@ nav {
   top: calc(50% - 26px / 2 - 1px);
   font-family: "Montserrat", sans-serif;
   font-weight: 700;
+  color: rgba(43, 62, 135, 1);
 }
