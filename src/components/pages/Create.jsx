@@ -1,12 +1,15 @@
-import ImageUploader from "../layout/ImageUploader";
+import { Container } from "react-bootstrap";
+import { useState } from "react";
 
+import { ImageUpload } from "../layout/ImageUpload";
 function Create() {
+  const [imageUrl, setImageUrl] = useState("");
   return (
     <>
       <div className="content">
         <div className="formContainer ">
           <header>
-            <p className="pageHeader">Create Listing</p>
+            <p className="smallHeader text-5xl mb-5">Create Listing</p>
           </header>
           <form className="">
             <header>
@@ -90,13 +93,22 @@ function Create() {
                 </span>
               </label>
             </div>
-            <ImageUploader />
-            {/* UPLOADER FOR IMAGE */}
-
-            <div>
-              <button class="btn btn-primary">Create on Blockchain</button>
-            </div>
           </form>
+          <Container>
+            <ImageUpload setUrl={setImageUrl} />
+
+            <h5>
+              ImageUrl :{" "}
+              <a href={imageUrl} target="_blank" rel="noopener noreferrer">
+                {imageUrl}
+              </a>
+            </h5>
+
+            <hr />
+          </Container>
+          <div>
+            <button class="btn btn-primary">Create on Blockchain</button>
+          </div>
         </div>
       </div>
     </>

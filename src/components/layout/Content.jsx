@@ -22,7 +22,7 @@ function Content() {
           justifyContent: "space-evenly",
         }}
       >
-        <div className="card w-1/4 text-primary items-center">
+        <div className="card text-primary items-center">
           <div className="card-body justify-center items-center text-center">
             <img className="icon pl-4" src={form} alt="form" />
             <div className="card-actions justify-center">
@@ -35,7 +35,7 @@ function Content() {
             </div>
           </div>
         </div>
-        <div className="card w-1/4 text-primary items-center">
+        <div className="card text-primary items-center">
           <div className="card-body justify-center items-center text-center">
             <img className="icon pl-4" src={market} alt="market" />
             <div className="card-actions justify-center">
@@ -48,7 +48,7 @@ function Content() {
             </div>
           </div>
         </div>
-        <div className="card w-1/4 text-primary items-center">
+        <div className="card text-primary items-center">
           <div className="card-body justify-center items-center text-center">
             <img className="icon pl-4" src={wallet} alt="wallet" />
             <div className="card-actions justify-center">
@@ -61,7 +61,7 @@ function Content() {
             </div>
           </div>
         </div>
-        <div className="card w-1/4 text-primary items-center">
+        <div className="card  text-primary items-center">
           <div className="card-body justify-center items-center text-center">
             <img className="icon pl-4" src={payment} alt="payment" />
             <div className="card-actions justify-center">

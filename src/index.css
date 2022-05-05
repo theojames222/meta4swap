@@ -18,6 +18,9 @@ nav {
   margin: auto;
   margin-bottom: 10px;
 }
+.box {
+  width: 100%;
+}
 .mobileNav {
   position: -webkit-sticky; /* Safari */
   position: sticky;
@@ -114,6 +117,8 @@ nav {
 .smallHeader {
   font-family: "Montserrat", sans-serif;
   font-weight: 700;
+  margin: auto;
+  color: rgba(43, 62, 135, 1);
 }
 .nameInput,
 .categoryInput,

@@ -1,4 +1,3 @@
-import { Buffer } from "buffer";
 import React, { useState } from "react";
 import { create } from "ipfs-http-client";
 import {
@@ -12,24 +11,12 @@ import {
 
 const client = create("https://ipfs.infura.io:5001/api/v0");
 
-function ImageUploader() {
-  const [file, setFile] = useState(null);
-  const [urlArr, setUrlArr] = useState([]);
+export const ImageUpload = ({ setUrl }) => {
   const [image, setImage] = useState({});
   const [imagePreview, setImagePreview] = useState("");
   const [loading, setLoading] = useState(false);
   const [uploaded, setUploaded] = useState(false);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const created = await client.add(file);
-      const url = `https://ipfs.infura.io/ipfs/${created.path}`;
-      setUrlArr((prev) => [...prev, url]);
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
   const createPreview = (e) => {
     if (e.target.value !== "") {
       setImage(e.target.files[0]);
@@ -39,23 +26,15 @@ function ImageUploader() {
       setImagePreview("");
     }
   };
-  const retrieveFile = (e) => {
-    const data = e.target.files[0];
-    const reader = new window.FileReader();
-    reader.readAsArrayBuffer(data);
-    reader.onloadend = () => {
-      setFile(Buffer(reader.result));
-    };
-    createPreview(e);
-    e.preventDefault();
-  };
+
   const uploadFile = async (e) => {
     setLoading(true);
     e.preventDefault();
 
     try {
-      const created = await client.add(file);
-      const url = `https://ipfs.infura.io/ipfs/${created.path}`;
+      const added = await client.add(image);
+      const url = `https://ipfs.infura.io/ipfs/${added.path}`;
+      setUrl(url);
       setImagePreview(url);
       setUploaded(true);
     } catch (err) {
@@ -63,6 +42,7 @@ function ImageUploader() {
     }
     setLoading(false);
   };
+
   const previewAndUploadButton = () => {
     if (imagePreview !== "") {
       if (!loading) {
@@ -114,7 +94,7 @@ function ImageUploader() {
 
   return (
     <div>
-      <Form onSubmit={uploadFile} className="form">
+      <Form onSubmit={uploadFile}>
         <Form.Control
           required
           type="file"
@@ -122,10 +102,9 @@ function ImageUploader() {
           onChange={(e) => createPreview(e)}
           className="mb-3"
         />
+
         {previewAndUploadButton()}
       </Form>
     </div>
   );
-}
-
-export default ImageUploader;
+};
