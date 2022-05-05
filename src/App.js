@@ -21,6 +21,7 @@ function App() {
             <Route path="/order" element={<Order />} />
           </Routes>
         </main>
+
         <Footer />
       </div>
     </Router>

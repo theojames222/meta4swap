@@ -1,3 +1,5 @@
+import ImageUploader from "../layout/ImageUploader";
+
 function Create() {
   return (
     <>
@@ -88,7 +90,7 @@ function Create() {
                 </span>
               </label>
             </div>
-
+            <ImageUploader />
             {/* UPLOADER FOR IMAGE */}
 
             <div>

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import Meta4Swap from "../assets/Meta4Swap.png";
+import Meta4Swap from "../assets/Meta4SwapNB.png";
 import useWindowDimensions from "../hooks/useWindowDimensions";
 
 function Navbar() {
@@ -20,36 +20,33 @@ function Navbar() {
     <div className="flex">
       <nav className="navbar mb-0 shadow-lg" width={width}>
         <div className="container mx-auto">
-          <Link to="/" className="flex px-2 mx-2 ">
+          <Link to="/" className="flex  ">
             <img src={Meta4Swap} alt="" className="logo" />
-            {/* <Link to="/" className="text-lg font-bold align-middle">
-      {title}
-    </Link> */}
           </Link>
-          <nav className="nav2">
-            <div className="nav2">
+          <div>
+            <div>
               <Link
                 to="/shop"
-                className="navShop btn btn-ghost btn-lg text-xl rounded-btn mr-12"
+                className="navShop text-2xl font-bold rounded-btn mr-12"
               >
                 Shop
               </Link>
+            </div>
+            <div>
               <Link
                 to="/create"
-                className="navShop btn btn-ghost btn-lg text-xl rounded-btn mr-12"
+                className="navShop text-2xl font-bold rounded-btn mr-12"
               >
                 Create
               </Link>
-              <nav className="navbar-end">
-                <button
-                  className="btnConnect text-white text-xl flex-end"
-                  onClick={btnhandler}
-                >
-                  Connect
-                </button>
-              </nav>
             </div>
-          </nav>
+          </div>
+          <button
+            className="btnConnect text-white text-xl "
+            onClick={btnhandler}
+          >
+            Connect
+          </button>
         </div>
       </nav>
     </div>
