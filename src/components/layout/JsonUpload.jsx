@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { create } from "ipfs-http-client";
-import { ImageUpload } from "./ImageUpload";
+// import { ImageUpload } from "./ImageUpload";
 
 const client = create("https://ipfs.infura.io:5001/api/v0");
 
@@ -8,15 +8,24 @@ export const JsonUpload = ({ disabled, metaData2, imageUrl }) => {
   const metaData = {
     ...metaData2,
     " imageUrl": imageUrl,
+    created: Date.now(),
+    date: new Intl.DateTimeFormat("en-US", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+    }).format(Date.now()),
   };
   const metaDataJSONString = JSON.stringify(metaData);
   const [uploaded, setUploaded] = useState(false);
   const [metaDataUrl, setMetaDataUrl] = useState("");
 
-  const onClick = () => {
-    // console.log(metaData2, imageUrl);
-    console.log(metaDataJSONString);
-  };
+  //   const onClick = () => {
+  //     // console.log(metaData2, imageUrl);
+  //     console.log(metaDataJSONString);
+  //   };
   const uploadText = async (e) => {
     e.preventDefault();
 
