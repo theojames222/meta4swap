@@ -79,8 +79,9 @@ nav {
 }
 .logo {
   float: left;
-  width: max-content;
-  height: 50px;
+  width: 250px;
+  height: max-content;
+  padding-top: 10px;
 }
 .formLabel {
   font-family: "Montserrat", sans-serif;
@@ -169,6 +170,18 @@ nav {
 .btnConnect {
   position: relative;
   width: 130px;
+  height: 50.75px;
+  right: 0%;
+  top: 0px;
+  background: #35aef1;
+  border-radius: 37px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+}
+
+.btnBuy {
+  position: relative;
+  width: 150px;
   height: 50.75px;
   right: 0%;
   top: 0px;

@@ -1,8 +1,8 @@
 import { Container } from "react-bootstrap";
 import { useState } from "react";
 // import ItemCard from "../layout/ItemCard";
-import { JsonUpload } from "../layout/JsonUpload";
-import { ImageUpload } from "../layout/ImageUpload";
+import { JsonUpload } from "../actions/JsonUpload";
+import { ImageUpload } from "../actions/ImageUpload";
 
 function Create() {
   const [imageUrl, setImageUrl] = useState("");

@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import Meta4Swap from "../assets/Meta4SwapNB.png";
 import useWindowDimensions from "../hooks/useWindowDimensions";
+import Logo from "../assets/logo2.png";
 
 function Navbar() {
   const { height, width } = useWindowDimensions();
@@ -19,8 +20,8 @@ function Navbar() {
   return (
     // <div className="flex">
     <nav className="navbar mb-0 shadow-lg  " width={width}>
-      <Link to="/" className="flex ml-10 ">
-        <img src={Meta4Swap} alt="" className="logo" />
+      <Link to="/" className="flex ml-5 ">
+        <img src={Logo} alt="" className="logo" />
       </Link>
       <div className="nav2">
         <button className="btn btn-ghost">

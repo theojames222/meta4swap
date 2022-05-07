@@ -14,7 +14,7 @@ function Content() {
         content="Effortlessly Buy and Sell products and services on the Blockchain"
       />
       <div
-        className="container items-center mx-auto "
+        className="grid grid-cols-1 gap-3 xl:grid-cols-4 lg-grid-cols-4 md:grid-cols-2 "
         style={{
           display: "flex",
           alignItems: "center",
