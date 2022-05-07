@@ -17,39 +17,37 @@ function Navbar() {
   };
 
   return (
-    <div className="flex">
-      <nav className="navbar mb-0 shadow-lg" width={width}>
-        <div className="container mx-auto">
-          <Link to="/" className="flex  ">
-            <img src={Meta4Swap} alt="" className="logo" />
-          </Link>
-          <div>
-            <div>
-              <Link
-                to="/shop"
-                className="navShop text-2xl font-bold rounded-btn mr-12"
-              >
-                Shop
-              </Link>
-            </div>
-            <div>
-              <Link
-                to="/create"
-                className="navShop text-2xl font-bold rounded-btn mr-12"
-              >
-                Create
-              </Link>
-            </div>
-          </div>
-          <button
-            className="btnConnect text-white text-xl "
-            onClick={btnhandler}
+    // <div className="flex">
+    <nav className="navbar mb-0 shadow-lg  " width={width}>
+      <Link to="/" className="flex ml-10 ">
+        <img src={Meta4Swap} alt="" className="logo" />
+      </Link>
+      <div className="nav2">
+        <button className="btn btn-ghost">
+          <Link
+            to="/shop"
+            className="navShop text-2xl font-bold rounded-btn mr-12"
           >
-            Connect
-          </button>
-        </div>
-      </nav>
-    </div>
+            Shop
+          </Link>
+        </button>
+        <button className="btn btn-ghost">
+          <Link
+            to="/create"
+            className="navShop text-2xl font-bold rounded-btn mr-12"
+          >
+            Create
+          </Link>
+        </button>
+        <button
+          className="btnConnect text-white text-2xl mr-2"
+          onClick={btnhandler}
+        >
+          Connect
+        </button>
+      </div>
+    </nav>
+    // </div>
   );
 }
 

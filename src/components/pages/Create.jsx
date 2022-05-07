@@ -1,9 +1,11 @@
 import { Container } from "react-bootstrap";
 import { useState } from "react";
+import { JsonUpload } from "../layout/JsonUpload";
 
 import { ImageUpload } from "../layout/ImageUpload";
 function Create() {
   const [imageUrl, setImageUrl] = useState("");
+
   return (
     <>
       <div className="content">
@@ -12,7 +14,7 @@ function Create() {
             <p className="smallHeader text-5xl mb-5">Create Listing</p>
           </header>
           <form className="">
-            <header>
+            <header className="mt-6">
               <h2 className="smallHeader">Item Info</h2>
             </header>
             <div className="form-control">
@@ -36,7 +38,7 @@ function Create() {
                         type="radio"
                         name="radio-6"
                         className="radio checked:bg-orange-500"
-                        checked
+                        checked={true}
                       />
                     </label>
 
@@ -46,7 +48,6 @@ function Create() {
                         type="radio"
                         name="radio-6"
                         className="radio checked:bg-green-500"
-                        checked
                       />
                     </label>
                   </div>
@@ -76,8 +77,18 @@ function Create() {
               </label>
             </div>
             <div className="form-control">
+              <label className="input-group pb-0.5">
+                <span className="formLabel5">Quantity</span>
+                <input
+                  type="text"
+                  placeholder="Quantity"
+                  className="input input-bordered w-full"
+                />
+              </label>
+            </div>
+            <div className="form-control">
               <label className="input-group pb-20">
-                <span className="formLabel">Price</span>
+                <span className="formLabel6">Price</span>
                 <input
                   type="text"
                   placeholder="20"
@@ -106,9 +117,7 @@ function Create() {
 
             <hr />
           </Container>
-          <div>
-            <button class="btn btn-primary">Create on Blockchain</button>
-          </div>
+          <JsonUpload />
         </div>
       </div>
     </>
