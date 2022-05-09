@@ -30,7 +30,6 @@ export const ImageUpload = ({ setUrl }) => {
   const uploadFile = async (e) => {
     setLoading(true);
     e.preventDefault();
-
     try {
       const added = await client.add(image);
       const url = `https://ipfs.infura.io/ipfs/${added.path}`;

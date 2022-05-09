@@ -18,6 +18,18 @@ nav {
   margin: auto;
   margin-bottom: 10px;
 }
+.ratingFeature {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.ratingRadio {
+  display: none;
+}
+.star {
+  cursor: pointer;
+  transition: color 200ms;
+}
 .box {
   width: 100%;
 }

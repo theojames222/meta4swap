@@ -1,4 +1,6 @@
 import eth from "../assets/Ethereum-Symbol.png";
+import { FaStar } from "react-icons/fa";
+import StarRating from "../actions/StarRating";
 
 function Product() {
   const ethSym = <img className="eth" src={eth} alt="eth" />;
@@ -17,60 +19,7 @@ function Product() {
             <h1 className="text-5xl font-bold items-center">Product Name</h1>
             <div>
               <p className="text-2xl font-bold items-center py-3">Ratings</p>
-              <div class="rating rating-lg rating-half">
-                <input type="radio" name="rating-10" class="rating-hidden" />
-                <input
-                  type="radio"
-                  name="rating-10"
-                  class="bg-info mask mask-star-2 mask-half-1"
-                />
-                <input
-                  type="radio"
-                  name="rating-10"
-                  class="bg-info mask mask-star-2 mask-half-2"
-                />
-                <input
-                  type="radio"
-                  name="rating-10"
-                  class="bg-info mask mask-star-2 mask-half-1"
-                  checked
-                />
-                <input
-                  type="radio"
-                  name="rating-10"
-                  class="bg-info mask mask-star-2 mask-half-2"
-                />
-                <input
-                  type="radio"
-                  name="rating-10"
-                  class="bg-info mask mask-star-2 mask-half-1"
-                />
-                <input
-                  type="radio"
-                  name="rating-10"
-                  class="bg-info mask mask-star-2 mask-half-2"
-                />
-                <input
-                  type="radio"
-                  name="rating-10"
-                  class="bg-info mask mask-star-2 mask-half-1"
-                />
-                <input
-                  type="radio"
-                  name="rating-10"
-                  class="bg-info mask mask-star-2 mask-half-2"
-                />
-                <input
-                  type="radio"
-                  name="rating-10"
-                  class="bg-info mask mask-star-2 mask-half-1"
-                />
-                <input
-                  type="radio"
-                  name="rating-10"
-                  class="bg-info mask mask-star-2 mask-half-2"
-                />
-              </div>
+              <StarRating />
             </div>
             <p className="text-3xl font-bold mr-3 py-3"> $222 USD</p>
             <div

@@ -3,7 +3,7 @@ import ItemCard from "../layout/ItemCard";
 function Shop() {
   return (
     <>
-      {/* pagignation */}
+      {/* pagignation
       {/* navbar */}
       {/* sidebar with filters */}
       {/* grid */}

@@ -5,6 +5,7 @@ import { JsonUpload } from "../actions/JsonUpload";
 import { ImageUpload } from "../actions/ImageUpload";
 
 function Create() {
+  const [defaultAccount, setDefaultAccount] = useState(null);
   const [imageUrl, setImageUrl] = useState("");
   const [btnDisabled, setbtnDisabled] = useState(true);
   const [formData, setFormData] = useState({
@@ -18,6 +19,19 @@ function Create() {
   });
   // const { productName, description, unit, quantity, price, imageLink } =
   //   formData;
+  if (window.ethereum) {
+    // res[0] for fetching a first wallet
+    window.ethereum
+      .request({ method: "eth_requestAccounts" })
+      .then((result) => {
+        accountChangedHandler(result[0]);
+      });
+  } else {
+    alert("install metamask extension!!");
+  }
+  const accountChangedHandler = (newAccount) => {
+    setDefaultAccount(newAccount);
+  };
 
   const onChange = (e) => {
     setFormData((prevState) => ({
@@ -195,6 +209,7 @@ function Create() {
             disabled={btnDisabled}
             metaData2={formData}
             imageUrl={imageUrl}
+            id={defaultAccount}
           />
           {/* <button className="btn btn-primary" onClick={onClick}>
             Create on Blockchain

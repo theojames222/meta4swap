@@ -4,8 +4,9 @@ import { create } from "ipfs-http-client";
 
 const client = create("https://ipfs.infura.io:5001/api/v0");
 
-export const JsonUpload = ({ disabled, metaData2, imageUrl }) => {
+export const JsonUpload = ({ disabled, metaData2, imageUrl, id }) => {
   const metaData = {
+    id: id,
     ...metaData2,
     " imageUrl": imageUrl,
     created: Date.now(),
