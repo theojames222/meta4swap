@@ -3,7 +3,6 @@ import { useState } from "react";
 // import ItemCard from "../layout/ItemCard";
 import { JsonUpload } from "../actions/JsonUpload";
 import { ImageUpload } from "../actions/ImageUpload";
-
 function Create() {
   const [defaultAccount, setDefaultAccount] = useState(null);
   const [imageUrl, setImageUrl] = useState("");
@@ -211,6 +210,7 @@ function Create() {
             imageUrl={imageUrl}
             id={defaultAccount}
           />
+
           {/* <button className="btn btn-primary" onClick={onClick}>
             Create on Blockchain
           </button> */}

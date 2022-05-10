@@ -11,7 +11,7 @@ import {
 
 const client = create("https://ipfs.infura.io:5001/api/v0");
 
-export const ImageUpload = ({ setUrl }) => {
+export const ImageUpload = ({ setUrl, setDefaultAccount }) => {
   const [image, setImage] = useState({});
   const [imagePreview, setImagePreview] = useState("");
   const [loading, setLoading] = useState(false);
@@ -26,6 +26,22 @@ export const ImageUpload = ({ setUrl }) => {
       setImagePreview("");
     }
   };
+
+  // const connectMetaMask = () => {
+  //   if (window.ethereum) {
+  //     // res[0] for fetching a first wallet
+  //     window.ethereum
+  //       .request({ method: "eth_requestAccounts" })
+  //       .then((result) => {
+  //         accountChangedHandler(result[0]);
+  //       });
+  //   } else {
+  //     alert("install metamask extension!!");
+  //   }
+  //   const accountChangedHandler = (newAccount) => {
+  //     setDefaultAccount(newAccount);
+  //   };
+  // };
 
   const uploadFile = async (e) => {
     setLoading(true);

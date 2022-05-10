@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import Meta4Swap from "../assets/Meta4SwapNB.png";
 import useWindowDimensions from "../hooks/useWindowDimensions";
 import Logo from "../assets/logo2.png";
 
