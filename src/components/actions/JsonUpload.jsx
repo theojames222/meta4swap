@@ -33,10 +33,16 @@ export const JsonUpload = ({ disabled, metaData2, imageUrl, id }) => {
     e.preventDefault();
     const web3 = new Web3(window.ethereum);
     await window.ethereum.enable();
+    const accounts = await window.ethereum.request({
+      method: "eth_requestAccounts",
+    });
+    var account = accounts[0];
 
     const M4SContract = new web3.eth.Contract(
       abi,
-      "0x79F8B8aCeca83850fDAc539990e915644079751B"
+      "0x79F8B8aCeca83850fDAc539990e915644079751B", {
+        from: account,
+      }
     );
     M4SContract.methods.createItem(metaDataUrl, live, price).send();
   };
