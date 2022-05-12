@@ -2,6 +2,8 @@ import { useState } from "react";
 import { create } from "ipfs-http-client";
 import m4sAbi from "../assets/m4s_abi.json";
 import Web3 from "web3/dist/web3.min.js";
+import { db } from "../../firebase.config";
+import { setDoc, doc } from "firebase/firestore";
 // import { ImageUpload } from "./ImageUpload";
 
 const client = create("https://ipfs.infura.io:5001/api/v0");
@@ -40,7 +42,8 @@ export const JsonUpload = ({ disabled, metaData2, imageUrl, id }) => {
 
     const M4SContract = new web3.eth.Contract(
       abi,
-      "0x79F8B8aCeca83850fDAc539990e915644079751B", {
+      "0x79F8B8aCeca83850fDAc539990e915644079751B",
+      {
         from: account,
       }
     );
@@ -59,6 +62,7 @@ export const JsonUpload = ({ disabled, metaData2, imageUrl, id }) => {
       console.log(uploaded);
       setPrice(metaData.price);
       setLive(true);
+      await setDoc(doc(db, "listings", metaData.id), metaData);
     } catch (err) {
       console.log("Error uploading the file : ", err);
     }

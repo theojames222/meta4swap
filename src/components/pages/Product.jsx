@@ -1,9 +1,12 @@
 import eth from "../assets/Ethereum-Symbol.png";
-import { FaStar } from "react-icons/fa";
+// import { FaStar } from "react-icons/fa";
 import StarRating from "../actions/StarRating";
 
 function Product() {
   const ethSym = <img className="eth" src={eth} alt="eth" />;
+  const buyNow = () => {
+    console.log("Buy Now");
+  };
   return (
     <>
       <div>
@@ -30,7 +33,10 @@ function Product() {
             >
               <p className="text-2xl pb-8 ">(.075 {ethSym})</p>
             </div>
-            <button className="btnBuy btn-primary text-white text-2xl font-bold">
+            <button
+              className="btnBuy btn-primary text-white text-2xl font-bold"
+              onClick={buyNow}
+            >
               Buy Now!
             </button>
             <h2 className="pt-6 text-xl font-bold ">Product Description</h2>
