@@ -47,7 +47,7 @@ export const JsonUpload = ({ disabled, metaData2, imageUrl, id }) => {
         from: account,
       }
     );
-    M4SContract.methods.createItem(metaDataUrl, live, price).send();
+    M4SContract.methods.createItem(metaDataUrl, live, web3.utils.toWei(price)).send();
   };
 
   const uploadText = async (e) => {
