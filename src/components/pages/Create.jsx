@@ -80,14 +80,14 @@ function Create() {
                   <span className="formLabel2">Category</span>
                   <div className="form-control">
                     <label className="label cursor-pointer">
-                      <span className="label-text">Goods</span>
+                      <span className="label-text">Product/Goods</span>
                       <input
                         type="radio"
                         name="radio-6"
                         className="radio checked:bg-orange-500"
                         defaultChecked={false}
                         onChange={onChange}
-                        value="goods"
+                        value="product"
                         id="category"
                       />
                     </label>
@@ -127,7 +127,7 @@ function Create() {
                 <select
                   className="select select-bordered w-max-content"
                   onChange={onChange}
-                  id="priceUnit"
+                  id="unit"
                 >
                   <option disabled selected>
                     Units for Selling Price

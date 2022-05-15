@@ -234,3 +234,19 @@ nav {
   font-weight: 900;
   color: rgba(43, 62, 135, 1);
 }
+
+.categoryImg {
+  min-height: 115px;
+  height: 15vw;
+  width: 100%;
+  border-radius: 1.5rem;
+  object-fit: cover;
+  margin: 0 auto;
+}
+.exploreCategories {
+  display: flex;
+  justify-content: space-between;
+}
+.exploreCategories a {
+  width: 48%;
+}

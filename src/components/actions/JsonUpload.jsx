@@ -1,9 +1,10 @@
 import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 import { create } from "ipfs-http-client";
-import m4sAbi from "../assets/m4s_abi.json";
+import m4sAbi from "../abi/m4s_abi.json";
 import Web3 from "web3/dist/web3.min.js";
 import { db } from "../../firebase.config";
-import { setDoc, doc } from "firebase/firestore";
+import { setDoc, doc, serverTimestamp } from "firebase/firestore";
 // import { ImageUpload } from "./ImageUpload";
 
 const client = create("https://ipfs.infura.io:5001/api/v0");
@@ -12,8 +13,8 @@ export const JsonUpload = ({ disabled, metaData2, imageUrl, id }) => {
   const metaData = {
     id: id,
     ...metaData2,
-    " imageUrl": imageUrl,
-    created: Date.now(),
+    imageUrl: imageUrl,
+    timestamp: serverTimestamp(),
     date: new Intl.DateTimeFormat("en-US", {
       year: "numeric",
       month: "2-digit",
@@ -47,12 +48,14 @@ export const JsonUpload = ({ disabled, metaData2, imageUrl, id }) => {
         from: account,
       }
     );
-    M4SContract.methods.createItem(metaDataUrl, live, web3.utils.toWei(price)).send();
+    M4SContract.methods
+      .createItem(metaDataUrl, live, web3.utils.toWei(price))
+      .send();
   };
 
   const uploadText = async (e) => {
     e.preventDefault();
-
+    const docId = uuidv4();
     try {
       const added = await client.add(metaDataJSONString);
       const url = `https://ipfs.infura.io/ipfs/${added.path}`;
@@ -62,7 +65,7 @@ export const JsonUpload = ({ disabled, metaData2, imageUrl, id }) => {
       console.log(uploaded);
       setPrice(metaData.price);
       setLive(true);
-      await setDoc(doc(db, "listings", metaData.id), metaData);
+      await setDoc(doc(db, "listings", docId), metaData);
     } catch (err) {
       console.log("Error uploading the file : ", err);
     }
@@ -75,7 +78,7 @@ export const JsonUpload = ({ disabled, metaData2, imageUrl, id }) => {
         onClick={uploadText}
         disabled={disabled}
       >
-        Create on Blockchain
+        Upload Listing
       </button>
       <a href={metaDataUrl} target="_blank" rel="noopener noreferrer">
         {" "}
