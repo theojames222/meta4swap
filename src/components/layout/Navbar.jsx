@@ -6,7 +6,9 @@ function Navbar({ connected, userAddress }) {
   const { height, width } = useWindowDimensions();
 
   const isConnected = connected;
-
+  const reloadPage = () => {
+    window.location.reload();
+  };
   // Button handler button for handling a
   // request event for metamask
   const btnhandler = () => {
@@ -17,6 +19,7 @@ function Navbar({ connected, userAddress }) {
     } else {
       alert("install metamask extension!!");
     }
+    setTimeout(reloadPage, 6000);
   };
 
   return (

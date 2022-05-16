@@ -14,7 +14,7 @@ function Headlines({ text, content }) {
         <h1 className="homeHeader text-5xl "> {text}</h1>
       </div>
       <div
-        className="container items-center mx-auto justify-center"
+        className="container items-center mx-auto justify-center pb-3"
         style={{
           display: "flex",
           alignItems: "center",
