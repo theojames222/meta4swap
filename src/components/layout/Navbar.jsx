@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import useWindowDimensions from "../hooks/useWindowDimensions";
 import Logo from "../assets/logo2.png";
 import accountIcon from "../assets/user-286 (1).svg";
-function Navbar({ connected }) {
+function Navbar({ connected, userAddress }) {
   const { height, width } = useWindowDimensions();
 
   const isConnected = connected;
@@ -43,7 +43,7 @@ function Navbar({ connected }) {
           </Link>
         </button>
         {isConnected ? (
-          <Link to="/">
+          <Link to={`/user/${userAddress}`}>
             {" "}
             <img src={accountIcon} alt="account" className="accountIcon" />
           </Link>

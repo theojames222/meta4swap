@@ -55,7 +55,7 @@ function App() {
   return (
     <Router>
       <div className="flex flex-col">
-        <Navbar connected={connected} />
+        <Navbar connected={connected} userAddress={userAddress} />
         <main>
           <Routes>
             <Route path="/" element={<Home />} />
