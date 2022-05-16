@@ -7,20 +7,67 @@ import Shop from "./components/pages/Shop";
 import Product from "./components/pages/Product";
 import Order from "./components/pages/Order";
 import Category from "./components/pages/Category";
+import { useState, useEffect } from "react";
+import UserPage from "./components/pages/UserPage";
+
+async function connect(onConnected) {
+  if (!window.ethereum) {
+    alert("Get MetaMask!");
+    return;
+  }
+
+  const accounts = await window.ethereum.request({
+    method: "eth_requestAccounts",
+  });
+
+  onConnected(accounts[0]);
+}
+
+async function checkIfWalletIsConnected(onConnected) {
+  if (window.ethereum) {
+    const accounts = await window.ethereum.request({
+      method: "eth_accounts",
+    });
+
+    if (accounts.length > 0) {
+      const account = accounts[0];
+      onConnected(account);
+      return;
+    }
+  }
+}
 
 function App() {
+  const [userAddress, setUserAddress] = useState("");
+  const [connected, setConnected] = useState(false);
+
+  useEffect(() => {
+    checkIfWalletIsConnected(setUserAddress);
+  }, []);
+
+  useEffect(() => {
+    if (userAddress !== "") {
+      setConnected(true);
+    }
+  }, [userAddress]);
+
+  console.log(connected);
   return (
     <Router>
       <div className="flex flex-col">
-        <Navbar />
+        <Navbar connected={connected} />
         <main>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/category/:categoryName" element={<Category />} />
-            <Route path="/create" element={<Create />} />
+            <Route path="/create" element={<Create connected={connected} />} />
             <Route path="/shop" element={<Shop />} />
-            <Route path="/product" element={<Product />} />
+            <Route
+              path="/category/:categoryName/:listingId"
+              element={<Product />}
+            />
             <Route path="/order" element={<Order />} />
+            <Route path="/user/:userId" element={<UserPage />} />
           </Routes>
         </main>
 

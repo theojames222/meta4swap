@@ -48,6 +48,7 @@ function Category() {
     fetchListings();
     console.log(listings);
   }, []);
+
   return (
     <div className="category">
       {loading ? (

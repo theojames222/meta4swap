@@ -250,3 +250,14 @@ nav {
 .exploreCategories a {
   width: 48%;
 }
+.accountIcon {
+  display: flex;
+  width: 50px;
+  height: fit-content;
+  padding-right: 5px;
+}
+.image {
+  width: fit-content;
+  resize: contain;
+  height: 25%;
+}

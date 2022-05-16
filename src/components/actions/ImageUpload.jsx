@@ -11,11 +11,12 @@ import {
 
 const client = create("https://ipfs.infura.io:5001/api/v0");
 
-export const ImageUpload = ({ setUrl, setDefaultAccount }) => {
+export const ImageUpload = ({ setUrl, setDefaultAccount, connected }) => {
   const [image, setImage] = useState({});
   const [imagePreview, setImagePreview] = useState("");
   const [loading, setLoading] = useState(false);
   const [uploaded, setUploaded] = useState(false);
+  const [btnEnabled, setbtnEnabled] = useState(false);
 
   const createPreview = (e) => {
     if (e.target.value !== "") {
@@ -26,7 +27,15 @@ export const ImageUpload = ({ setUrl, setDefaultAccount }) => {
       setImagePreview("");
     }
   };
-
+  // const btnhandler = () => {
+  //   // Asking if metamask is already present or not
+  //   if (window.ethereum) {
+  //     // res[0] for fetching a first wallet
+  //     window.ethereum.request({ method: "eth_requestAccounts" });
+  //   } else {
+  //     alert("install metamask extension!!");
+  //   }
+  // };
   // const connectMetaMask = () => {
   //   if (window.ethereum) {
   //     // res[0] for fetching a first wallet
@@ -58,6 +67,7 @@ export const ImageUpload = ({ setUrl, setDefaultAccount }) => {
     setLoading(false);
   };
 
+  console.log(connected);
   const previewAndUploadButton = () => {
     if (imagePreview !== "") {
       if (!loading) {
@@ -77,6 +87,18 @@ export const ImageUpload = ({ setUrl, setDefaultAccount }) => {
               </h5>
             ) : (
               <div>
+                {/* {connected !== true ? (
+                  <button
+                    className="btnConnect text-white text-2xl mr-2"
+                    onClick={btnhandler}
+                  >
+                    Connect
+                  </button>
+                ) : (
+                  <Button type="submit" className="mb-3">
+                    Upload Image
+                  </Button>
+                )} */}
                 <Button type="submit" className="mb-3">
                   Upload Image
                 </Button>
@@ -116,6 +138,7 @@ export const ImageUpload = ({ setUrl, setDefaultAccount }) => {
           accept="image/*"
           onChange={(e) => createPreview(e)}
           className="mb-3"
+          disabled={!connected}
         />
 
         {previewAndUploadButton()}

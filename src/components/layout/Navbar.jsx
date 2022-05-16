@@ -1,9 +1,12 @@
 import { Link } from "react-router-dom";
 import useWindowDimensions from "../hooks/useWindowDimensions";
 import Logo from "../assets/logo2.png";
-
-function Navbar() {
+import accountIcon from "../assets/user-286 (1).svg";
+function Navbar({ connected }) {
   const { height, width } = useWindowDimensions();
+
+  const isConnected = connected;
+
   // Button handler button for handling a
   // request event for metamask
   const btnhandler = () => {
@@ -39,12 +42,19 @@ function Navbar() {
             Create
           </Link>
         </button>
-        <button
-          className="btnConnect text-white text-2xl mr-2"
-          onClick={btnhandler}
-        >
-          Connect
-        </button>
+        {isConnected ? (
+          <Link to="/">
+            {" "}
+            <img src={accountIcon} alt="account" className="accountIcon" />
+          </Link>
+        ) : (
+          <button
+            className="btnConnect text-white text-2xl mr-2"
+            onClick={btnhandler}
+          >
+            Connect
+          </button>
+        )}
       </div>
     </nav>
     // </div>

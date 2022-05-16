@@ -11,7 +11,7 @@ function ListingItem({ listing, id }) {
       <div style={{ display: "flex" }}>
         <Link to={`/category/${listing.category}/${id}`}>
           <div>
-            <div className="card w-auto bg-base-100 ">
+            <div className="card image bg-base-100 ">
               <figure className="shadow-2xl">
                 <img src={listing.imageUrl} alt={listing.productName} />
               </figure>

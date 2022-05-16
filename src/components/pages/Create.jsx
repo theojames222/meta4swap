@@ -3,7 +3,7 @@ import { useState } from "react";
 // import ItemCard from "../layout/ItemCard";
 import { JsonUpload } from "../actions/JsonUpload";
 import { ImageUpload } from "../actions/ImageUpload";
-function Create() {
+function Create({ connected }) {
   const [defaultAccount, setDefaultAccount] = useState(null);
   const [imageUrl, setImageUrl] = useState("");
   const [btnDisabled, setbtnDisabled] = useState(true);
@@ -186,7 +186,7 @@ function Create() {
               <p className="smallHeader">
                 Please view Image Url after upload to Complete Form
               </p>
-              <ImageUpload setUrl={setImageUrl} />
+              <ImageUpload setUrl={setImageUrl} connected={connected} />
 
               <h3>Image Url:</h3>
               <a
