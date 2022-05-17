@@ -12,6 +12,7 @@ function Product() {
   const [listing, setListing] = useState(null);
   const [loading, setLoading] = useState(true);
   const [shareLinkCopied, setShareLinkCopied] = useState(false);
+  const [quantity, setQuantity] = useState(0);
 
   const navigate = useNavigate();
   const params = useParams();
@@ -31,8 +32,14 @@ function Product() {
     fetchListing();
   }, [navigate, params.listingId]);
 
+  const onChange = (e) => {
+    setQuantity((prevState) => ({
+      ...prevState,
+      [e.target.id]: e.target.value,
+    }));
+  };
   const buyNow = () => {
-    console.log("Buy Now");
+    console.log(quantity);
   };
 
   return (
@@ -72,6 +79,29 @@ function Product() {
                   }}
                 >
                   <p className="text-2xl pb-8 ">(.075 {ethSym})</p>
+                </div>
+                <div
+                  className="flex"
+                  style={{
+                    justifyContent: "space-evenly",
+                  }}
+                >
+                  <select
+                    className="select select-ghost max-w-xs"
+                    onChange={onChange}
+                    id="quantity"
+                  >
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                    <option>6</option>
+                    <option>7</option>
+                    <option>8</option>
+                    <option>9</option>
+                    <option>10</option>
+                  </select>
                 </div>
                 <button
                   className="btnBuy btn-primary text-white text-2xl font-bold"

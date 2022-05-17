@@ -39,13 +39,13 @@ function Create({ connected }) {
     }));
   };
 
-  const handleInputImageChange = (e) => {
-    if (imageUrl === "") {
-      setbtnDisabled(true);
-    } else {
-      setbtnDisabled(false);
-    }
-  };
+  // const handleInputImageChange = (e) => {
+  //   if (imageUrl === "") {
+  //     setbtnDisabled(true);
+  //   } else {
+  //     setbtnDisabled(false);
+  //   }
+  // };
 
   // const onClick = () => {
   //   console.log(formData);
@@ -190,7 +190,7 @@ function Create({ connected }) {
 
               <h3>Image Url:</h3>
               <a
-                onClick={handleInputImageChange}
+                // onClick={handleInputImageChange}
                 id="imageLink"
                 href={imageUrl}
                 target="_blank"
@@ -205,7 +205,6 @@ function Create({ connected }) {
           </Container>
 
           <JsonUpload
-            disabled={btnDisabled}
             metaData2={formData}
             imageUrl={imageUrl}
             id={defaultAccount}

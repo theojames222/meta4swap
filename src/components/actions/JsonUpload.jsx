@@ -29,6 +29,7 @@ export const JsonUpload = ({ disabled, metaData2, imageUrl, id }) => {
   const [metaDataUrl, setMetaDataUrl] = useState("");
   const [live, setLive] = useState(true);
   const [price, setPrice] = useState(0);
+  const [btnDisabled, setbtnDisabled] = useState(true);
 
   console.log(price, live, metaDataUrl);
 
@@ -65,6 +66,7 @@ export const JsonUpload = ({ disabled, metaData2, imageUrl, id }) => {
       console.log(uploaded);
       setPrice(metaData.price);
       setLive(true);
+      setbtnDisabled(false);
       await setDoc(doc(db, "listings", docId), metaData);
     } catch (err) {
       console.log("Error uploading the file : ", err);
@@ -76,15 +78,19 @@ export const JsonUpload = ({ disabled, metaData2, imageUrl, id }) => {
       <button
         className="btn btn-primary"
         onClick={uploadText}
-        disabled={disabled}
+        // disabled={disabled}
       >
-        Upload Listing
+        Upload Metadata
       </button>
       <a href={metaDataUrl} target="_blank" rel="noopener noreferrer">
         {" "}
         {metaDataUrl}
       </a>
-      <button className="btn btn-primary" onClick={onClick}>
+      <button
+        className="btn btn-primary"
+        onClick={onClick}
+        disabled={btnDisabled}
+      >
         Create on Blockchain
       </button>
     </div>
