@@ -58,13 +58,14 @@ function Product() {
       }
     );
 
+    const quantity2 = 4;
     const itemId = 4;
     const ethPrice = 200000000000
     const itemPrice = 25000000000000000000;
     const orderPrice = (itemPrice/ethPrice)*10**9;
 
     M4SContract.methods
-      .createOrder(quantity, itemId)
+      .createOrder(quantity2, itemId)
       .send({
         from: account, 
         value: orderPrice
