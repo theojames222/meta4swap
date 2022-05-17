@@ -6,6 +6,8 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../firebase.config";
 import shareIcon from "../assets/shareIcon.svg";
+import m4sAbi from "../abi/m4s_abi.json";
+import Web3 from "web3/dist/web3.min.js";
 
 function Product() {
   const ethSym = <img className="eth" src={eth} alt="eth" />;
@@ -38,8 +40,35 @@ function Product() {
       [e.target.id]: e.target.value,
     }));
   };
-  const buyNow = () => {
+  const buyNow = async (e) => {
     console.log(quantity);
+    e.preventDefault();
+    const web3 = new Web3(window.ethereum);
+    await window.ethereum.enable();
+    const accounts = await window.ethereum.request({
+      method: "eth_requestAccounts",
+    });
+    var account = accounts[0];
+
+    const M4SContract = new web3.eth.Contract(
+      m4sAbi,
+      "0x79F8B8aCeca83850fDAc539990e915644079751B",
+      {
+        from: account,
+      }
+    );
+
+    const itemId = 4;
+    const ethPrice = 200000000000
+    const itemPrice = 25000000000000000000;
+    const orderPrice = (itemPrice/ethPrice)*10**9;
+
+    M4SContract.methods
+      .createOrder(quantity, itemId)
+      .send({
+        from: account, 
+        value: orderPrice
+       });
   };
 
   return (
