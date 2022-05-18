@@ -14,7 +14,7 @@ function Product() {
   const [listing, setListing] = useState(null);
   const [loading, setLoading] = useState(true);
   const [shareLinkCopied, setShareLinkCopied] = useState(false);
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(1);
 
   const navigate = useNavigate();
   const params = useParams();
@@ -41,7 +41,7 @@ function Product() {
     }));
   };
   const buyNow = async (e) => {
-    console.log(quantity['quantity']);
+    console.log(quantity["quantity"]);
     e.preventDefault();
     const web3 = new Web3(window.ethereum);
     await window.ethereum.enable();
@@ -59,18 +59,16 @@ function Product() {
     );
 
     const itemId = 4;
-    const ethPrice = 200000000000
+    const ethPrice = 200000000000;
     const itemPrice = 25000000000000000000;
-    const orderPrice = (itemPrice/ethPrice)*10**9;
-    
+    const orderPrice = (itemPrice / ethPrice) * 10 ** 9;
+
     console.log(getETHPrice());
 
-    M4SContract.methods
-      .createOrder(quantity['quantity'], itemId)
-      .send({
-        from: account, 
-        value: orderPrice
-       });
+    M4SContract.methods.createOrder(quantity["quantity"], itemId).send({
+      from: account,
+      value: orderPrice,
+    });
   };
 
   async function getETHPrice() {
@@ -89,10 +87,8 @@ function Product() {
       }
     );
 
-    let chainlink = await M4SContract.methods
-      .getLatestPrice()
-      .send();
-    
+    let chainlink = await M4SContract.methods.getLatestPrice().send();
+
     console.log(chainlink);
 
     return chainlink;

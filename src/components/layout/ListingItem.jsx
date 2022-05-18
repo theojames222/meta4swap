@@ -8,15 +8,15 @@ function ListingItem({ listing, id }) {
   console.log(listing.imageUrl);
   return (
     <>
-      <div style={{ display: "flex" }}>
+      <div className="container-sm" style={{ display: "flex" }}>
         <Link to={`/category/${listing.category}/${id}`}>
           <div>
-            <div className="card image bg-base-100 ">
-              <figure className="shadow-2xl">
+            <div className="card bg-none items-center">
+              <figure className="shadow-2xl itemImg ">
                 <img src={listing.imageUrl} alt={listing.productName} />
               </figure>
               <div className="card-body items-center text-center">
-                <h2 className="card-title font-bold text-xl">
+                <h2 className="card-title pt-3 font-bold text-xl">
                   {listing.productName}
                 </h2>
                 <p className="text-accent-focus text-lg font-bold">Price:</p>
@@ -31,7 +31,7 @@ function ListingItem({ listing, id }) {
                   } ${listing.price}`}</p>
                   <p className="text ">(.075 {ethSym})</p>
                 </div>
-                <div className="card-actions">
+                <div className="card-actions pt-2 ">
                   <button className="btn btn-primary">Buy Now</button>
                 </div>
               </div>

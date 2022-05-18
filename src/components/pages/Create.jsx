@@ -3,6 +3,7 @@ import { useState } from "react";
 // import ItemCard from "../layout/ItemCard";
 import { JsonUpload } from "../actions/JsonUpload";
 import { ImageUpload } from "../actions/ImageUpload";
+import colorObject from "daisyui/src/colors";
 function Create({ connected }) {
   const [defaultAccount, setDefaultAccount] = useState(null);
   const [imageUrl, setImageUrl] = useState("");
@@ -54,6 +55,14 @@ function Create({ connected }) {
   return (
     <>
       <div className="content">
+        <div className="container pl-10 pt-4 text-black font-bold fixed ">
+          <h2> Quick Guide :</h2>
+          <p>{`1. Connect to MetaMask(required)`}</p>
+          <p>{`2. Fill out all form fields`} </p>
+          <p>{`3. Upload product image`} </p>
+          <p>{`4. Upload metadata`} </p>
+          <p>{`5. Upload to blockchain! `} </p>
+        </div>
         <div className="formContainer ">
           <header>
             <p className="smallHeader text-5xl mb-5">Create Listing</p>

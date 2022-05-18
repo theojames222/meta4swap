@@ -261,3 +261,8 @@ nav {
   resize: contain;
   height: 25%;
 }
+
+.itemImg {
+  max-width: 160px;
+  max-height: 160px;
+}

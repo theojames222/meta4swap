@@ -23,13 +23,13 @@ function Navbar({ connected, userAddress }) {
   };
 
   return (
-    // <div className="flex">
-    <nav className="navbar mb-0 shadow-lg  " width={width}>
+    // <div className="">
+    <nav className="navbar mb-0 shadow-lg " width={width}>
       <Link to="/" className="flex ml-5 ">
         <img src={Logo} alt="" className="logo" />
       </Link>
       <div className="nav2">
-        <button className="btn btn-ghost">
+        <button className="btn btn-link ">
           <Link
             to="/shop"
             className="navShop text-2xl font-bold rounded-btn mr-12"
@@ -37,7 +37,7 @@ function Navbar({ connected, userAddress }) {
             Shop
           </Link>
         </button>
-        <button className="btn btn-ghost">
+        <button className="btn btn-link">
           <Link
             to="/create"
             className="navShop text-2xl font-bold rounded-btn mr-12"
