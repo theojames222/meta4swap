@@ -8,6 +8,7 @@ import { db } from "../../firebase.config";
 import shareIcon from "../assets/shareIcon.svg";
 import m4sAbi from "../abi/m4s_abi.json";
 import Web3 from "web3/dist/web3.min.js";
+import { ethers } from "ethers";
 
 function Product() {
   const ethSym = <img className="eth" src={eth} alt="eth" />;
@@ -31,7 +32,21 @@ function Product() {
       }
     };
 
+    const fetchEthPrice = async () => {
+      const provider = new ethers.providers.JsonRpcProvider(
+        "https://rinkeby.infura.io/v3/18c3956af9734c289bfed9eee03ee1a7"
+      );
+      const addr = "0x79F8B8aCeca83850fDAc539990e915644079751B";
+      const priceFeed = new ethers.Contract(addr, m4sAbi, provider);
+      // We get the data from the last round of the contract
+      const chainLinkPrice = await priceFeed.getLatestPrice();
+      const ethPrice = ethers.utils.formatEther(chainLinkPrice) * 10 ** 18;
+      console.log(ethPrice);
+      window.ethPrice = ethPrice;
+    };
+
     fetchListing();
+    fetchEthPrice();
   }, [navigate, params.listingId]);
 
   const onChange = (e) => {
@@ -93,6 +108,16 @@ function Product() {
 
     return chainlink;
   }
+  const price = listing.price * 10 ** 18;
+  //console.log((price));
+  //console.log((window.ethPrice));
+  const orderPrice = ((listing.price * 10 ** 18) / window.ethPrice) * 10 ** 8;
+  console.log(orderPrice);
+
+  M4SContract.methods.createOrder(quantity["quantity"], itemId).send({
+    from: account,
+    value: orderPrice,
+  });
 
   return (
     <>
