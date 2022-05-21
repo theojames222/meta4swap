@@ -82,9 +82,15 @@ export const JsonUpload = ({ disabled, metaData2, imageUrl, id }) => {
       >
         Upload Metadata
       </button>
-      <a href={metaDataUrl} target="_blank" rel="noopener noreferrer">
-        {" "}
-        {metaDataUrl}
+      <a
+        href={metaDataUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-primary"
+      >
+        {metaDataUrl === ""
+          ? ""
+          : `MetaData Url ${metaDataUrl.substring(0 - 27)}...`}
       </a>
       <button
         className="btn btn-primary"

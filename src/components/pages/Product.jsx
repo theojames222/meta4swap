@@ -78,46 +78,11 @@ function Product() {
     const itemPrice = 25000000000000000000;
     const orderPrice = (itemPrice / ethPrice) * 10 ** 9;
 
-    console.log(getETHPrice());
-
     M4SContract.methods.createOrder(quantity["quantity"], itemId).send({
       from: account,
       value: orderPrice,
     });
   };
-
-  async function getETHPrice() {
-    const web3 = new Web3(window.ethereum);
-    await window.ethereum.enable();
-    const accounts = await window.ethereum.request({
-      method: "eth_requestAccounts",
-    });
-    var account = accounts[0];
-
-    const M4SContract = new web3.eth.Contract(
-      m4sAbi,
-      "0x79F8B8aCeca83850fDAc539990e915644079751B",
-      {
-        from: account,
-      }
-    );
-
-    let chainlink = await M4SContract.methods.getLatestPrice().send();
-
-    console.log(chainlink);
-
-    return chainlink;
-  }
-  const price = listing.price * 10 ** 18;
-  //console.log((price));
-  //console.log((window.ethPrice));
-  const orderPrice = ((listing.price * 10 ** 18) / window.ethPrice) * 10 ** 8;
-  console.log(orderPrice);
-
-  M4SContract.methods.createOrder(quantity["quantity"], itemId).send({
-    from: account,
-    value: orderPrice,
-  });
 
   return (
     <>

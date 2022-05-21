@@ -10,18 +10,18 @@ import Category from "./components/pages/Category";
 import { useState, useEffect } from "react";
 import UserPage from "./components/pages/UserPage";
 
-async function connect(onConnected) {
-  if (!window.ethereum) {
-    alert("Get MetaMask!");
-    return;
-  }
+// async function connect(onConnected) {
+//   if (!window.ethereum) {
+//     alert("Get MetaMask!");
+//     return;
+//   }
 
-  const accounts = await window.ethereum.request({
-    method: "eth_requestAccounts",
-  });
+//   const accounts = await window.ethereum.request({
+//     method: "eth_requestAccounts",
+//   });
 
-  onConnected(accounts[0]);
-}
+//   onConnected(accounts[0]);
+// }
 
 async function checkIfWalletIsConnected(onConnected) {
   if (window.ethereum) {

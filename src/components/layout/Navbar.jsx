@@ -3,6 +3,7 @@ import useWindowDimensions from "../hooks/useWindowDimensions";
 import Logo from "../assets/logo2.png";
 import accountIcon from "../assets/user-286 (1).svg";
 function Navbar({ connected, userAddress }) {
+  // eslint-disable-next-line no-unused-vars
   const { height, width } = useWindowDimensions();
 
   const isConnected = connected;
@@ -28,6 +29,7 @@ function Navbar({ connected, userAddress }) {
       <Link to="/" className="flex ml-5 ">
         <img src={Logo} alt="" className="logo" />
       </Link>
+
       <div className="nav2">
         <button className="btn btn-link ">
           <Link

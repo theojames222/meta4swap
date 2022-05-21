@@ -3,11 +3,10 @@ import { useState } from "react";
 // import ItemCard from "../layout/ItemCard";
 import { JsonUpload } from "../actions/JsonUpload";
 import { ImageUpload } from "../actions/ImageUpload";
-import colorObject from "daisyui/src/colors";
 function Create({ connected }) {
   const [defaultAccount, setDefaultAccount] = useState(null);
   const [imageUrl, setImageUrl] = useState("");
-  const [btnDisabled, setbtnDisabled] = useState(true);
+  // const [btnDisabled, setbtnDisabled] = useState(true);
   const [formData, setFormData] = useState({
     productName: "",
     category: "",
@@ -190,7 +189,7 @@ function Create({ connected }) {
               </label>
             </div>
           </form>
-          <Container>
+          <Container className="pb-2">
             <div>
               <p className="smallHeader">
                 Please view Image Url after upload to Complete Form
@@ -205,8 +204,14 @@ function Create({ connected }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 value={imageUrl}
+                className="text-primary"
               >
-                {imageUrl}
+                {`${
+                  imageUrl === ""
+                    ? ""
+                    : `${imageUrl.substring(0, 44)}...
+                `
+                }`}
               </a>
             </div>
 

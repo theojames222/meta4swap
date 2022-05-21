@@ -5,6 +5,7 @@ import Headlines from "./Headlines";
 import useWindowDimensions from "../hooks/useWindowDimensions";
 
 function Explore() {
+  // eslint-disable-next-line no-unused-vars
   const { height, width } = useWindowDimensions();
   return (
     <>
