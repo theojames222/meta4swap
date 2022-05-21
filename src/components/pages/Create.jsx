@@ -3,7 +3,7 @@ import { useState } from "react";
 // import ItemCard from "../layout/ItemCard";
 import { JsonUpload } from "../actions/JsonUpload";
 import { ImageUpload } from "../actions/ImageUpload";
-function Create({ connected }) {
+function Create({ connected, userAddress }) {
   const [defaultAccount, setDefaultAccount] = useState(null);
   const [imageUrl, setImageUrl] = useState("");
   // const [btnDisabled, setbtnDisabled] = useState(true);
@@ -222,6 +222,7 @@ function Create({ connected }) {
             metaData2={formData}
             imageUrl={imageUrl}
             id={defaultAccount}
+            userAddress={userAddress}
           />
 
           {/* <button className="btn btn-primary" onClick={onClick}>

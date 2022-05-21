@@ -265,4 +265,13 @@ nav {
 .itemImg {
   max-width: 160px;
   max-height: 160px;
+  min-height: 160px;
+  min-width: 160px;
+}
+
+.btnBuyHome {
+  position: relative;
+  bottom: 0px;
+  justify-content: center;
+  margin-bottom: 0px;
 }

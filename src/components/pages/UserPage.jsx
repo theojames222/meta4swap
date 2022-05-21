@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { collection, getDocs, query, where, limit } from "firebase/firestore";
 import { db } from "../../firebase.config";
 import ListingItem from "../layout/ListingItem";
+import { Link } from "react-router-dom";
 
 function UserPage() {
   const [listings, setListings] = useState(null);
@@ -43,11 +44,18 @@ function UserPage() {
   console.log(listings);
   console.log(params.userId);
   return (
-    <div className="category">
+    <div className="category mb-10">
       {loading ? (
         <h1>Loading...</h1>
       ) : listings && listings.length > 0 ? (
         <>
+          <header>
+            <div>
+              <Link to={`/user/${params.userId}`}>Listings</Link>
+              <br />
+              <Link to="/transactions">Transactions</Link>
+            </div>
+          </header>
           <header className="infoHeader">
             <div>
               <h1 className="  text-2xl homeHeader">User Store</h1>

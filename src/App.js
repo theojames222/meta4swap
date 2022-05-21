@@ -9,6 +9,7 @@ import Order from "./components/pages/Order";
 import Category from "./components/pages/Category";
 import { useState, useEffect } from "react";
 import UserPage from "./components/pages/UserPage";
+import Transactions from "./components/pages/Transactions";
 
 // async function connect(onConnected) {
 //   if (!window.ethereum) {
@@ -60,7 +61,12 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/category/:categoryName" element={<Category />} />
-            <Route path="/create" element={<Create connected={connected} />} />
+            <Route
+              path="/create"
+              element={
+                <Create connected={connected} userAddress={userAddress} />
+              }
+            />
             <Route path="/shop" element={<Shop />} />
             <Route
               path="/category/:categoryName/:listingId"
@@ -68,6 +74,7 @@ function App() {
             />
             <Route path="/order" element={<Order />} />
             <Route path="/user/:userId" element={<UserPage />} />
+            <Route path="/transactions" element={<Transactions />} />
           </Routes>
         </main>
 

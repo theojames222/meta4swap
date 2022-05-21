@@ -5,11 +5,18 @@ import m4sAbi from "../abi/m4s_abi.json";
 import Web3 from "web3/dist/web3.min.js";
 import { db } from "../../firebase.config";
 import { setDoc, doc, serverTimestamp } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 // import { ImageUpload } from "./ImageUpload";
 
 const client = create("https://ipfs.infura.io:5001/api/v0");
 const abi = m4sAbi;
-export const JsonUpload = ({ disabled, metaData2, imageUrl, id }) => {
+export const JsonUpload = ({
+  disabled,
+  metaData2,
+  imageUrl,
+  id,
+  userAddress,
+}) => {
   const metaData = {
     id: id,
     ...metaData2,
@@ -30,6 +37,7 @@ export const JsonUpload = ({ disabled, metaData2, imageUrl, id }) => {
   const [live, setLive] = useState(true);
   const [price, setPrice] = useState(0);
   const [btnDisabled, setbtnDisabled] = useState(true);
+  const navigate = useNavigate();
 
   console.log(price, live, metaDataUrl);
 
@@ -52,6 +60,7 @@ export const JsonUpload = ({ disabled, metaData2, imageUrl, id }) => {
     M4SContract.methods
       .createItem(metaDataUrl, live, web3.utils.toWei(price))
       .send();
+    navigate(`/user/${userAddress}`);
   };
 
   const uploadText = async (e) => {
