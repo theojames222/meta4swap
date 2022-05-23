@@ -91,6 +91,7 @@ export const JsonUpload = ({
       >
         Upload Metadata
       </button>
+      <br />
       <a
         href={metaDataUrl}
         target="_blank"
@@ -99,7 +100,7 @@ export const JsonUpload = ({
       >
         {metaDataUrl === ""
           ? ""
-          : `MetaData Url ${metaDataUrl.substring(0 - 27)}...`}
+          : `MetaData Url ${metaDataUrl.substring(0, 44)}...`}
       </a>
       <button
         className="btn btn-primary"

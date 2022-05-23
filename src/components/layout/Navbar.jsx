@@ -2,9 +2,12 @@ import { Link } from "react-router-dom";
 import useWindowDimensions from "../hooks/useWindowDimensions";
 import Logo from "../assets/logo2.png";
 import accountIcon from "../assets/user-286 (1).svg";
+import { useParams } from "react-router-dom";
+
 function Navbar({ connected, userAddress }) {
   // eslint-disable-next-line no-unused-vars
   const { height, width } = useWindowDimensions();
+  const params = useParams();
 
   const isConnected = connected;
   const reloadPage = () => {
@@ -20,7 +23,7 @@ function Navbar({ connected, userAddress }) {
     } else {
       alert("install metamask extension!!");
     }
-    setTimeout(reloadPage, 6000);
+    setTimeout(reloadPage, 10000);
   };
 
   return (
@@ -31,14 +34,30 @@ function Navbar({ connected, userAddress }) {
       </Link>
 
       <div className="nav2">
-        <button className="btn btn-link ">
-          <Link
-            to="/shop"
-            className="navShop text-2xl font-bold rounded-btn mr-12"
+        <div className="dropdown dropdown-hover">
+          <button className="btn btn-link ">
+            <Link
+              to="/shop"
+              className="navShop text-2xl font-bold rounded-btn mr-12"
+            >
+              Shop
+            </Link>
+          </button>
+          <ul
+            tabindex="0"
+            className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
           >
-            Shop
-          </Link>
-        </button>
+            <li>
+              <a href="/category/product">Products</a>
+            </li>
+            <li>
+              <a href="/category/service">Services</a>
+            </li>
+            <li>
+              <Link to="/shop">Shop All</Link>
+            </li>
+          </ul>
+        </div>
         <button className="btn btn-link">
           <Link
             to="/create"

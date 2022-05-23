@@ -53,8 +53,8 @@ function Create({ connected, userAddress }) {
 
   return (
     <>
-      <div className="content">
-        <div className="container pl-10 pt-4 text-black font-bold fixed ">
+      <div className="content ">
+        <div className="container w-1/4 pl-10 pt-4 text-black font-bold fixed ">
           <h2> Quick Guide :</h2>
           <p>{`1. Connect to MetaMask(required)`}</p>
           <p>{`2. Fill out all form fields`} </p>

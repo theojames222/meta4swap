@@ -101,9 +101,9 @@ function Product() {
             </Link>
           </div>
           <div className="hero min-h-screen ">
-            <div className="hero-content flex-col lg:flex-row">
+            <div className="hero-content px-auto productImg flex-col lg:flex-row">
               <img src={listing.imageUrl} alt="product" />
-              <div className="card-body items-center text-center">
+              <div className="card-body mx-20 pl-20 items-center text-center">
                 <h1 className="text-5xl font-bold items-center">
                   {listing.productName}
                 </h1>

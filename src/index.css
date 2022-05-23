@@ -275,3 +275,7 @@ nav {
   justify-content: center;
   margin-bottom: 0px;
 }
+
+.productImg {
+  max-width: 50%;
+}

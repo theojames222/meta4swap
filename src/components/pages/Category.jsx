@@ -42,7 +42,7 @@ function Category() {
   }, []);
 
   return (
-    <div className="category">
+    <div className="category mb-10">
       {loading ? (
         <h1>Loading...</h1>
       ) : listings && listings.length > 0 ? (

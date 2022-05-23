@@ -8,7 +8,7 @@ function Home() {
   return (
     <>
       <Hero />
-      <Explore />
+      {/* <Explore /> */}
       <FeaturedProduct />
       <FeaturedService />
       <Content />

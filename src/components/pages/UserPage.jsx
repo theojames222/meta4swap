@@ -49,12 +49,21 @@ function UserPage() {
         <h1>Loading...</h1>
       ) : listings && listings.length > 0 ? (
         <>
-          <header>
-            <div>
+          <header className="infoHeader">
+            <ul className=" mt-3 menu menu-horizontal  rounded-box items-">
+              <li>
+                <a href={`/user/${params.userId}`}>Listings</a>
+              </li>
+              <div class="divider divider-horizontal"></div>
+              <li>
+                <a href="/transactions">Transactions</a>
+              </li>
+            </ul>
+            {/* <div>
               <Link to={`/user/${params.userId}`}>Listings</Link>
               <br />
               <Link to="/transactions">Transactions</Link>
-            </div>
+            </div> */}
           </header>
           <header className="infoHeader">
             <div>
