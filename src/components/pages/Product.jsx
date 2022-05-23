@@ -10,6 +10,8 @@ import m4sAbi from "../abi/m4s_abi.json";
 import Web3 from "web3/dist/web3.min.js";
 import { ethers } from "ethers";
 
+const Moralis = require('moralis');
+
 function Product() {
   const ethSym = <img className="eth" src={eth} alt="eth" />;
   const [listing, setListing] = useState(null);
@@ -36,7 +38,7 @@ function Product() {
       const provider = new ethers.providers.JsonRpcProvider(
         "https://rinkeby.infura.io/v3/18c3956af9734c289bfed9eee03ee1a7"
       );
-      const addr = "0x79F8B8aCeca83850fDAc539990e915644079751B";
+      const addr = "0x8a037283fb181ee1bCEeCF1734E136C677fC2311";
       const priceFeed = new ethers.Contract(addr, m4sAbi, provider);
       // We get the data from the last round of the contract
       const chainLinkPrice = await priceFeed.getLatestPrice();
@@ -45,8 +47,66 @@ function Product() {
       window.ethPrice = ethPrice;
     };
 
+    const getUserItems = async () => {
+      const serverUrl = "https://gu15uqsbipep.usemoralis.com:2053/server";
+      const appId = "F28xSksEmA0YDFTQskgodpG3W5JSZK0uBm9Abnde";
+      const masterKey = "G5799rbYbzVEjmd9B2tFNfgX184JryV3ntW283dy";
+      await Moralis.start({ serverUrl, appId, masterKey });
+      const Item = Moralis.Object.extend("ItemCreated");
+      const query = new Moralis.Query(Item);
+      //replace my address with user's address
+      query.equalTo("creator", "0x5f5b7c5c23f2826b0fdc25d21944bceaf146fd78");
+      const results = await query.find();
+      console.log(results.length);
+      for (let i = 0; i < results.length; i++) {
+        const object = results[i];
+        console.log(object.get("metadata"));
+        console.log(object.get("itemId"));
+      }
+    }
+
+    const getProducts = async () => {
+      const serverUrl = "https://gu15uqsbipep.usemoralis.com:2053/server";
+      const appId = "F28xSksEmA0YDFTQskgodpG3W5JSZK0uBm9Abnde";
+      const masterKey = "G5799rbYbzVEjmd9B2tFNfgX184JryV3ntW283dy";
+      await Moralis.start({ serverUrl, appId, masterKey });
+      const Item = Moralis.Object.extend("ItemCreated");
+      const query = new Moralis.Query(Item);
+      query.equalTo("productType", "0");
+      const results = await query.find();
+      console.log(results.length);
+      for (let i = 0; i < results.length; i++) {
+        const object = results[i];
+        console.log(object.get("metadata"));
+        console.log(object.get("itemId"));
+      }
+    }
+
+    const getServices = async () => {
+      const serverUrl = "https://gu15uqsbipep.usemoralis.com:2053/server";
+      const appId = "F28xSksEmA0YDFTQskgodpG3W5JSZK0uBm9Abnde";
+      const masterKey = "G5799rbYbzVEjmd9B2tFNfgX184JryV3ntW283dy";
+      await Moralis.start({ serverUrl, appId, masterKey });
+      const Item = Moralis.Object.extend("ItemCreated");
+      const query = new Moralis.Query(Item);
+      query.equalTo("productType", "1");
+      const results = await query.find();
+      console.log(results.length);
+      for (let i = 0; i < results.length; i++) {
+        const object = results[i];
+        console.log(object.get("metadata"));
+        console.log(object.get("itemId"));
+      }
+    }
+    
+
     fetchListing();
     fetchEthPrice();
+    getUserItems();
+    getProducts();
+    getServices();
+
+
   }, [navigate, params.listingId]);
 
   const onChange = (e) => {
@@ -56,7 +116,7 @@ function Product() {
     }));
   };
   const buyNow = async (e) => {
-    console.log(quantity["quantity"]);
+    console.log(quantity['quantity']);
     e.preventDefault();
     const web3 = new Web3(window.ethereum);
     await window.ethereum.enable();
@@ -67,21 +127,29 @@ function Product() {
 
     const M4SContract = new web3.eth.Contract(
       m4sAbi,
-      "0x79F8B8aCeca83850fDAc539990e915644079751B",
+      "0x8a037283fb181ee1bCEeCF1734E136C677fC2311",
       {
         from: account,
       }
     );
 
-    const itemId = 4;
-    const ethPrice = 200000000000;
-    const itemPrice = 25000000000000000000;
-    const orderPrice = (itemPrice / ethPrice) * 10 ** 9;
-
-    M4SContract.methods.createOrder(quantity["quantity"], itemId).send({
-      from: account,
-      value: orderPrice,
-    });
+    const itemId = 1;
+    const price = listing.price*10**18;
+    //console.log((price));
+    //console.log((window.ethPrice));
+    const orderPrice = ((listing.price*10**18)/window.ethPrice)*10**8;
+    const slippage = (orderPrice * 100) / 10000;
+    
+    console.log(orderPrice);
+    //UI eth price for Theo
+    console.log(orderPrice/10**18);
+    
+    M4SContract.methods
+      .createOrder(itemId, quantity['quantity'])
+      .send({
+        from: account, 
+        value: orderPrice+slippage
+       });
   };
 
   return (

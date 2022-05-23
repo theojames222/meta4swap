@@ -52,11 +52,12 @@ export const JsonUpload = ({
 
     const M4SContract = new web3.eth.Contract(
       abi,
-      "0x79F8B8aCeca83850fDAc539990e915644079751B",
+      "0x8a037283fb181ee1bCEeCF1734E136C677fC2311",
       {
         from: account,
       }
     );
+    //insert product type here
     M4SContract.methods
       .createItem(metaDataUrl, live, web3.utils.toWei(price))
       .send();
