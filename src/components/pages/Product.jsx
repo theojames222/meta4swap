@@ -62,6 +62,8 @@ function Product() {
         const object = results[i];
         console.log(object.get("metadata"));
         console.log(object.get("itemId"));
+        const ipfsURL = "https://ipfs.infura.io/ipfs/QmcGaApMPcm7PPGNtFQYmdiNKkpANitFc1VTPStkQp843x";
+        fetch(ipfsURL).then((response) => response.json()).then((data) => console.log('This is your data: ', data));
       }
     }
 
@@ -79,6 +81,7 @@ function Product() {
         const object = results[i];
         console.log(object.get("metadata"));
         console.log(object.get("itemId"));
+        
       }
     }
 
