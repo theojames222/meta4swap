@@ -9,7 +9,7 @@ import { db } from "../../firebase.config";
 // import shareIcon from "../assets/shareIcon.svg";
 import m4sAbi from "../abi/m4s_abi.json";
 import Web3 from "web3/dist/web3.min.js";
-import { ethers } from "ethers";
+// import { ethers } from "ethers";
 import { v4 as uuidv4 } from "uuid";
 
 const Moralis = require("moralis");
@@ -19,12 +19,13 @@ function Product({ userAddress }) {
   const [listing, setListing] = useState(null);
   const [loading, setLoading] = useState(true);
   // const [shareLinkCopied, setShareLinkCopied] = useState(false);
-  const [quantity, setQuantity] = useState(1);
+  const [quantity, setQuantity] = useState({ quantity: 1 });
 
   const navigate = useNavigate();
   const params = useParams();
 
   useEffect(() => {
+    console.log(`quanting:${quantity}`);
     const fetchListing = async () => {
       const docRef = doc(db, "listings", params.listingId);
       const docSnap = await getDoc(docRef);
@@ -38,14 +39,30 @@ function Product({ userAddress }) {
     };
 
     const fetchEthPrice = async () => {
-      const provider = new ethers.providers.JsonRpcProvider(
-        "https://rinkeby.infura.io/v3/18c3956af9734c289bfed9eee03ee1a7"
+      // const provider = new ethers.providers.JsonRpcProvider(
+      //   "https://rinkeby.infura.io/v3/18c3956af9734c289bfed9eee03ee1a7"
+      // );
+      // const addr = "0x8a037283fb181ee1bCEeCF1734E136C677fC2311";
+      // const priceFeed = new ethers.Contract(addr, m4sAbi, provider);
+      // // We get the data from the last round of the contract
+      // const chainLinkPrice = await priceFeed.getLatestPrice();
+      // const ethPrice = ethers.utils.formatEther(chainLinkPrice) * 10 ** 18;
+      // console.log(ethPrice);
+      // window.ethPrice = ethPrice;
+
+      // const web3 = new Web3(window.ethereum);
+      const web3 = new Web3(
+        new Web3.providers.HttpProvider(
+          "https://rinkeby.infura.io/v3/18c3956af9734c289bfed9eee03ee1a7"
+        )
       );
-      const addr = "0x8a037283fb181ee1bCEeCF1734E136C677fC2311";
-      const priceFeed = new ethers.Contract(addr, m4sAbi, provider);
-      // We get the data from the last round of the contract
-      const chainLinkPrice = await priceFeed.getLatestPrice();
-      const ethPrice = ethers.utils.formatEther(chainLinkPrice) * 10 ** 18;
+      const M4SContract = new web3.eth.Contract(
+        m4sAbi,
+        "0x8a037283fb181ee1bCEeCF1734E136C677fC2311"
+      );
+
+      const ethPrice = await M4SContract.methods.getLatestPrice().call();
+
       console.log(ethPrice);
       window.ethPrice = ethPrice;
     };
@@ -115,68 +132,67 @@ function Product({ userAddress }) {
   }, [navigate, params.listingId]);
 
   const onChange = (e) => {
-    setQuantity((prevState) => ({
-      ...prevState,
+    setQuantity(() => ({
       [e.target.id]: e.target.value,
     }));
   };
-  // const buyNow = async (e) => {
-  //   console.log(quantity["quantity"]);
-  //   e.preventDefault();
-  //   const web3 = new Web3(window.ethereum);
-  //   await window.ethereum.enable();
-  //   const accounts = await window.ethereum.request({
-  //     method: "eth_requestAccounts",
-  //   });
-  //   var account = accounts[0];
-
-  //   const M4SContract = new web3.eth.Contract(
-  //     m4sAbi,
-  //     "0x8a037283fb181ee1bCEeCF1734E136C677fC2311",
-  //     {
-  //       from: account,
-  //     }
-  //   );
-
-  //   const itemId = 1;
-  //   //console.log((price));
-  //   //console.log((window.ethPrice));
-  //   const orderPrice = ((listing.price * 10 ** 18) / window.ethPrice) * 10 ** 8;
-  //   const slippage = (orderPrice * 100) / 10000;
-
-  //   console.log(orderPrice);
-  //   //UI eth price for Theo
-  //   console.log(orderPrice / 10 ** 18);
-
-  //   M4SContract.methods.createOrder(itemId, quantity["quantity"]).send({
-  //     from: account,
-  //     value: orderPrice + slippage,
-  //   });
-  // };
-
-  const onClick = async (e) => {
+  const buyNow = async (e) => {
+    console.log(quantity["quantity"]);
     e.preventDefault();
-    const transactionId = uuidv4();
-    const orderPrice = ((listing.price * 10 ** 18) / window.ethPrice) * 10 ** 8;
-    const transaction = {
-      order: transactionId,
-      buyer: userAddress,
-      seller: listing.id,
-      listing: params.listingId,
-      status: "active",
-      price: listing.price,
-      orderPrice: orderPrice,
-    };
-    try {
-      await setDoc(doc(db, "transactions", transactionId), transaction);
-    } catch (error) {
-      console.log("unable to upload");
-    }
+    const web3 = new Web3(window.ethereum);
+    await window.ethereum.enable();
+    const accounts = await window.ethereum.request({
+      method: "eth_requestAccounts",
+    });
+    var account = accounts[0];
 
-    console.log(userAddress);
-    console.log(listing.id);
-    console.log(params.listingId);
+    const M4SContract = new web3.eth.Contract(
+      m4sAbi,
+      "0x8a037283fb181ee1bCEeCF1734E136C677fC2311",
+      {
+        from: account,
+      }
+    );
+
+    const itemId = 1;
+    //console.log((price));
+    //console.log((window.ethPrice));
+    const orderPrice = ((listing.price * 10 ** 18) / window.ethPrice) * 10 ** 8;
+    const slippage = (orderPrice * 100) / 10000;
+
+    console.log(orderPrice);
+    //UI eth price for Theo
+    console.log(orderPrice / 10 ** 18);
+
+    M4SContract.methods.createOrder(itemId, quantity["quantity"]).send({
+      from: account,
+      value: orderPrice + slippage,
+    });
   };
+
+  // const onClick = async (e) => {
+  //   e.preventDefault();
+  //   const transactionId = uuidv4();
+  //   const orderPrice = ((listing.price * 10 ** 18) / window.ethPrice) * 10 ** 8;
+  //   const transaction = {
+  //     order: transactionId,
+  //     buyer: userAddress,
+  //     seller: listing.id,
+  //     listing: params.listingId,
+  //     status: "active",
+  //     price: listing.price,
+  //     orderPrice: orderPrice,
+  //   };
+  //   try {
+  //     await setDoc(doc(db, "transactions", transactionId), transaction);
+  //   } catch (error) {
+  //     console.log("unable to upload");
+  //   }
+
+  //   console.log(userAddress);
+  //   console.log(listing.id);
+  //   console.log(params.listingId);
+  // };
 
   // const uploadText = async (e) => {
   //   e.preventDefault();
@@ -199,6 +215,8 @@ function Product({ userAddress }) {
   //     console.log("Error uploading the file : ", err);
   //   }
   // };
+
+  console.log(quantity);
   return (
     <>
       {loading ? (
@@ -255,7 +273,6 @@ function Product({ userAddress }) {
                     className="select select-ghost max-w-xs"
                     onChange={onChange}
                     id="quantity"
-                    value={quantity}
                   >
                     <option>1</option>
                     <option>2</option>
@@ -271,7 +288,7 @@ function Product({ userAddress }) {
                 </div>
                 <button
                   className="btnBuy btn-primary text-white text-2xl font-bold"
-                  onClick={onClick}
+                  onClick={buyNow}
                 >
                   Buy Now!
                 </button>

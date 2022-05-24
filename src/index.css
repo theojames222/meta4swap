@@ -78,6 +78,14 @@ nav {
   font-weight: 700;
   color: rgba(43, 62, 135, 1);
 }
+.infoHeader2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  color: black;
+}
 .icon {
   height: 150px;
   width: 150px;
@@ -278,4 +286,20 @@ nav {
 
 .productImg {
   max-width: 50%;
+}
+
+.compBtn {
+  color: rgb(39, 196, 39);
+  font-weight: 500;
+  width: fit-content;
+}
+.canBtn {
+  color: rgb(199, 33, 11);
+  font-weight: 500;
+  width: fit-content;
+}
+.disputeBtn {
+  color: rgb(219, 206, 16);
+  font-weight: 500;
+  width: fit-content;
 }

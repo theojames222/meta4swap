@@ -56,7 +56,7 @@ function UserPage() {
               </li>
               <div class="divider divider-horizontal"></div>
               <li>
-                <a href="/transactions">Transactions</a>
+                <a href={`/transactions/${params.userId}`}>Transactions</a>
               </li>
             </ul>
             {/* <div>

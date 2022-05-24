@@ -74,7 +74,10 @@ function App() {
             />
             <Route path="/order" element={<Order />} />
             <Route path="/user/:userId" element={<UserPage />} />
-            <Route path="/transactions" element={<Transactions />} />
+            <Route
+              path="/transactions/:userId"
+              element={<Transactions userAddress={userAddress} />}
+            />
           </Routes>
         </main>
 
