@@ -37,9 +37,10 @@ export const JsonUpload = ({
   const [live, setLive] = useState(true);
   const [price, setPrice] = useState(0);
   const [btnDisabled, setbtnDisabled] = useState(true);
+  const [productType, setProductType] = useState(0);
   const navigate = useNavigate();
 
-  console.log(price, live, metaDataUrl);
+  console.log(price, live, metaDataUrl, productType);
 
   const onClick = async (e) => {
     e.preventDefault();
@@ -59,7 +60,7 @@ export const JsonUpload = ({
     );
     //insert product type here
     M4SContract.methods
-      .createItem(metaDataUrl, live, web3.utils.toWei(price))
+      .createItem(metaDataUrl, live, web3.utils.toWei(price), productType)
       .send();
     navigate(`/user/${userAddress}`);
   };
@@ -76,6 +77,9 @@ export const JsonUpload = ({
       console.log(uploaded);
       setPrice(metaData.price);
       setLive(true);
+      if (metaData.category === "service") {
+        setProductType(1);
+      }
       setbtnDisabled(false);
       await setDoc(doc(db, "listings", docId), metaData);
     } catch (err) {

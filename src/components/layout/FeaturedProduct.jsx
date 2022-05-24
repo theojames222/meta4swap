@@ -40,6 +40,7 @@ function FeaturedProduct() {
       }
     };
     fetchListings();
+
     console.log(listings);
   }, []);
 

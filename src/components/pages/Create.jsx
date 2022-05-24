@@ -11,8 +11,8 @@ function Create({ connected, userAddress }) {
     productName: "",
     category: "",
     description: "",
-    unit: "",
-    quantity: 0,
+    unit: "per item",
+    quantity: 1,
     price: 0,
     priceUnit: "USD",
   });

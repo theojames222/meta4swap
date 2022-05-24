@@ -4,19 +4,21 @@ import StarRating from "../actions/StarRating";
 import { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
+import { setDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../../firebase.config";
-import shareIcon from "../assets/shareIcon.svg";
+// import shareIcon from "../assets/shareIcon.svg";
 import m4sAbi from "../abi/m4s_abi.json";
 import Web3 from "web3/dist/web3.min.js";
 import { ethers } from "ethers";
+import { v4 as uuidv4 } from "uuid";
 
-const Moralis = require('moralis');
+const Moralis = require("moralis");
 
-function Product() {
+function Product({ userAddress }) {
   const ethSym = <img className="eth" src={eth} alt="eth" />;
   const [listing, setListing] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [shareLinkCopied, setShareLinkCopied] = useState(false);
+  // const [shareLinkCopied, setShareLinkCopied] = useState(false);
   const [quantity, setQuantity] = useState(1);
 
   const navigate = useNavigate();
@@ -29,6 +31,7 @@ function Product() {
 
       if (docSnap.exists()) {
         console.log(docSnap.data());
+
         setListing(docSnap.data());
         setLoading(false);
       }
@@ -62,10 +65,13 @@ function Product() {
         const object = results[i];
         console.log(object.get("metadata"));
         console.log(object.get("itemId"));
-        const ipfsURL = "https://ipfs.infura.io/ipfs/QmcGaApMPcm7PPGNtFQYmdiNKkpANitFc1VTPStkQp843x";
-        fetch(ipfsURL).then((response) => response.json()).then((data) => console.log('This is your data: ', data));
+        const ipfsURL =
+          "https://ipfs.infura.io/ipfs/QmcGaApMPcm7PPGNtFQYmdiNKkpANitFc1VTPStkQp843x";
+        fetch(ipfsURL)
+          .then((response) => response.json())
+          .then((data) => console.log("This is your data: ", data));
       }
-    }
+    };
 
     const getProducts = async () => {
       const serverUrl = "https://gu15uqsbipep.usemoralis.com:2053/server";
@@ -81,9 +87,8 @@ function Product() {
         const object = results[i];
         console.log(object.get("metadata"));
         console.log(object.get("itemId"));
-        
       }
-    }
+    };
 
     const getServices = async () => {
       const serverUrl = "https://gu15uqsbipep.usemoralis.com:2053/server";
@@ -100,16 +105,13 @@ function Product() {
         console.log(object.get("metadata"));
         console.log(object.get("itemId"));
       }
-    }
-    
+    };
 
     fetchListing();
     fetchEthPrice();
     getUserItems();
     getProducts();
     getServices();
-
-
   }, [navigate, params.listingId]);
 
   const onChange = (e) => {
@@ -118,43 +120,85 @@ function Product() {
       [e.target.id]: e.target.value,
     }));
   };
-  const buyNow = async (e) => {
-    console.log(quantity['quantity']);
+  // const buyNow = async (e) => {
+  //   console.log(quantity["quantity"]);
+  //   e.preventDefault();
+  //   const web3 = new Web3(window.ethereum);
+  //   await window.ethereum.enable();
+  //   const accounts = await window.ethereum.request({
+  //     method: "eth_requestAccounts",
+  //   });
+  //   var account = accounts[0];
+
+  //   const M4SContract = new web3.eth.Contract(
+  //     m4sAbi,
+  //     "0x8a037283fb181ee1bCEeCF1734E136C677fC2311",
+  //     {
+  //       from: account,
+  //     }
+  //   );
+
+  //   const itemId = 1;
+  //   //console.log((price));
+  //   //console.log((window.ethPrice));
+  //   const orderPrice = ((listing.price * 10 ** 18) / window.ethPrice) * 10 ** 8;
+  //   const slippage = (orderPrice * 100) / 10000;
+
+  //   console.log(orderPrice);
+  //   //UI eth price for Theo
+  //   console.log(orderPrice / 10 ** 18);
+
+  //   M4SContract.methods.createOrder(itemId, quantity["quantity"]).send({
+  //     from: account,
+  //     value: orderPrice + slippage,
+  //   });
+  // };
+
+  const onClick = async (e) => {
     e.preventDefault();
-    const web3 = new Web3(window.ethereum);
-    await window.ethereum.enable();
-    const accounts = await window.ethereum.request({
-      method: "eth_requestAccounts",
-    });
-    var account = accounts[0];
+    const transactionId = uuidv4();
+    const orderPrice = ((listing.price * 10 ** 18) / window.ethPrice) * 10 ** 8;
+    const transaction = {
+      order: transactionId,
+      buyer: userAddress,
+      seller: listing.id,
+      listing: params.listingId,
+      status: "active",
+      price: listing.price,
+      orderPrice: orderPrice,
+    };
+    try {
+      await setDoc(doc(db, "transactions", transactionId), transaction);
+    } catch (error) {
+      console.log("unable to upload");
+    }
 
-    const M4SContract = new web3.eth.Contract(
-      m4sAbi,
-      "0x8a037283fb181ee1bCEeCF1734E136C677fC2311",
-      {
-        from: account,
-      }
-    );
-
-    const itemId = 1;
-    const price = listing.price*10**18;
-    //console.log((price));
-    //console.log((window.ethPrice));
-    const orderPrice = ((listing.price*10**18)/window.ethPrice)*10**8;
-    const slippage = (orderPrice * 100) / 10000;
-    
-    console.log(orderPrice);
-    //UI eth price for Theo
-    console.log(orderPrice/10**18);
-    
-    M4SContract.methods
-      .createOrder(itemId, quantity['quantity'])
-      .send({
-        from: account, 
-        value: orderPrice+slippage
-       });
+    console.log(userAddress);
+    console.log(listing.id);
+    console.log(params.listingId);
   };
 
+  // const uploadText = async (e) => {
+  //   e.preventDefault();
+  //   const docId = uuidv4();
+  //   try {
+  //     const added = await client.add(metaDataJSONString);
+  //     const url = `https://ipfs.infura.io/ipfs/${added.path}`;
+  //     setMetaDataUrl(url);
+  //     console.log(metaDataUrl);
+  //     setUploaded(true);
+  //     console.log(uploaded);
+  //     setPrice(metaData.price);
+  //     setLive(true);
+  //     if (metaData.category === "service") {
+  //       setProductType(1);
+  //     }
+  //     setbtnDisabled(false);
+  //     await setDoc(doc(db, "listings", docId), metaData);
+  //   } catch (err) {
+  //     console.log("Error uploading the file : ", err);
+  //   }
+  // };
   return (
     <>
       {loading ? (
@@ -191,7 +235,15 @@ function Product() {
                     justifyContent: "space-evenly",
                   }}
                 >
-                  <p className="text-2xl pb-8 ">(.075 {ethSym})</p>
+                  <p className="text-2xl pb-8 ">
+                    (
+                    {(
+                      (((listing.price * 10 ** 18) / window.ethPrice) *
+                        10 ** 8) /
+                      10 ** 18
+                    ).toFixed(3)}
+                    {ethSym})
+                  </p>
                 </div>
                 <div
                   className="flex"
@@ -203,6 +255,7 @@ function Product() {
                     className="select select-ghost max-w-xs"
                     onChange={onChange}
                     id="quantity"
+                    value={quantity}
                   >
                     <option>1</option>
                     <option>2</option>
@@ -218,7 +271,7 @@ function Product() {
                 </div>
                 <button
                   className="btnBuy btn-primary text-white text-2xl font-bold"
-                  onClick={buyNow}
+                  onClick={onClick}
                 >
                   Buy Now!
                 </button>

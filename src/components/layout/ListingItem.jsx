@@ -29,7 +29,15 @@ function ListingItem({ listing, id }) {
                   <p className="text font-bold mr-3">{`${
                     listing.priceUnit === "USD" ? "$" : "€"
                   } ${listing.price}`}</p>
-                  <p className="text ">(.075 {ethSym})</p>
+                  <p className="text ">
+                    (
+                    {(
+                      (((listing.price * 10 ** 18) / window.ethPrice) *
+                        10 ** 8) /
+                      10 ** 18
+                    ).toFixed(3)}
+                    {ethSym})
+                  </p>
                 </div>
               </div>
             </div>

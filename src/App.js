@@ -70,7 +70,7 @@ function App() {
             <Route path="/shop" element={<Shop />} />
             <Route
               path="/category/:categoryName/:listingId"
-              element={<Product />}
+              element={<Product userAddress={userAddress} />}
             />
             <Route path="/order" element={<Order />} />
             <Route path="/user/:userId" element={<UserPage />} />

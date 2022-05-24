@@ -2,12 +2,12 @@ import { Link } from "react-router-dom";
 import useWindowDimensions from "../hooks/useWindowDimensions";
 import Logo from "../assets/logo2.png";
 import accountIcon from "../assets/user-286 (1).svg";
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 
 function Navbar({ connected, userAddress }) {
   // eslint-disable-next-line no-unused-vars
   const { height, width } = useWindowDimensions();
-  const params = useParams();
+  // const params = useParams();
 
   const isConnected = connected;
   const reloadPage = () => {
