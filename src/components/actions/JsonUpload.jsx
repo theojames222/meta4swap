@@ -53,7 +53,7 @@ export const JsonUpload = ({
 
     const M4SContract = new web3.eth.Contract(
       abi,
-      "0x8a037283fb181ee1bCEeCF1734E136C677fC2311",
+      "0x0680A9396b1d54D1b2D393580E1B4BDB20f4D2F8",
       {
         from: account,
       }

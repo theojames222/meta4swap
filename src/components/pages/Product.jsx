@@ -58,7 +58,7 @@ function Product({ userAddress }) {
       );
       const M4SContract = new web3.eth.Contract(
         m4sAbi,
-        "0x8a037283fb181ee1bCEeCF1734E136C677fC2311"
+        "0x0680A9396b1d54D1b2D393580E1B4BDB20f4D2F8"
       );
 
       const ethPrice = await M4SContract.methods.getLatestPrice().call();
@@ -124,11 +124,79 @@ function Product({ userAddress }) {
       }
     };
 
+    const getItem = async () => {
+      /*
+      const provider = new ethers.providers.JsonRpcProvider(
+        "https://rinkeby.infura.io/v3/18c3956af9734c289bfed9eee03ee1a7"
+      );
+      const addr = "0x8a037283fb181ee1bCEeCF1734E136C677fC2311";
+      const m4sContract = new ethers.Contract(addr, m4sAbi, provider);
+      const itemId = 1;
+      const itemInfo = await m4sContract.itemInfo(itemId)[1];
+      console.log(itemInfo);
+      */
+      const itemId = 1;
+      const web3 = new Web3(window.ethereum);
+      const M4SContract = new web3.eth.Contract(
+        m4sAbi,
+        "0x0680A9396b1d54D1b2D393580E1B4BDB20f4D2F8");
+      
+      const itemInfo = await M4SContract.methods
+      .itemInfo(itemId)
+      .call();
+    
+      console.log(itemInfo['id']);
+      console.log(itemInfo['metadata']);
+
+    };
+
+    const getOrdersBuyer = async () => {
+      const serverUrl = "https://gu15uqsbipep.usemoralis.com:2053/server";
+      const appId = "F28xSksEmA0YDFTQskgodpG3W5JSZK0uBm9Abnde";
+      const masterKey = "G5799rbYbzVEjmd9B2tFNfgX184JryV3ntW283dy";
+      await Moralis.start({ serverUrl, appId, masterKey });
+      const Item = Moralis.Object.extend("OrderCreatedBuyer");
+      const query = new Moralis.Query(Item);
+      const user = "0x5f5b7c5c23f2826b0fdc25d21944bceaf146fd78";
+      query.equalTo("buyer", user);
+      const results = await query.find();
+      console.log(results.length);
+      for (let i = 0; i < results.length; i++) {
+        const object = results[i];
+        console.log(object.get("orderId"));
+        console.log(object.get("itemId"));
+        console.log(object.get("price"));
+      }
+    }
+
+    const getOrdersSeller = async () => {
+      const serverUrl = "https://gu15uqsbipep.usemoralis.com:2053/server";
+      const appId = "F28xSksEmA0YDFTQskgodpG3W5JSZK0uBm9Abnde";
+      const masterKey = "G5799rbYbzVEjmd9B2tFNfgX184JryV3ntW283dy";
+      await Moralis.start({ serverUrl, appId, masterKey });
+      const Item = Moralis.Object.extend("OrderCreatedSeller");
+      const query = new Moralis.Query(Item);
+      const user = "0x5f5b7c5c23f2826b0fdc25d21944bceaf146fd78";
+      query.equalTo("seller", user);
+      const results = await query.find();
+      console.log(results.length);
+      for (let i = 0; i < results.length; i++) {
+        const object = results[i];
+        console.log(object.get("orderId"));
+        console.log(object.get("itemId"));
+        console.log(object.get("price"));
+      }
+    }
+
     fetchListing();
     fetchEthPrice();
     getUserItems();
     getProducts();
     getServices();
+    getItem();
+    getOrdersSeller();
+    getOrdersBuyer();
+
   }, [navigate, params.listingId]);
 
   const onChange = (e) => {
@@ -148,7 +216,7 @@ function Product({ userAddress }) {
 
     const M4SContract = new web3.eth.Contract(
       m4sAbi,
-      "0x8a037283fb181ee1bCEeCF1734E136C677fC2311",
+      "0x0680A9396b1d54D1b2D393580E1B4BDB20f4D2F8",
       {
         from: account,
       }
