@@ -15,6 +15,9 @@ import { v4 as uuidv4 } from "uuid";
 const Moralis = require("moralis");
 
 function Product({ userAddress }) {
+
+  window.itemId = ""; //number added to meta4swap.com/{itemId}. So if URL is meta4swap.com/5, then itemId=5
+
   const ethSym = <img className="eth" src={eth} alt="eth" />;
   const [listing, setListing] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -112,15 +115,31 @@ function Product({ userAddress }) {
       }
     };
 
+    const getAllItems = async () => {
+      const serverUrl = "https://gu15uqsbipep.usemoralis.com:2053/server";
+      const appId = "F28xSksEmA0YDFTQskgodpG3W5JSZK0uBm9Abnde";
+      const masterKey = "G5799rbYbzVEjmd9B2tFNfgX184JryV3ntW283dy";
+      await Moralis.start({ serverUrl, appId, masterKey });
+      const Item = Moralis.Object.extend("ItemCreated");
+      const query = new Moralis.Query(Item);
+      const results = await query.find();
+      console.log(results.length);
+      for (let i = 0; i < results.length; i++) {
+        const object = results[i];
+        console.log(object.get("metadata"));
+        console.log(object.get("itemId"));
+      }
+    };
+
     const getItem = async () => {
-      const itemId = 1;
+      //const itemId = 1;
       const web3 = new Web3(window.ethereum);
       const M4SContract = new web3.eth.Contract(
         m4sAbi,
         "0x0680A9396b1d54D1b2D393580E1B4BDB20f4D2F8");
       
       const itemInfo = await M4SContract.methods
-      .itemInfo(itemId)
+      .itemInfo(window.itemId)
       .call();
     
       console.log(itemInfo['id']);
@@ -179,6 +198,7 @@ function Product({ userAddress }) {
     getItem();
     getOrdersSeller();
     getOrdersBuyer();
+    getAllItems();
 
   }, [navigate, params.listingId]);
 
@@ -205,7 +225,7 @@ function Product({ userAddress }) {
       }
     );
 
-    const itemId = 1;
+    //const itemId = 1;
     //console.log((price));
     //console.log((window.ethPrice));
     const orderPrice = (((listing.price * 10 ** 18) / window.ethPrice) * 10 ** 8)*quantity["quantity"];
@@ -215,7 +235,7 @@ function Product({ userAddress }) {
     //UI eth price for Theo
     console.log(orderPrice / 10 ** 18);
 
-    M4SContract.methods.createOrder(itemId, quantity["quantity"]).send({
+    M4SContract.methods.createOrder(window.itemId, quantity["quantity"]).send({
       from: account,
       value: orderPrice + slippage,
     });
