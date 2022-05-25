@@ -20,12 +20,13 @@ function Product({ userAddress }) {
   const [loading, setLoading] = useState(true);
   // const [shareLinkCopied, setShareLinkCopied] = useState(false);
   const [quantity, setQuantity] = useState({ quantity: 1 });
+  const [listingData, setListingData] = useState({});
 
   const navigate = useNavigate();
   const params = useParams();
 
   useEffect(() => {
-    console.log(`quanting:${quantity}`);
+    console.log(`quantity: ${quantity}`);
     const fetchListing = async () => {
       const docRef = doc(db, "listings", params.listingId);
       const docSnap = await getDoc(docRef);
@@ -114,21 +115,23 @@ function Product({ userAddress }) {
 
     const getItem = async () => {
       const itemId = 1;
-      const web3 = new Web3(window.ethereum);
+      const web3 = new Web3(
+        new Web3.providers.HttpProvider(
+          "https://rinkeby.infura.io/v3/18c3956af9734c289bfed9eee03ee1a7"
+        )
+      );
       const M4SContract = new web3.eth.Contract(
         m4sAbi,
-        "0x0680A9396b1d54D1b2D393580E1B4BDB20f4D2F8");
-      
-      const itemInfo = await M4SContract.methods
-      .itemInfo(itemId)
-      .call();
-    
-      console.log(itemInfo['id']);
-      console.log(itemInfo['metadata']);
-      fetch(itemInfo['metadata'])
-          .then((response) => response.json())
-          .then((data) => console.log("This is your data: ", data));
+        "0x0680A9396b1d54D1b2D393580E1B4BDB20f4D2F8"
+      );
 
+      const itemInfo = await M4SContract.methods.itemInfo(itemId).call();
+
+      console.log(itemInfo["id"]);
+      console.log(itemInfo["metadata"]);
+      fetch(itemInfo["metadata"])
+        .then((response) => response.json())
+        .then((data) => setListingData(data));
     };
 
     const getOrdersBuyer = async () => {
@@ -149,7 +152,7 @@ function Product({ userAddress }) {
         console.log(object.get("itemId"));
         console.log(object.get("price"));
       }
-    }
+    };
 
     const getOrdersSeller = async () => {
       const serverUrl = "https://gu15uqsbipep.usemoralis.com:2053/server";
@@ -169,7 +172,7 @@ function Product({ userAddress }) {
         console.log(object.get("itemId"));
         console.log(object.get("price"));
       }
-    }
+    };
 
     fetchListing();
     fetchEthPrice();
@@ -179,7 +182,6 @@ function Product({ userAddress }) {
     getItem();
     getOrdersSeller();
     getOrdersBuyer();
-
   }, [navigate, params.listingId]);
 
   const onChange = (e) => {
@@ -208,7 +210,10 @@ function Product({ userAddress }) {
     const itemId = 1;
     //console.log((price));
     //console.log((window.ethPrice));
-    const orderPrice = (((listing.price * 10 ** 18) / window.ethPrice) * 10 ** 8)*quantity["quantity"];
+    const orderPrice =
+      ((listingData.price * 10 ** 18) / window.ethPrice) *
+      10 ** 8 *
+      quantity["quantity"];
     const slippage = (orderPrice * 100) / 10000;
 
     console.log(orderPrice);
@@ -266,8 +271,7 @@ function Product({ userAddress }) {
   //     console.log("Error uploading the file : ", err);
   //   }
   // };
-
-  console.log(quantity);
+  console.log(listingData);
   return (
     <>
       {loading ? (
@@ -275,29 +279,29 @@ function Product({ userAddress }) {
       ) : (
         <>
           <div>
-            <Link to={`/user/${listing.id}`}>
+            <Link to={`/user/${listingData.id}`}>
               <h2 className="text-xl font-bold ml-5 pt-4">
-                {`Creator : ${listing.id.substring(
+                {`Creator : ${listingData.id.substring(
                   0,
                   5
-                )}...${listing.id.substring(listing.id.length - 4)}`}
+                )}...${listingData.id.substring(listingData.id.length - 4)}`}
               </h2>
             </Link>
           </div>
           <div className="hero min-h-screen ">
             <div className="hero-content px-auto productImg flex-col lg:flex-row">
-              <img src={listing.imageUrl} alt="product" />
+              <img src={listingData.imageUrl} alt="product" />
               <div className="card-body mx-20 pl-20 items-center text-center">
                 <h1 className="text-5xl font-bold items-center">
-                  {listing.productName}
+                  {listingData.productName}
                 </h1>
                 <div>
                   <p className="text-2xl items-center py-3">Ratings</p>
                   <StarRating />
                 </div>
                 <p className="text-3xl font-bold mr-3 py-3">{`${
-                  listing.priceUnit === "USD" ? "$" : "€"
-                }${listing.price} ${listing.priceUnit}`}</p>
+                  listingData.priceUnit === "USD" ? "$" : "€"
+                }${listingData.price} ${listingData.priceUnit}`}</p>
                 <div
                   className="flex"
                   style={{
@@ -307,7 +311,7 @@ function Product({ userAddress }) {
                   <p className="text-2xl pb-8 ">
                     (
                     {(
-                      (((listing.price * 10 ** 18) / window.ethPrice) *
+                      (((listingData.price * 10 ** 18) / window.ethPrice) *
                         10 ** 8) /
                       10 ** 18
                     ).toFixed(3)}
@@ -344,7 +348,7 @@ function Product({ userAddress }) {
                   Buy Now!
                 </button>
                 <h2 className="pt-6 text-xl font-bold ">Product Description</h2>
-                <p className="py-6">{listing.description}</p>
+                <p className="py-6">{listingData.description}</p>
               </div>
             </div>
           </div>
