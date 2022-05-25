@@ -39,18 +39,6 @@ function Product({ userAddress }) {
     };
 
     const fetchEthPrice = async () => {
-      // const provider = new ethers.providers.JsonRpcProvider(
-      //   "https://rinkeby.infura.io/v3/18c3956af9734c289bfed9eee03ee1a7"
-      // );
-      // const addr = "0x8a037283fb181ee1bCEeCF1734E136C677fC2311";
-      // const priceFeed = new ethers.Contract(addr, m4sAbi, provider);
-      // // We get the data from the last round of the contract
-      // const chainLinkPrice = await priceFeed.getLatestPrice();
-      // const ethPrice = ethers.utils.formatEther(chainLinkPrice) * 10 ** 18;
-      // console.log(ethPrice);
-      // window.ethPrice = ethPrice;
-
-      // const web3 = new Web3(window.ethereum);
       const web3 = new Web3(
         new Web3.providers.HttpProvider(
           "https://rinkeby.infura.io/v3/18c3956af9734c289bfed9eee03ee1a7"
@@ -125,16 +113,6 @@ function Product({ userAddress }) {
     };
 
     const getItem = async () => {
-      /*
-      const provider = new ethers.providers.JsonRpcProvider(
-        "https://rinkeby.infura.io/v3/18c3956af9734c289bfed9eee03ee1a7"
-      );
-      const addr = "0x8a037283fb181ee1bCEeCF1734E136C677fC2311";
-      const m4sContract = new ethers.Contract(addr, m4sAbi, provider);
-      const itemId = 1;
-      const itemInfo = await m4sContract.itemInfo(itemId)[1];
-      console.log(itemInfo);
-      */
       const itemId = 1;
       const web3 = new Web3(window.ethereum);
       const M4SContract = new web3.eth.Contract(
@@ -147,6 +125,9 @@ function Product({ userAddress }) {
     
       console.log(itemInfo['id']);
       console.log(itemInfo['metadata']);
+      fetch(itemInfo['metadata'])
+          .then((response) => response.json())
+          .then((data) => console.log("This is your data: ", data));
 
     };
 
@@ -157,6 +138,7 @@ function Product({ userAddress }) {
       await Moralis.start({ serverUrl, appId, masterKey });
       const Item = Moralis.Object.extend("OrderCreatedBuyer");
       const query = new Moralis.Query(Item);
+      //replace my address with user's address
       const user = "0x5f5b7c5c23f2826b0fdc25d21944bceaf146fd78";
       query.equalTo("buyer", user);
       const results = await query.find();
@@ -176,6 +158,7 @@ function Product({ userAddress }) {
       await Moralis.start({ serverUrl, appId, masterKey });
       const Item = Moralis.Object.extend("OrderCreatedSeller");
       const query = new Moralis.Query(Item);
+      //replace my address with user's address
       const user = "0x5f5b7c5c23f2826b0fdc25d21944bceaf146fd78";
       query.equalTo("seller", user);
       const results = await query.find();
@@ -225,7 +208,7 @@ function Product({ userAddress }) {
     const itemId = 1;
     //console.log((price));
     //console.log((window.ethPrice));
-    const orderPrice = ((listing.price * 10 ** 18) / window.ethPrice) * 10 ** 8;
+    const orderPrice = (((listing.price * 10 ** 18) / window.ethPrice) * 10 ** 8)*quantity["quantity"];
     const slippage = (orderPrice * 100) / 10000;
 
     console.log(orderPrice);
