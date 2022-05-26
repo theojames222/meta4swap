@@ -23,7 +23,7 @@ function FeaturedProduct() {
         const query = new Moralis.Query(Item);
         query.equalTo("productType", "0");
         const results = await query.find();
-        console.log(results);
+        console.log(results.length);
         results.forEach(async (result) => {
           const metadata = result.get("metadata");
           const itemId = result.get("itemId");
@@ -43,7 +43,7 @@ function FeaturedProduct() {
 
     getProducts();
   }, []);
-  console.log(listings);
+
   return (
     <div className="category">
       {loading ? (

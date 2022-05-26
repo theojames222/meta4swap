@@ -15,6 +15,7 @@ function Create({ connected, userAddress }) {
     quantity: 1,
     price: 0,
     priceUnit: "USD",
+    telegram: "t.me/",
   });
   // const { productName, description, unit, quantity, price, imageLink } =
   //   formData;
@@ -51,6 +52,20 @@ function Create({ connected, userAddress }) {
   //   console.log(formData);
   // };
 
+  const onChange2 = (e) => {
+    if (e.target.id === "telegram") {
+      setFormData((prevState) => ({
+        ...prevState,
+        [e.target.id]: `t.me/${e.target.value}`,
+      }));
+    } else if (e.target.id === "discord") {
+      setFormData((prevState) => ({
+        ...prevState,
+        [e.target.id]: `https://discord.gg/${e.target.value}`,
+      }));
+    }
+  };
+  console.log(formData);
   return (
     <>
       <div className="content ">
@@ -167,7 +182,7 @@ function Create({ connected, userAddress }) {
               </label>
             </div>
             <div className="form-control">
-              <label className="input-group pb-20">
+              <label className="input-group pb-5">
                 <span className="formLabel6">Price</span>
                 <input
                   type="text"
@@ -186,6 +201,34 @@ function Create({ connected, userAddress }) {
                     <option>EUR</option>
                   </select>
                 </span>
+              </label>
+            </div>
+            <header className="mt-6">
+              <h2 className="smallHeader">{`Contact Info `}</h2>
+              <h4 className="pb-2">Only username required</h4>
+            </header>
+            <div className="form-control">
+              <label className="input-group pb-0.5">
+                <span className="formLabel7">Telegram</span>
+                <input
+                  type="text"
+                  placeholder="t.me/username"
+                  className="input input-bordered w-full"
+                  id="telegram"
+                  onChange={onChange2}
+                />
+              </label>
+            </div>
+            <div className="form-control">
+              <label className="input-group pb-0.5">
+                <span className="formLabel8">Discord</span>
+                <input
+                  type="text"
+                  placeholder="https://discord.gg/server"
+                  className="input input-bordered w-full"
+                  id="discord"
+                  onChange={onChange2}
+                />
               </label>
             </div>
           </form>

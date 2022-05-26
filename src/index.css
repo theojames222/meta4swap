@@ -140,6 +140,20 @@ nav {
   padding-left: 33px;
   justify-content: center;
 }
+.formLabel7 {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  padding-right: 23px;
+  padding-left: 23px;
+  justify-content: center;
+}
+.formLabel8 {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  padding-right: 30px;
+  padding-left: 29px;
+  justify-content: center;
+}
 .pageHeader {
   margin: auto;
   width: 35%;

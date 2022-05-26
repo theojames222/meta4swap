@@ -252,7 +252,7 @@ function Product({ userAddress }) {
     //UI eth price for Theo
     console.log(orderPrice / 10 ** 18);
 
-    M4SContract.methods.createOrder(window.itemId, quantity["quantity"]).send({
+    M4SContract.methods.createOrder(itemId, quantity["quantity"]).send({
       from: account,
       value: orderPrice + slippage,
     });
