@@ -1,45 +1,50 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { collection, getDocs, query, limit } from "firebase/firestore";
-import { db } from "../../firebase.config";
-import ListingItem from "../layout/ListingItem";
+import { useEffect, useState, useCallback } from "react";
 
+import ListingItem from "../layout/ListingItem";
+const Moralis = require("moralis");
 function Shop() {
-  const [listings, setListings] = useState(null);
+  const [listings, setListings] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const params = useParams();
+  const getAll = useCallback(async () => {
+    try {
+      let listingsAll = [];
+      const serverUrl = "https://gu15uqsbipep.usemoralis.com:2053/server";
+      const appId = "F28xSksEmA0YDFTQskgodpG3W5JSZK0uBm9Abnde";
+      const masterKey = "G5799rbYbzVEjmd9B2tFNfgX184JryV3ntW283dy";
+      await Moralis.start({ serverUrl, appId, masterKey });
+      const Item = Moralis.Object.extend("ItemCreated");
+      const query = new Moralis.Query(Item);
+      const results = await query.find();
+      await Promise.all(
+        results.map(async (item) => {
+          const metadata = item.get("metadata");
+          const itemId = item.get("itemId");
+          const ipfsURL = metadata;
+          const response = await fetch(ipfsURL)
+            .then((resp) => resp.json())
+            .then((response) => response);
+          listingsAll.push({ id: itemId, data: response });
+        })
+      );
+      setListings(listingsAll);
+      setLoading(false);
+    } catch (error) {
+      console.log("error");
+    }
+  }, [setLoading, setListings]);
+
   useEffect(() => {
-    const fetchListings = async () => {
-      try {
-        //Get reference
-        const listingsRef = collection(db, "listings");
+    getAll();
 
-        //Create a query
-        const q = query(listingsRef, limit(16));
-
-        //Execute query
-        const querySnap = await getDocs(q);
-
-        let listings = [];
-        querySnap.forEach((doc) => {
-          console.log(doc.data());
-          console.log(doc.id);
-          return listings.push({ id: doc.id, data: doc.data() });
-        });
-        setListings(listings);
-        setLoading(false);
-      } catch (error) {
-        console.log("error");
-      }
-    };
-    fetchListings();
     console.log(listings);
+    // console.log(listings);
+    setLoading(false);
   }, []);
 
   return (
     <>
-      <div className="category">
+      <div className="category mb-10">
         {loading ? (
           <h1>Loading...</h1>
         ) : listings && listings.length > 0 ? (
@@ -57,14 +62,13 @@ function Shop() {
             </main>
           </>
         ) : (
-          <p>No listings available for {params.categoryName}</p>
+          <p>No listings available</p>
         )}
       </div>
       {/* pagignation
       {/* navbar */}
       {/* sidebar with filters */}
       {/* grid */}
-      <div className="mt-4">SHOP</div>
     </>
   );
 }

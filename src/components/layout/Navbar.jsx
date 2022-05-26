@@ -2,13 +2,14 @@ import { Link } from "react-router-dom";
 import useWindowDimensions from "../hooks/useWindowDimensions";
 import Logo from "../assets/logo2.png";
 import accountIcon from "../assets/user-286 (1).svg";
+import { useParams } from "react-router-dom";
 // import { useParams } from "react-router-dom";
 
 function Navbar({ connected, userAddress }) {
   // eslint-disable-next-line no-unused-vars
   const { height, width } = useWindowDimensions();
   // const params = useParams();
-
+  const params = useParams();
   const isConnected = connected;
   const reloadPage = () => {
     window.location.reload();
@@ -48,13 +49,10 @@ function Navbar({ connected, userAddress }) {
             className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
           >
             <li>
-              <a href="/category/product">Products</a>
+              <a href="/category/products">Products</a>
             </li>
             <li>
-              <a href="/category/service">Services</a>
-            </li>
-            <li>
-              <Link to="/shop">Shop All</Link>
+              <a href="/category/services">Services</a>
             </li>
           </ul>
         </div>

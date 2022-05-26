@@ -1,25 +1,21 @@
 import React from "react";
 import { useEffect, useState, useCallback } from "react";
-import { useParams } from "react-router-dom";
-// import { collection, getDocs, query, where, limit } from "firebase/firestore";
-// import { db } from "../../firebase.config";
 import ListingItem from "../layout/ListingItem";
 const Moralis = require("moralis");
-function CategoryProducts() {
+function CategoryService() {
   const [listings, setListings] = useState([]);
   const [loading, setLoading] = useState(true);
-  const params = useParams();
 
-  const getProducts = useCallback(async () => {
+  const getServices = useCallback(async () => {
     try {
-      let products = [];
+      let services = [];
       const serverUrl = "https://gu15uqsbipep.usemoralis.com:2053/server";
       const appId = "F28xSksEmA0YDFTQskgodpG3W5JSZK0uBm9Abnde";
       const masterKey = "G5799rbYbzVEjmd9B2tFNfgX184JryV3ntW283dy";
       await Moralis.start({ serverUrl, appId, masterKey });
       const Item = Moralis.Object.extend("ItemCreated");
       const query = new Moralis.Query(Item);
-      query.equalTo("productType", "0");
+      query.equalTo("productType", "1");
       const results = await query.find();
       await Promise.all(
         results.map(async (item) => {
@@ -29,10 +25,10 @@ function CategoryProducts() {
           const response = await fetch(ipfsURL)
             .then((resp) => resp.json())
             .then((response) => response);
-          products.push({ id: itemId, data: response });
+          services.push({ id: itemId, data: response });
         })
       );
-      setListings(products);
+      setListings(services);
       setLoading(false);
     } catch (error) {
       console.log("error");
@@ -40,7 +36,7 @@ function CategoryProducts() {
   }, [setLoading, setListings]);
 
   useEffect(() => {
-    getProducts();
+    getServices();
 
     console.log(listings);
     // console.log(listings);
@@ -73,4 +69,4 @@ function CategoryProducts() {
   );
 }
 
-export default CategoryProducts;
+export default CategoryService;

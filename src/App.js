@@ -14,6 +14,7 @@ import Transactions from "./components/pages/Transactions";
 import Web3 from "web3/dist/web3.min.js";
 import m4sAbi from "./abi/m4s_abi.json";
 import CategoryProducts from "./components/pages/CategoryProducts";
+import CategoryService from "./components/pages/CategoryService";
 // async function connect(onConnected) {
 //   if (!window.ethereum) {
 //     alert("Get MetaMask!");
@@ -81,10 +82,8 @@ function App() {
         <main>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route
-              path="/category/:categoryName"
-              element={<CategoryProducts />}
-            />
+            <Route path="/category/products" element={<CategoryProducts />} />
+            <Route path="/category/services" element={<CategoryService />} />
             <Route
               path="/create"
               element={
@@ -97,7 +96,10 @@ function App() {
               element={<Product userAddress={userAddress} />}
             />
             <Route path="/order" element={<Order />} />
-            <Route path="/user/:userId" element={<UserPage />} />
+            <Route
+              path="/user/:userId"
+              element={<Order userAddress={userAddress} />}
+            />
             <Route
               path="/transactions/:userId"
               element={<Transactions userAddress={userAddress} />}
