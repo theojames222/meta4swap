@@ -15,9 +15,6 @@ import { v4 as uuidv4 } from "uuid";
 const Moralis = require("moralis");
 
 function Product({ userAddress }) {
-
-  window.itemId = ""; //number added to meta4swap.com/{itemId}. So if URL is meta4swap.com/5, then itemId=5
-
   const ethSym = <img className="eth" src={eth} alt="eth" />;
   const [listing, setListing] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -27,20 +24,20 @@ function Product({ userAddress }) {
 
   const navigate = useNavigate();
   const params = useParams();
+  let itemId = params.listingId;
 
   useEffect(() => {
     console.log(`quantity: ${quantity}`);
-    const fetchListing = async () => {
-      const docRef = doc(db, "listings", params.listingId);
-      const docSnap = await getDoc(docRef);
+    // const fetchListing = async () => {
+    //   const docRef = doc(db, "listings", params.listingId);
+    //   const docSnap = await getDoc(docRef);
 
-      if (docSnap.exists()) {
-        console.log(docSnap.data());
+    //   if (docSnap.exists()) {
+    //     console.log(docSnap.data());
 
-        setListing(docSnap.data());
-        setLoading(false);
-      }
-    };
+    //     setListing(docSnap.data());
+    //   }
+    // };
 
     const fetchEthPrice = async () => {
       const web3 = new Web3(
@@ -57,84 +54,84 @@ function Product({ userAddress }) {
 
       console.log(ethPrice);
       window.ethPrice = ethPrice;
+      // setLoading(false);
     };
 
-    const getUserItems = async () => {
-      const serverUrl = "https://gu15uqsbipep.usemoralis.com:2053/server";
-      const appId = "F28xSksEmA0YDFTQskgodpG3W5JSZK0uBm9Abnde";
-      const masterKey = "G5799rbYbzVEjmd9B2tFNfgX184JryV3ntW283dy";
-      await Moralis.start({ serverUrl, appId, masterKey });
-      const Item = Moralis.Object.extend("ItemCreated");
-      const query = new Moralis.Query(Item);
-      //replace my address with user's address
-      query.equalTo("creator", "0x5f5b7c5c23f2826b0fdc25d21944bceaf146fd78");
-      const results = await query.find();
-      console.log(results.length);
-      for (let i = 0; i < results.length; i++) {
-        const object = results[i];
-        console.log(object.get("metadata"));
-        console.log(object.get("itemId"));
-        const ipfsURL =
-          "https://ipfs.infura.io/ipfs/QmcGaApMPcm7PPGNtFQYmdiNKkpANitFc1VTPStkQp843x";
-        fetch(ipfsURL)
-          .then((response) => response.json())
-          .then((data) => console.log("This is your data: ", data));
-      }
-    };
+    // const getUserItems = async () => {
+    //   const serverUrl = "https://gu15uqsbipep.usemoralis.com:2053/server";
+    //   const appId = "F28xSksEmA0YDFTQskgodpG3W5JSZK0uBm9Abnde";
+    //   const masterKey = "G5799rbYbzVEjmd9B2tFNfgX184JryV3ntW283dy";
+    //   await Moralis.start({ serverUrl, appId, masterKey });
+    //   const Item = Moralis.Object.extend("ItemCreated");
+    //   const query = new Moralis.Query(Item);
+    //   //replace my address with user's address
+    //   query.equalTo("creator", "0x5f5b7c5c23f2826b0fdc25d21944bceaf146fd78");
+    //   const results = await query.find();
+    //   console.log(results.length);
+    //   for (let i = 0; i < results.length; i++) {
+    //     const object = results[i];
+    //     console.log(object.get("metadata"));
+    //     console.log(object.get("itemId"));
+    //     const ipfsURL =
+    //       "https://ipfs.infura.io/ipfs/QmcGaApMPcm7PPGNtFQYmdiNKkpANitFc1VTPStkQp843x";
+    //     fetch(ipfsURL)
+    //       .then((response) => response.json())
+    //       .then((data) => console.log("This is your data: ", data));
+    //   }
+    // };
 
-    const getProducts = async () => {
-      const serverUrl = "https://gu15uqsbipep.usemoralis.com:2053/server";
-      const appId = "F28xSksEmA0YDFTQskgodpG3W5JSZK0uBm9Abnde";
-      const masterKey = "G5799rbYbzVEjmd9B2tFNfgX184JryV3ntW283dy";
-      await Moralis.start({ serverUrl, appId, masterKey });
-      const Item = Moralis.Object.extend("ItemCreated");
-      const query = new Moralis.Query(Item);
-      query.equalTo("productType", "0");
-      const results = await query.find();
-      console.log(results.length);
-      for (let i = 0; i < results.length; i++) {
-        const object = results[i];
-        console.log(object.get("metadata"));
-        console.log(object.get("itemId"));
-      }
-    };
+    // const getProducts = async () => {
+    //   const serverUrl = "https://gu15uqsbipep.usemoralis.com:2053/server";
+    //   const appId = "F28xSksEmA0YDFTQskgodpG3W5JSZK0uBm9Abnde";
+    //   const masterKey = "G5799rbYbzVEjmd9B2tFNfgX184JryV3ntW283dy";
+    //   await Moralis.start({ serverUrl, appId, masterKey });
+    //   const Item = Moralis.Object.extend("ItemCreated");
+    //   const query = new Moralis.Query(Item);
+    //   query.equalTo("productType", "0");
+    //   const results = await query.find();
+    //   console.log(results.length);
+    //   for (let i = 0; i < results.length; i++) {
+    //     const object = results[i];
+    //     console.log(object.get("metadata"));
+    //     console.log(object.get("itemId"));
+    //   }
+    // };
 
-    const getServices = async () => {
-      const serverUrl = "https://gu15uqsbipep.usemoralis.com:2053/server";
-      const appId = "F28xSksEmA0YDFTQskgodpG3W5JSZK0uBm9Abnde";
-      const masterKey = "G5799rbYbzVEjmd9B2tFNfgX184JryV3ntW283dy";
-      await Moralis.start({ serverUrl, appId, masterKey });
-      const Item = Moralis.Object.extend("ItemCreated");
-      const query = new Moralis.Query(Item);
-      query.equalTo("productType", "1");
-      const results = await query.find();
-      console.log(results.length);
-      for (let i = 0; i < results.length; i++) {
-        const object = results[i];
-        console.log(object.get("metadata"));
-        console.log(object.get("itemId"));
-      }
-    };
+    // const getServices = async () => {
+    //   const serverUrl = "https://gu15uqsbipep.usemoralis.com:2053/server";
+    //   const appId = "F28xSksEmA0YDFTQskgodpG3W5JSZK0uBm9Abnde";
+    //   const masterKey = "G5799rbYbzVEjmd9B2tFNfgX184JryV3ntW283dy";
+    //   await Moralis.start({ serverUrl, appId, masterKey });
+    //   const Item = Moralis.Object.extend("ItemCreated");
+    //   const query = new Moralis.Query(Item);
+    //   query.equalTo("productType", "1");
+    //   const results = await query.find();
+    //   console.log(results.length);
+    //   for (let i = 0; i < results.length; i++) {
+    //     const object = results[i];
+    //     console.log(object.get("metadata"));
+    //     console.log(object.get("itemId"));
+    //   }
+    // };
 
-    const getAllItems = async () => {
-      const serverUrl = "https://gu15uqsbipep.usemoralis.com:2053/server";
-      const appId = "F28xSksEmA0YDFTQskgodpG3W5JSZK0uBm9Abnde";
-      const masterKey = "G5799rbYbzVEjmd9B2tFNfgX184JryV3ntW283dy";
-      await Moralis.start({ serverUrl, appId, masterKey });
-      const Item = Moralis.Object.extend("ItemCreated");
-      const query = new Moralis.Query(Item);
-      const results = await query.find();
-      console.log(results.length);
-      for (let i = 0; i < results.length; i++) {
-        const object = results[i];
-        console.log(object.get("metadata"));
-        console.log(object.get("itemId"));
-      }
-    };
+    // const getAllItems = async () => {
+    //   const serverUrl = "https://gu15uqsbipep.usemoralis.com:2053/server";
+    //   const appId = "F28xSksEmA0YDFTQskgodpG3W5JSZK0uBm9Abnde";
+    //   const masterKey = "G5799rbYbzVEjmd9B2tFNfgX184JryV3ntW283dy";
+    //   await Moralis.start({ serverUrl, appId, masterKey });
+    //   const Item = Moralis.Object.extend("ItemCreated");
+    //   const query = new Moralis.Query(Item);
+    //   const results = await query.find();
+    //   console.log(results.length);
+    //   for (let i = 0; i < results.length; i++) {
+    //     const object = results[i];
+    //     console.log(object.get("metadata"));
+    //     console.log(object.get("itemId"));
+    //   }
+    // };
 
     const getItem = async () => {
-<<<<<<< HEAD
-      const itemId = 1;
+      // const itemId = 1;
       const web3 = new Web3(
         new Web3.providers.HttpProvider(
           "https://rinkeby.infura.io/v3/18c3956af9734c289bfed9eee03ee1a7"
@@ -144,23 +141,16 @@ function Product({ userAddress }) {
         m4sAbi,
         "0x0680A9396b1d54D1b2D393580E1B4BDB20f4D2F8"
       );
-=======
       //const itemId = 1;
-      const web3 = new Web3(window.ethereum);
-      const M4SContract = new web3.eth.Contract(
-        m4sAbi,
-        "0x0680A9396b1d54D1b2D393580E1B4BDB20f4D2F8");
-      
-      const itemInfo = await M4SContract.methods
-      .itemInfo(window.itemId)
-      .call();
-    
-      console.log(itemInfo['id']);
-      console.log(itemInfo['metadata']);
-      fetch(itemInfo['metadata'])
-          .then((response) => response.json())
-          .then((data) => console.log("This is your data: ", data));
->>>>>>> 1e9b126dd16f818a1ee65f2744cf6f0531c2333e
+      // const itemInfo = await M4SContract.methods
+      // .itemInfo(window.itemId)
+      // .call();
+
+      // console.log(itemInfo['id']);
+      // console.log(itemInfo['metadata']);
+      // fetch(itemInfo['metadata'])
+      //     .then((response) => response.json())
+      //     .then((data) => console.log("This is your data: ", data));
 
       const itemInfo = await M4SContract.methods.itemInfo(itemId).call();
 
@@ -168,62 +158,62 @@ function Product({ userAddress }) {
       console.log(itemInfo["metadata"]);
       fetch(itemInfo["metadata"])
         .then((response) => response.json())
-        .then((data) => setListingData(data));
+        .then((data) => {
+          setListingData(data);
+          setLoading(false);
+        });
+      // setLoading(false);
     };
 
-    const getOrdersBuyer = async () => {
-      const serverUrl = "https://gu15uqsbipep.usemoralis.com:2053/server";
-      const appId = "F28xSksEmA0YDFTQskgodpG3W5JSZK0uBm9Abnde";
-      const masterKey = "G5799rbYbzVEjmd9B2tFNfgX184JryV3ntW283dy";
-      await Moralis.start({ serverUrl, appId, masterKey });
-      const Item = Moralis.Object.extend("OrderCreatedBuyer");
-      const query = new Moralis.Query(Item);
-      //replace my address with user's address
-      const user = "0x5f5b7c5c23f2826b0fdc25d21944bceaf146fd78";
-      query.equalTo("buyer", user);
-      const results = await query.find();
-      console.log(results.length);
-      for (let i = 0; i < results.length; i++) {
-        const object = results[i];
-        console.log(object.get("orderId"));
-        console.log(object.get("itemId"));
-        console.log(object.get("price"));
-      }
-    };
+    // const getOrdersBuyer = async () => {
+    //   const serverUrl = "https://gu15uqsbipep.usemoralis.com:2053/server";
+    //   const appId = "F28xSksEmA0YDFTQskgodpG3W5JSZK0uBm9Abnde";
+    //   const masterKey = "G5799rbYbzVEjmd9B2tFNfgX184JryV3ntW283dy";
+    //   await Moralis.start({ serverUrl, appId, masterKey });
+    //   const Item = Moralis.Object.extend("OrderCreatedBuyer");
+    //   const query = new Moralis.Query(Item);
+    //   //replace my address with user's address
+    //   const user = "0x5f5b7c5c23f2826b0fdc25d21944bceaf146fd78";
+    //   query.equalTo("buyer", user);
+    //   const results = await query.find();
+    //   console.log(results.length);
+    //   for (let i = 0; i < results.length; i++) {
+    //     const object = results[i];
+    //     console.log(object.get("orderId"));
+    //     console.log(object.get("itemId"));
+    //     console.log(object.get("price"));
+    //   }
+    // };
 
-    const getOrdersSeller = async () => {
-      const serverUrl = "https://gu15uqsbipep.usemoralis.com:2053/server";
-      const appId = "F28xSksEmA0YDFTQskgodpG3W5JSZK0uBm9Abnde";
-      const masterKey = "G5799rbYbzVEjmd9B2tFNfgX184JryV3ntW283dy";
-      await Moralis.start({ serverUrl, appId, masterKey });
-      const Item = Moralis.Object.extend("OrderCreatedSeller");
-      const query = new Moralis.Query(Item);
-      //replace my address with user's address
-      const user = "0x5f5b7c5c23f2826b0fdc25d21944bceaf146fd78";
-      query.equalTo("seller", user);
-      const results = await query.find();
-      console.log(results.length);
-      for (let i = 0; i < results.length; i++) {
-        const object = results[i];
-        console.log(object.get("orderId"));
-        console.log(object.get("itemId"));
-        console.log(object.get("price"));
-      }
-    };
+    // const getOrdersSeller = async () => {
+    //   const serverUrl = "https://gu15uqsbipep.usemoralis.com:2053/server";
+    //   const appId = "F28xSksEmA0YDFTQskgodpG3W5JSZK0uBm9Abnde";
+    //   const masterKey = "G5799rbYbzVEjmd9B2tFNfgX184JryV3ntW283dy";
+    //   await Moralis.start({ serverUrl, appId, masterKey });
+    //   const Item = Moralis.Object.extend("OrderCreatedSeller");
+    //   const query = new Moralis.Query(Item);
+    //   //replace my address with user's address
+    //   const user = "0x5f5b7c5c23f2826b0fdc25d21944bceaf146fd78";
+    //   query.equalTo("seller", user);
+    //   const results = await query.find();
+    //   console.log(results.length);
+    //   for (let i = 0; i < results.length; i++) {
+    //     const object = results[i];
+    //     console.log(object.get("orderId"));
+    //     console.log(object.get("itemId"));
+    //     console.log(object.get("price"));
+    //   }
+    // };
 
-    fetchListing();
+    // fetchListing();
     fetchEthPrice();
-    getUserItems();
-    getProducts();
-    getServices();
+    // getUserItems();
+    // getProducts();
+    // getServices();
     getItem();
-    getOrdersSeller();
-    getOrdersBuyer();
-<<<<<<< HEAD
-=======
-    getAllItems();
-
->>>>>>> 1e9b126dd16f818a1ee65f2744cf6f0531c2333e
+    // getOrdersSeller();
+    // getOrdersBuyer();
+    // getAllItems();
   }, [navigate, params.listingId]);
 
   const onChange = (e) => {

@@ -10,7 +10,8 @@ import Category from "./components/pages/Category";
 import { useState, useEffect } from "react";
 import UserPage from "./components/pages/UserPage";
 import Transactions from "./components/pages/Transactions";
-
+import Web3 from "web3/dist/web3.min.js";
+import m4sAbi from "./abi/m4s_abi.json";
 // async function connect(onConnected) {
 //   if (!window.ethereum) {
 //     alert("Get MetaMask!");
@@ -38,12 +39,30 @@ async function checkIfWalletIsConnected(onConnected) {
   }
 }
 
+const fetchEthPrice = async () => {
+  const web3 = new Web3(
+    new Web3.providers.HttpProvider(
+      "https://rinkeby.infura.io/v3/18c3956af9734c289bfed9eee03ee1a7"
+    )
+  );
+  const M4SContract = new web3.eth.Contract(
+    m4sAbi,
+    "0x0680A9396b1d54D1b2D393580E1B4BDB20f4D2F8"
+  );
+
+  const ethPrice = await M4SContract.methods.getLatestPrice().call();
+
+  console.log(ethPrice);
+  window.ethPrice = ethPrice;
+};
+
 function App() {
   const [userAddress, setUserAddress] = useState("");
   const [connected, setConnected] = useState(false);
 
   useEffect(() => {
     checkIfWalletIsConnected(setUserAddress);
+    fetchEthPrice();
   }, []);
 
   useEffect(() => {

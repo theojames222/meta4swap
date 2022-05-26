@@ -6,6 +6,7 @@ function ListingItem({ listing, id }) {
   const ethSym = <img className="eth" src={eth} alt="eth" />;
 
   console.log(listing.imageUrl);
+  console.log(id);
   return (
     <>
       <div className="container-sm justify-center" style={{ display: "flex" }}>
