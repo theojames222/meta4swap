@@ -2,6 +2,7 @@ import Hero from "../layout/Hero";
 import Content from "../layout/Content";
 import FeaturedProduct from "../layout/FeaturedProduct";
 import FeaturedService from "../layout/FeaturedService";
+<<<<<<< HEAD
 // import { useState, useEffect } from "react";
 // // import Explore from "../layout/Explore";
 // const Moralis = require("moralis");
@@ -65,6 +66,13 @@ function Home() {
       <Hero />
       {/* <Explore /> */}
       <FeaturedProduct />
+=======
+function Home() {
+  return (
+    <>
+      <Hero />
+      <FeaturedProduct/>
+>>>>>>> 63811d5e6f2029d0c3c186ed069a67ea00275681
       <FeaturedService />
       <Content />
     </>
