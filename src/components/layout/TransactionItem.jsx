@@ -4,7 +4,7 @@ const TransactionItem = ({ transaction, id, listings }) => {
   const [item, setItem] = useState(null);
 
   useEffect(() => {
-    console.log(listings);
+    // console.log(listings);
     const currentListing = listings
       .filter((listing) => listing.id === transaction.listing)
       .map((filteredListing) => filteredListing);
@@ -48,38 +48,27 @@ const TransactionItem = ({ transaction, id, listings }) => {
                   <input type="checkbox" className="checkbox" />
                 </label>
               </th>
+
               <td>
-                {`${id.substring(0, 5)}...${id.substring(id.length - 4)}`}
-                <br />
-                <span className="badge badge-ghost badge-sm">
-                  {transaction.status}
-                </span>
-              </td>
-              <td>
-                <div className="flex items-center space-x-3">
-                  <div className="avatar">
-                    <div className="mask mask-squircle w-12 h-12">
-                      <img
-                        src="https://api.lorem.space/image/shoes?w=400&h=225"
-                        alt="Avatar Tailwind CSS Component"
-                      />
-                    </div>
-                  </div>
+                <div className="flex ">
                   <div>
-                    <div className="font-bold">Product Name</div>
+                    <div className="font-bold">Item Id</div>
                     <div className="text-sm opacity-50">Date</div>
                   </div>
                 </div>
               </td>
-
+              <td>
+                {`${id.substring(0, 5)}...${id.substring(id.length - 4)}`}
+                <br />
+              </td>
               <td>
                 {" "}
                 <div>
                   <div className="font-bold">$100</div>
-                  <div className="text-sm opacity-50">Order Price eth</div>
+                  <div className="text-sm opacity-50">{`(0.051 avax)`}</div>
                 </div>
               </td>
-              <th>
+              <th className="px-1">
                 {/* <button className="btn btn-ghost btn-xs">Actions Modal</button> */}
                 <ul className="menu menu-compact ">
                   <li>

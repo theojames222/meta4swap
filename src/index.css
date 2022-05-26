@@ -52,6 +52,27 @@ nav {
   height: 20px;
   margin: auto;
 }
+.logoContact2 {
+  display: flex;
+  height: 33px;
+  margin: auto;
+  margin-top: 5px;
+  padding: 2px;
+}
+.logoContact1 {
+  display: flex;
+  height: 43px;
+  margin: auto;
+  padding: 2px;
+}
+.logoContact3 {
+  display: flex;
+  height: 30px;
+  margin: auto;
+  margin-top: 5px;
+  padding: 2px;
+  padding-left: 12px;
+}
 .homeHeader2 {
   text-align: center;
 }
@@ -143,7 +164,7 @@ nav {
 .formLabel7 {
   font-family: "Montserrat", sans-serif;
   font-weight: 500;
-  padding-right: 23px;
+  padding-right: 22px;
   padding-left: 23px;
   justify-content: center;
 }
@@ -154,6 +175,23 @@ nav {
   padding-left: 29px;
   justify-content: center;
 }
+
+.formLabel9 {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  padding-right: 17px;
+  padding-left: 18px;
+  justify-content: center;
+}
+
+.formLabel10 {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  padding-right: 5px;
+  padding-left: 5px;
+  justify-content: center;
+}
+
 .pageHeader {
   margin: auto;
   width: 35%;

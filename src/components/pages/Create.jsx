@@ -16,6 +16,8 @@ function Create({ connected, userAddress }) {
     price: 0,
     priceUnit: "USD",
     telegram: "t.me/",
+    discord: "https://discord.gg/",
+    whatsapp: "https://wa.me/",
   });
   // const { productName, description, unit, quantity, price, imageLink } =
   //   formData;
@@ -62,6 +64,11 @@ function Create({ connected, userAddress }) {
       setFormData((prevState) => ({
         ...prevState,
         [e.target.id]: `https://discord.gg/${e.target.value}`,
+      }));
+    } else if (e.target.id === "whatsapp") {
+      setFormData((prevState) => ({
+        ...prevState,
+        [e.target.id]: `https://wa.me/${e.target.value}`,
       }));
     }
   };
@@ -192,14 +199,7 @@ function Create({ connected, userAddress }) {
                   onChange={onChange}
                 />
                 <span>
-                  <select
-                    className="select select-ghost max-w-xs"
-                    onChange={onChange}
-                    id="priceUnit"
-                  >
-                    <option>USD</option>
-                    <option>EUR</option>
-                  </select>
+                  <label className="formLabel10">USD</label>
                 </span>
               </label>
             </div>
@@ -227,6 +227,18 @@ function Create({ connected, userAddress }) {
                   placeholder="https://discord.gg/server"
                   className="input input-bordered w-full"
                   id="discord"
+                  onChange={onChange2}
+                />
+              </label>
+            </div>
+            <div className="form-control">
+              <label className="input-group pb-10">
+                <span className="formLabel9">WhatsApp</span>
+                <input
+                  type="text"
+                  placeholder="https://wa.me/123456789"
+                  className="input input-bordered w-full"
+                  id="whatsapp"
                   onChange={onChange2}
                 />
               </label>

@@ -1,4 +1,4 @@
-import eth from "../assets/Ethereum-Symbol.png";
+import avalanche from "../assets/avalanche-avax-logo.png";
 // import { FaStar } from "react-icons/fa";
 import StarRating from "../actions/StarRating";
 import { useEffect, useState } from "react";
@@ -15,7 +15,7 @@ import { v4 as uuidv4 } from "uuid";
 const Moralis = require("moralis");
 
 function Product({ userAddress }) {
-  const ethSym = <img className="eth" src={eth} alt="eth" />;
+  const avSym = <img className="eth" src={avalanche} alt="avalanche" />;
   const [listing, setListing] = useState(null);
   const [loading, setLoading] = useState(true);
   // const [shareLinkCopied, setShareLinkCopied] = useState(false);
@@ -346,8 +346,8 @@ function Product({ userAddress }) {
                       (((listingData.price * 10 ** 18) / window.ethPrice) *
                         10 ** 8) /
                       10 ** 18
-                    ).toFixed(3)}
-                    {ethSym})
+                    ).toFixed(3)}{" "}
+                    {avSym})
                   </p>
                 </div>
                 <div

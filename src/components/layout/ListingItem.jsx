@@ -1,9 +1,10 @@
 import React from "react";
-import eth from "../assets/Ethereum-Symbol.png";
+
+import avalanche from "../assets/avalanche-avax-logo.png";
 import { Link } from "react-router-dom";
 
 function ListingItem({ listing, id }) {
-  const ethSym = <img className="eth" src={eth} alt="eth" />;
+  const avgSym = <img className="eth" src={avalanche} alt="avalanche" />;
 
   console.log(listing.imageUrl);
   console.log(id);
@@ -36,8 +37,8 @@ function ListingItem({ listing, id }) {
                       (((listing.price * 10 ** 18) / window.ethPrice) *
                         10 ** 8) /
                       10 ** 18
-                    ).toFixed(3)}
-                    {ethSym})
+                    ).toFixed(3)}{" "}
+                    {avgSym})
                   </p>
                 </div>
               </div>

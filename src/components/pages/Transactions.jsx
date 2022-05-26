@@ -101,15 +101,16 @@ function Transactions({ userAddress }) {
           <div className="overflow-x-auto w-full">
             <thead className="table w-full">
               <tr>
-                <th>
+                <th className="align-center">
                   <label>
                     <input type="checkbox" className="checkbox" />
                   </label>
                 </th>
+
+                <th>Item Id.</th>
                 <th>Order No.</th>
-                <th>Item</th>
-                <th>Price</th>
-                <th>Actions</th>
+                <th className="px-10">Price</th>
+                <th className="px-7">Actions</th>
               </tr>
             </thead>
           </div>

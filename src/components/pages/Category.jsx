@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { collection, getDocs, query, where, limit } from "firebase/firestore";
 import { db } from "../../firebase.config";
 import ListingItem from "../layout/ListingItem";
+
 function Category() {
   const [listings, setListings] = useState(null);
   const [loading, setLoading] = useState(true);

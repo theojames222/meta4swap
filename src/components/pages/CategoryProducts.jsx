@@ -1,16 +1,14 @@
 import React from "react";
-import Headlines from "./Headlines";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+// import { collection, getDocs, query, where, limit } from "firebase/firestore";
+// import { db } from "../../firebase.config";
 import ListingItem from "../layout/ListingItem";
-import { v4 as uuidv4 } from "uuid";
-
 const Moralis = require("moralis");
-
-function FeaturedProduct() {
+function CategoryProducts() {
   const [listings, setListings] = useState(null);
   const [loading, setLoading] = useState(true);
-
+  const [d, setD] = useState([]);
   let productsData = [];
   const params = useParams();
   useEffect(() => {
@@ -25,16 +23,23 @@ function FeaturedProduct() {
         query.equalTo("productType", "0");
         const results = await query.find();
         console.log(results.length);
-        results.forEach(async (result) => {
-          const metadata = result.get("metadata");
-          const itemId = result.get("itemId");
-          const ipfsURL = metadata;
-          const response = await fetch(ipfsURL);
-          const data = await response.json();
-          console.log(data);
-          return productsData.push({ id: itemId, data: data });
-        });
-
+        console.log(results);
+        let r = [results];
+        console.log(r);
+        r.forEach();
+        // results.forEach(async (result) => {
+        //   const metadata = result.get("metadata");
+        //   const itemId = result.get("itemId");
+        //   const ipfsURL = metadata;
+        //   const response = await fetch(ipfsURL);
+        //   console.log(response);
+        //   const data = await response.json();
+        //   console.log(data);
+        //   console.log(typeof data);
+        //   return productsData.push({ id: itemId, data: data });
+        // });
+        // // console.log(productsData);
+        // setListings(productsData);
         // for(let i=0;results.length <i; i++)
 
         // results.forEach(async (result) => {
@@ -55,55 +60,32 @@ function FeaturedProduct() {
         console.log("error");
       }
     };
-
     getProducts();
-    setListings(productsData);
-    console.log(listings);
-    // console.log(listings);
-    setLoading(false);
   }, []);
-  // console.log(productsData);
-  // console.log(listings);
+  //   console.log(listings);
   return (
-    <div className="category">
+    <div className="category mb-10">
       {loading ? (
         <h1>Loading...</h1>
-      ) : listings && listings.length !== 0 ? (
+      ) : listings && listings.length > 0 ? (
         <>
-          <Headlines text="Featured Products" content="Latest products" />
-          <div
-            className="container items-center mx-auto "
-            style={{
-              display: "flex",
-              alignItems: "center",
-              // width: { width },
-              justifyContent: "space-between",
-            }}
-          >
-            <div className="grid grid-cols-1 gap-8 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2">
+          <main className="pt-10">
+            <ul className="grid grid-cols-1 gap-8 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2">
               {listings.map((listing) => (
                 <ListingItem
                   listing={listing.data}
                   id={listing.id}
                   key={listing.id}
                 />
-              ))}{" "}
-              {/* <ItemCard />
-            <ItemCard />
-            <ItemCard />
-            <ItemCard /> */}
-            </div>
-          </div>
+              ))}
+            </ul>
+          </main>
         </>
       ) : (
-        <p>No listings available for {listings.length}</p>
+        <p>No listings available for Products</p>
       )}
     </div>
   );
 }
 
-export default FeaturedProduct;
-
-// if(loading){
-//   <h1>Loading...</h1>
-// }else if(listings && listings.length >0)
+export default CategoryProducts;

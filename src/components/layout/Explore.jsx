@@ -25,7 +25,7 @@ function Explore() {
               <h1 className="card-title">Products</h1>
             </div>
           </div> */}
-          <Link className="flex px-10" to="/category/product">
+          <Link className="flex px-10" to="/home">
             <div className="card w-full bg-base-100 shadow-xl image-full mx-auto">
               <figure className="">
                 <img src={productCategoryImage} alt="Img" />
@@ -35,7 +35,7 @@ function Explore() {
               </div>
             </div>
           </Link>
-          <Link className="flex px-10" to="/category/service">
+          <Link className="flex px-10" to="/home">
             <div className="card w-full bg-base-200 shadow-xl image-full mx-auto ">
               <figure className="">
                 <img src={servicesCategoryImage} alt="Img" />

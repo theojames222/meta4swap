@@ -44,7 +44,7 @@ function Navbar({ connected, userAddress }) {
             </Link>
           </button>
           <ul
-            tabindex="0"
+            tabIndex="0"
             className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
           >
             <li>

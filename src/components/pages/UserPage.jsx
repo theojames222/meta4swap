@@ -1,4 +1,7 @@
 import React from "react";
+import whatsapp from "../assets/whatsapp.png";
+import discord from "../assets/discord.png";
+import telegram from "../assets/telegram.png";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { collection, getDocs, query, where, limit } from "firebase/firestore";
@@ -7,6 +10,16 @@ import ListingItem from "../layout/ListingItem";
 // import { Link } from "react-router-dom";
 
 function UserPage() {
+  const whatsappSym = (
+    <img className="logoContact1" src={whatsapp} alt="whatsapp" />
+  );
+  const discordSym = (
+    <img className="logoContact2" src={discord} alt="discord" />
+  );
+  const telegramSym = (
+    <img className="logoContact3" src={telegram} alt="telegram" />
+  );
+
   const [listings, setListings] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -65,12 +78,26 @@ function UserPage() {
               <Link to="/transactions">Transactions</Link>
             </div> */}
           </header>
+
           <header className="infoHeader">
             <div>
               <h1 className="  text-2xl homeHeader">User Store</h1>
             </div>
             <div>
               <h2 className=" text-xl font-bold">{params.userId}</h2>
+            </div>
+          </header>
+          <header className="infoHeader">
+            <div>
+              <h1 className="  text-lg homeHeader">Contact</h1>
+            </div>
+            <div className="flex">
+              {/* Validate this data before presenting */}
+              <a href="https://faq.whatsapp.com/iphone/how-to-link-to-whatsapp-from-a-different-app/?lang=en">
+                {whatsappSym}
+              </a>
+              <div>{discordSym}</div>
+              <div>{telegramSym}</div>
             </div>
           </header>
           <main className="pt-10">
