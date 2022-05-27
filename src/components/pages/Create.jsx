@@ -42,6 +42,13 @@ function Create({ connected, userAddress }) {
     }));
   };
 
+  const onChange3 = (e) => {
+    if (e.target.id === "productName" && e.target.value.trim().length >= 3) {
+      console.log("productName");
+    } else {
+      console.log("not yet");
+    }
+  };
   // const handleInputImageChange = (e) => {
   //   if (imageUrl === "") {
   //     setbtnDisabled(true);
@@ -100,7 +107,7 @@ function Create({ connected, userAddress }) {
                   placeholder="Name of Product"
                   className="input input-bordered w-full"
                   id="productName"
-                  onChange={onChange}
+                  onChange={onChange3}
                 />
               </label>
             </div>

@@ -1,154 +1,234 @@
 import React from "react";
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { collection, getDocs, query, where, limit } from "firebase/firestore";
-import { db } from "../../firebase.config";
-import TransactionItem from "../layout/TransactionItem";
-import { ethers } from "ethers";
-import m4sAbi from "../abi/m4s_abi.json";
-
+import Switch from "../actions/Switch";
+import { useEffect, useState, useCallback } from "react";
+import { useParams, Link } from "react-router-dom";
+// import DisplayTransactions from "../layout/DisplayTransactions";
+import DisplayTransactions2 from "../layout/DisplayTransactions2";
+const Moralis = require("moralis");
 function Transactions({ userAddress }) {
-  const [transactions, setTransactions] = useState(null);
-  const [listings, setListings] = useState(null);
+  const [listingsBuyer, setListingsBuyer] = useState([]);
+  const [listingsSeller, setListingsSeller] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [value, setValue] = useState(false);
   const params = useParams();
-  useEffect(() => {
-    const fetchTransactions = async () => {
-      try {
-        //Get reference
-        const transactionsRef = collection(db, "transactions");
+  const page = window.location.href;
 
-        //Create a query
-        const q = query(transactionsRef, where("seller", "==", params.userId));
+  // const getOrdersBuyer = useCallback(async () => {
+  //   try {
+  //     let ordersBuyer = [];
+  //     const serverUrl = "https://gu15uqsbipep.usemoralis.com:2053/server";
+  //     const appId = "F28xSksEmA0YDFTQskgodpG3W5JSZK0uBm9Abnde";
+  //     const masterKey = "G5799rbYbzVEjmd9B2tFNfgX184JryV3ntW283dy";
+  //     await Moralis.start({ serverUrl, appId, masterKey });
+  //     const Item = Moralis.Object.extend("OrderCreatedBuyer");
+  //     const user = '0xa209d66169840b201e56a80a2c73eb6d0427575d';
+  //     const query = new Moralis.Query(Item);
+  //     //replace my address with user's address
+  //     query.equalTo("buyer", user);
+  //     const results = await query.find();
+  //     await Promise.all(
+  //       results.map(async (item) => {
+  //         const metadata = item.get("metadata");
+  //         const itemId = item.get("itemId");
+  //         const ipfsURL = metadata;
+  //         const response = await fetch(ipfsURL)
+  //           .then((resp) => resp.json())
+  //           .then((response) => response);
+  //         ordersBuyer.push({ id: itemId, data: response });
+  //       })
+  //     );
+  //     console.log(ordersBuyer);
+  //     setListingsBuyer(ordersBuyer);
+  //     setLoading(false);
+  //   } catch (error) {
+  //     console.log("error");
+  //   }
+  // }, [setLoading, setListingsBuyer]);
 
-        //Execute query
-        const querySnap = await getDocs(q);
+  const getOrdersBuyer = useCallback(async () => {
+    let ordersBuyer = [];
+    try {
+      const serverUrl = "https://gu15uqsbipep.usemoralis.com:2053/server";
+      const appId = "F28xSksEmA0YDFTQskgodpG3W5JSZK0uBm9Abnde";
+      const masterKey = "G5799rbYbzVEjmd9B2tFNfgX184JryV3ntW283dy";
+      await Moralis.start({ serverUrl, appId, masterKey });
+      const Item = Moralis.Object.extend("OrderCreatedBuyer");
+      const query = new Moralis.Query(Item);
+      //replace my address with user's address
+      const user = params.userId;
+      query.equalTo("buyer", user);
+      const results = await query.find();
+      console.log(results.length);
+      for (let i = 0; i < results.length; i++) {
+        const object = results[i];
+        const orderId = object.get("orderId");
+        const itemId = object.get("itemId");
+        const price = object.get("price");
+        console.log(orderId);
+        console.log(itemId);
+        console.log(price);
 
-        let transactions = [];
-        querySnap.forEach((doc) => {
-          console.log(doc.data());
-          console.log(doc.id);
-          return transactions.push({ id: doc.id, data: doc.data() });
-        });
-        setTransactions(transactions);
-      } catch (error) {
-        console.log("error");
+        ordersBuyer.push({ orderId: orderId, itemId: itemId, price: price });
       }
-    };
+      setListingsBuyer(ordersBuyer);
+      setLoading(false);
+    } catch (error) {
+      console.log("error");
+    }
+  }, [setLoading, setListingsBuyer, params.userId]);
 
-    const fetchListings = async () => {
-      try {
-        const listingsRef = collection(db, "listings");
+  const getOrdersSeller = useCallback(async () => {
+    let ordersSeller = [];
+    try {
+      const serverUrl = "https://gu15uqsbipep.usemoralis.com:2053/server";
+      const appId = "F28xSksEmA0YDFTQskgodpG3W5JSZK0uBm9Abnde";
+      const masterKey = "G5799rbYbzVEjmd9B2tFNfgX184JryV3ntW283dy";
+      await Moralis.start({ serverUrl, appId, masterKey });
+      const Item = Moralis.Object.extend("OrderCreatedSeller");
+      const query = new Moralis.Query(Item);
+      //replace my address with user's address
+      const user = params.userId;
+      query.equalTo("seller", user);
+      const results = await query.find();
+      console.log(results.length);
+      for (let i = 0; i < results.length; i++) {
+        const object = results[i];
+        const orderId = object.get("orderId");
+        const itemId = object.get("itemId");
+        const price = object.get("price");
+        console.log(orderId);
+        console.log(itemId);
+        console.log(price);
 
-        const q = query(listingsRef);
-        const querySnap = await getDocs(q);
+        ordersSeller.push({ orderId: orderId, itemId: itemId, price: price });
+      }
+      setListingsSeller(ordersSeller);
+      setLoading(false);
+    } catch (error) {
+      console.log("error");
+    }
+  }, [setLoading, setListingsSeller, params.userId]);
+  useEffect(() => {
+    getOrdersBuyer();
+    getOrdersSeller();
 
-        let listings = [];
-        querySnap.forEach((doc) => {
-          console.log(doc.data());
-          console.log(doc.id);
-          return listings.push({ id: doc.id, data: doc.data() });
-        });
-        setListings(listings);
-        setLoading(false);
-      } catch (error) {}
-    };
-    const fetchEthPrice = async () => {
-      const provider = new ethers.providers.JsonRpcProvider(
-        "https://rinkeby.infura.io/v3/18c3956af9734c289bfed9eee03ee1a7"
-      );
-      const addr = "0x8a037283fb181ee1bCEeCF1734E136C677fC2311";
-      const priceFeed = new ethers.Contract(addr, m4sAbi, provider);
-      // We get the data from the last round of the contract
-      const chainLinkPrice = await priceFeed.getLatestPrice();
-      const ethPrice = ethers.utils.formatEther(chainLinkPrice) * 10 ** 18;
-      console.log(ethPrice);
-      window.ethPrice = ethPrice;
-    };
-    fetchEthPrice();
-    fetchTransactions();
-    fetchListings();
-  }, [params.userId]);
+    // console.log(listings);
+    setLoading(false);
+  }, []);
 
   return (
     <div className="category mb-10">
       {loading ? (
         <h1>Loading...</h1>
-      ) : transactions &&
-        transactions.length > 0 &&
-        listings &&
-        listings.length > 0 ? (
+      ) : listingsBuyer && listingsBuyer.length > 0 ? (
         <>
-          <header className="infoHeader">
-            <ul className=" mt-3 menu menu-horizontal  rounded-box items-">
-              <li>
-                <a href={`/user/${params.userId}`}>Listings</a>
-              </li>
-              <div className="divider divider-horizontal"></div>
-              <li>
-                <a href={`/transactions/${params.userId}`}>Transactions</a>
-              </li>
-            </ul>
-
-            {/* <div>
+          <div>
+            {userAddress !== params.userId ? (
+              ""
+            ) : (
+              <header className="infoHeader">
+                <ul className=" mt-3 menu menu-horizontal  rounded-box items-">
+                  <li>
+                    <Link
+                      to={`/user/listings/${params.userId}`}
+                      disabled={true}
+                    >
+                      Listings
+                    </Link>
+                  </li>
+                  <div class="divider divider-horizontal"></div>
+                  <li>
+                    <a href={`/transactions/${params.userId}`}>Transactions</a>
+                  </li>
+                </ul>
+                {/* <div>
               <Link to={`/user/${params.userId}`}>Listings</Link>
               <br />
               <Link to="/transactions">Transactions</Link>
             </div> */}
-          </header>
-
-          <h1 className="infoHeader2 text-2xl">Recent Transactions</h1>
-          <div className="overflow-x-auto w-full">
-            <thead className="table w-full">
-              <tr>
-                <th className="align-center">
-                  <label>
-                    <input type="checkbox" className="checkbox" />
-                  </label>
-                </th>
-
-                <th>Item Id.</th>
-                <th>Order No.</th>
-                <th className="px-10">Price</th>
-                <th className="px-7">Actions</th>
-              </tr>
-            </thead>
-          </div>
-          <div className="overflow-x-auto w-full">
-            <table className="table w-full">
-              <main>
-                <ul>
-                  {transactions.map((transaction) => (
-                    <TransactionItem
-                      transaction={transaction.data}
-                      listings={listings}
-                      id={transaction.id}
-                      key={transaction.id}
-                      ethPrice={window.ethPrice}
-                    />
-                  ))}
-                </ul>
-              </main>
-              <div className="overflow-x-auto w-full">
-                <thead className="table w-full">
-                  <tr>
-                    <th>
-                      <label>
-                        <input type="checkbox" className="checkbox" />
-                      </label>
-                    </th>
-                    <th>Order No.</th>
-                    <th>Item</th>
-                    <th>Price</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
+              </header>
+            )}
+            <h1 className="infoHeader2 text-2xl mt-2">{`${
+              page.includes("transactions")
+                ? "Recent Transactions"
+                : "Recently Created Listings"
+            }`}</h1>
+            <Switch isOn={value} handleToggle={() => setValue(!value)} />
+            {/* <div className="flex">
+              <div className="form-control">
+                <label className=" label cursor-pointer">
+                  <span className="label-text">Buyer</span>
+                  <input
+                    type="checkbox"
+                    className="toggle toggle-accent mx-2"
+                    checked
+                  />
+                  <span className="label-text">Seller</span>
+                </label>
               </div>
-            </table>
+            </div> */}
+            <div className={value === true ? "hidden" : ""}>
+              <div className=" infoHeader mt-5">Items Purchased</div>
+              <div className=" flex justify-center">
+                <div className="overflow-x-auto ">
+                  <thead className="table  ">
+                    <tr>
+                      <th className="pl-10 pr-10">Item Id.</th>
+                      <th className="pl-20 pr-20">{`${
+                        page.includes("transactions") ? "Order #" : "Item Name"
+                      }`}</th>
+                      <th className="pl-10 pr-10">Price</th>
+                      <th className="pl-20 pr-5">Actions</th>
+                    </tr>
+                  </thead>
+                  <table className="table">
+                    <main>
+                      <ul>
+                        {listingsBuyer.map((listing) => (
+                          <DisplayTransactions2
+                            listing={listing}
+                            id={listing.orderId}
+                            key={listing.orderId}
+                          />
+                        ))}
+                      </ul>
+                    </main>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className=" infoHeader mt-8">Items Sold</div>
+          <div className=" flex justify-center">
+            <div className="overflow-x-auto ">
+              <thead className="table  ">
+                <tr>
+                  <th className="pl-10 pr-10">Item Id.</th>
+                  <th className="pl-20 pr-20">{`${
+                    page.includes("transactions") ? "Order #" : "Item Name"
+                  }`}</th>
+                  <th className="pl-10 pr-10">Price</th>
+                  <th className="pl-20 pr-5">Actions</th>
+                </tr>
+              </thead>
+              <table className="table">
+                <main>
+                  <ul>
+                    {listingsSeller.map((listing) => (
+                      <DisplayTransactions2
+                        listing={listing}
+                        id={listing.orderId}
+                        key={listing.orderId}
+                      />
+                    ))}
+                  </ul>
+                </main>
+              </table>
+            </div>
           </div>
         </>
       ) : (
-        <p>No listings available for {params.categoryName}</p>
+        <p>You have no current transactions</p>
       )}
     </div>
   );
