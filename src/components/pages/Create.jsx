@@ -237,7 +237,7 @@ function Create({ connected, userAddress }) {
                 <span className="formLabel7">Telegram</span>
                 <input
                   type="text"
-                  placeholder="t.me/username"
+                  placeholder="username"
                   className="input input-bordered w-full"
                   id="telegram"
                   onChange={onChange2}
@@ -249,7 +249,7 @@ function Create({ connected, userAddress }) {
                 <span className="formLabel8">Discord</span>
                 <input
                   type="text"
-                  placeholder="https://discord.gg/server"
+                  placeholder={`servername`}
                   className="input input-bordered w-full"
                   id="discord"
                   onChange={onChange2}
@@ -261,7 +261,7 @@ function Create({ connected, userAddress }) {
                 <span className="formLabel9">WhatsApp</span>
                 <input
                   type="text"
-                  placeholder="https://wa.me/123456789"
+                  placeholder={`phone # (ex. 1112223333)`}
                   className="input input-bordered w-full"
                   id="whatsapp"
                   onChange={onChange2}

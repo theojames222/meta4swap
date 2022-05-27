@@ -15,9 +15,7 @@ function Hero() {
       <div className="hero-content text-center text-neutral-content">
         <div className="max-w-md">
           <h1 className="mb-5 mt-6 text-5xl font-bold">List and Sell</h1>
-          <p className="mb-5">
-            Sell your goods and services on the blockchain!
-          </p>
+          <p className="mb-5">Sell your goods and services on Avalanche!</p>
           <Link to="/create">
             <button className="btn btn-primary">Create Listing</button>
           </Link>

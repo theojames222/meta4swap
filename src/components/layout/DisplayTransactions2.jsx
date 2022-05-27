@@ -10,6 +10,72 @@ function DisplayTransactions2({ listing, id }) {
   const price = listing.price / 10 ** 18;
   const [listingData, setListingData] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const completeOrder = async (e) => {
+    e.preventDefault();
+    const web3 = new Web3(window.ethereum);
+    await window.ethereum.enable();
+    const accounts = await window.ethereum.request({
+      method: "eth_requestAccounts",
+    });
+    var account = accounts[0];
+
+    const M4SContract = new web3.eth.Contract(
+      m4sAbi,
+      "0x0680A9396b1d54D1b2D393580E1B4BDB20f4D2F8",
+      {
+        from: account,
+      }
+    );
+    //THEO add itemId here
+    const itemId = listing.itemId;
+
+    M4SContract.methods.complete(itemId).send();
+  };
+
+  const cancelOrder = async (e) => {
+    e.preventDefault();
+    const web3 = new Web3(window.ethereum);
+    await window.ethereum.enable();
+    const accounts = await window.ethereum.request({
+      method: "eth_requestAccounts",
+    });
+    var account = accounts[0];
+
+    const M4SContract = new web3.eth.Contract(
+      m4sAbi,
+      "0x0680A9396b1d54D1b2D393580E1B4BDB20f4D2F8",
+      {
+        from: account,
+      }
+    );
+    //THEO add itemId here
+    const itemId = listing.itemId;
+
+    M4SContract.methods.cancel(itemId).send();
+  };
+
+  const disputeOrder = async (e) => {
+    e.preventDefault();
+    const web3 = new Web3(window.ethereum);
+    await window.ethereum.enable();
+    const accounts = await window.ethereum.request({
+      method: "eth_requestAccounts",
+    });
+    var account = accounts[0];
+
+    const M4SContract = new web3.eth.Contract(
+      m4sAbi,
+      "0x0680A9396b1d54D1b2D393580E1B4BDB20f4D2F8",
+      {
+        from: account,
+      }
+    );
+    //THEO add itemId here
+    const itemId = listing.itemId;
+
+    M4SContract.methods.dispute(itemId).send();
+  };
   const getItem = async () => {
     const itemId = listing.itemId;
     const web3 = new Web3(
@@ -21,16 +87,6 @@ function DisplayTransactions2({ listing, id }) {
       m4sAbi,
       "0x0680A9396b1d54D1b2D393580E1B4BDB20f4D2F8"
     );
-    //const itemId = 1;
-    // const itemInfo = await M4SContract.methods
-    // .itemInfo(window.itemId)
-    // .call();
-
-    // console.log(itemInfo['id']);
-    // console.log(itemInfo['metadata']);
-    // fetch(itemInfo['metadata'])
-    //     .then((response) => response.json())
-    //     .then((data) => console.log("This is your data: ", data));
 
     const itemInfo = await M4SContract.methods.itemInfo(itemId).call();
 
@@ -50,6 +106,7 @@ function DisplayTransactions2({ listing, id }) {
     // console.log(listings);
     setLoading(false);
   }, []);
+
   return (
     <>
       <div className="overflow-x-auto w-full">
@@ -106,15 +163,20 @@ function DisplayTransactions2({ listing, id }) {
                     <button
                       for="complete-modal"
                       className="compBtn modal-button"
+                      onClick={completeOrder}
                     >
                       Complete
                     </button>
                   </li>
                   <li>
-                    <button className="canBtn">Cancel</button>
+                    <button className="canBtn" onClick={cancelOrder}>
+                      Cancel
+                    </button>
                   </li>
                   <li>
-                    <button className="disputeBtn">Dispute</button>
+                    <button className="disputeBtn" onClick={disputeOrder}>
+                      Dispute
+                    </button>
                   </li>
                 </ul>
               </th>

@@ -23,8 +23,12 @@ function Navbar({ connected, userAddress }) {
       // res[0] for fetching a first wallet
       window.ethereum
         .request({ method: "eth_requestAccounts" })
-        .on("confirmation", (reciept) => {
-          reloadPage();
+        .then((result) => {
+          if (result[0] !== "") {
+            reloadPage();
+          } else {
+            alert("Sign into MetaMask to create and buy with Meta4Swap");
+          }
         });
     } else {
       alert("install metamask extension!!");
