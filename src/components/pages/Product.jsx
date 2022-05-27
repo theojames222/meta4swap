@@ -1,4 +1,5 @@
 import avalanche from "../assets/avalanche-avax-logo.png";
+import matic from "../assets/polygon-matic-logo.svg";
 // import { FaStar } from "react-icons/fa";
 import StarRating from "../actions/StarRating";
 import { useEffect, useState } from "react";
@@ -15,7 +16,7 @@ import { v4 as uuidv4 } from "uuid";
 const Moralis = require("moralis");
 
 function Product({ userAddress }) {
-  const avSym = <img className="eth" src={avalanche} alt="avalanche" />;
+  const maticSym = <img className="eth" src={matic} alt="matic" />;
   const [listing, setListing] = useState(null);
   const [loading, setLoading] = useState(true);
   // const [shareLinkCopied, setShareLinkCopied] = useState(false);
@@ -255,12 +256,15 @@ function Product({ userAddress }) {
     //UI eth price for Theo
     console.log(orderPrice / 10 ** 18);
 
-    M4SContract.methods.createOrder(itemId, quantity["quantity"]).send({
-      from: account,
-      value: orderPrice + slippage,
-    }).on('receipt', function(){
-      navigate(`/transactions/${userAddress}`);
-  });;
+    M4SContract.methods
+      .createOrder(itemId, quantity["quantity"])
+      .send({
+        from: account,
+        value: orderPrice + slippage,
+      })
+      .on("receipt", function () {
+        navigate(`/transactions/${userAddress}`);
+      });
   };
 
   // const onClick = async (e) => {
@@ -352,7 +356,7 @@ function Product({ userAddress }) {
                         10 ** 8) /
                       10 ** 18
                     ).toFixed(3)}{" "}
-                    {avSym})
+                    {maticSym})
                   </p>
                 </div>
                 <div

@@ -68,8 +68,8 @@ function Content() {
               <h1 className="infoHeader"> Fast & Effortless Transaction</h1>
               <p className="infoContent">
                 {" "}
-                Just two short clicks away from transparent purchases on
-                Ethereum!
+                Just two short clicks away from transparent purchases on the
+                Polygon network with Matic!
               </p>
             </div>
           </div>

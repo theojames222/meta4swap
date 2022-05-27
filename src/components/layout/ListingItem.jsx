@@ -1,10 +1,10 @@
 import React from "react";
+import matic from "../assets/polygon-matic-logo.svg";
 
-import avalanche from "../assets/avalanche-avax-logo.png";
 import { Link } from "react-router-dom";
 
 function ListingItem({ listing, id }) {
-  const avgSym = <img className="eth" src={avalanche} alt="avalanche" />;
+  const maticSym = <img className="eth" src={matic} alt="matic" />;
 
   console.log(listing.imageUrl);
   console.log(id);
@@ -41,7 +41,7 @@ function ListingItem({ listing, id }) {
                         10 ** 8) /
                       10 ** 18
                     ).toFixed(3)}{" "}
-                    {avgSym})
+                    {maticSym})
                   </p>
                 </div>
               </div>
