@@ -63,7 +63,7 @@ function Order({ userAddress }) {
               </li>
               <div className="divider divider-horizontal"></div>
               <li>
-                <a href={`/shop`}>Transactions</a>
+                <a href={`/transactions/${params.userId}`}>Transactions</a>
               </li>
             </ul>
 
