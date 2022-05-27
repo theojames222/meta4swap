@@ -56,14 +56,14 @@ function FeaturedService() {
       ) : listings && listings.length > 0 ? (
         <>
           <div
-            className="container items-center mx-auto "
+            className="container items-center"
             style={{
               display: "flex",
               alignItems: "center",
-              justifyContent: "space-between",
+              justifyContent: "space-evenly",
             }}
           >
-            <div className="grid grid-cols-1 gap-8 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2">
+            <div className=" grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 ">
               {listings.map((listing) => (
                 <ListingItem
                   listing={listing.data}

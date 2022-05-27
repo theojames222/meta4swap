@@ -1,20 +1,23 @@
 import React from "react";
-import matic from "../assets/polygon-matic-logo.svg";
+import avax from "../assets/avalanche-avax-logo.png";
 
 import { Link } from "react-router-dom";
 
 function ListingItem({ listing, id }) {
-  const maticSym = <img className="eth" src={matic} alt="matic" />;
+  const avaxSym = <img className="eth" src={avax} alt="avax" />;
 
   console.log(listing.imageUrl);
   console.log(id);
   return (
     <>
-      <div className="container-sm justify-center" style={{ display: "flex" }}>
+      <div
+        className="container-sm justify-center pt-5"
+        style={{ display: "flex" }}
+      >
         <Link to={`/category/${listing.category}/${id}`}>
           <div>
-            <div className="card bg-none items-center">
-              <figure className="shadow-2xl itemImg ">
+            <div className="card bg-none items-center ">
+              <figure className="shadow-2xl itemImg  ">
                 <img src={listing.imageUrl} alt={listing.productName} />
               </figure>
               <div className="card-body items-center text-center pb-3">
@@ -41,7 +44,7 @@ function ListingItem({ listing, id }) {
                         10 ** 8) /
                       10 ** 18
                     ).toFixed(3)}{" "}
-                    {maticSym})
+                    {avaxSym})
                   </p>
                 </div>
               </div>

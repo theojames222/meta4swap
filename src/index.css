@@ -295,7 +295,7 @@ nav {
   padding: 0px;
 
   position: flex;
-  width: 56px;
+  max-width: 56px;
   height: 26px;
   left: calc(50% - 56px / 2 + 241.5px);
   top: calc(50% - 26px / 2 - 1px);

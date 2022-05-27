@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
 import Headlines from "./Headlines";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 import ListingItem from "../layout/ListingItem";
 import { v4 as uuidv4 } from "uuid";
 
@@ -10,7 +10,7 @@ const Moralis = require("moralis");
 function FeaturedProduct() {
   const [listings, setListings] = useState([]);
   const [loading, setLoading] = useState(true);
-  const params = useParams();
+  // const params = useParams();
 
   const getProducts = useCallback(async () => {
     try {
@@ -59,14 +59,13 @@ function FeaturedProduct() {
       ) : listings && listings.length > 0 ? (
         <>
           <div
-            className="container items-center mx-auto "
+            className="container "
             style={{
-              display: "flex",
               alignItems: "center",
-              justifyContent: "space-between",
+              justifyContent: "space-evenly",
             }}
           >
-            <div className="grid grid-cols-1 gap-8 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2">
+            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 ">
               {listings.map((listing) => (
                 <ListingItem
                   listing={listing.data}
@@ -78,9 +77,7 @@ function FeaturedProduct() {
           </div>
         </>
       ) : (
-        <p className="text-center">
-          No listings available for {params.categoryName}
-        </p>
+        <p className="text-center">No listings available for Products</p>
       )}
     </div>
   );

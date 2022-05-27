@@ -1,5 +1,5 @@
 import avalanche from "../assets/avalanche-avax-logo.png";
-import matic from "../assets/polygon-matic-logo.svg";
+
 // import { FaStar } from "react-icons/fa";
 import StarRating from "../actions/StarRating";
 import { useEffect, useState } from "react";
@@ -16,7 +16,7 @@ import { v4 as uuidv4 } from "uuid";
 const Moralis = require("moralis");
 
 function Product({ userAddress }) {
-  const maticSym = <img className="eth" src={matic} alt="matic" />;
+  const avaxSym = <img className="eth" src={avalanche} alt="matic" />;
   const [listing, setListing] = useState(null);
   const [loading, setLoading] = useState(true);
   // const [shareLinkCopied, setShareLinkCopied] = useState(false);
@@ -356,7 +356,7 @@ function Product({ userAddress }) {
                         10 ** 8) /
                       10 ** 18
                     ).toFixed(3)}{" "}
-                    {maticSym})
+                    {avaxSym})
                   </p>
                 </div>
                 <div

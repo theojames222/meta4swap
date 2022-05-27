@@ -2,14 +2,15 @@ import { Link } from "react-router-dom";
 import useWindowDimensions from "../hooks/useWindowDimensions";
 import Logo from "../assets/logo2.png";
 import accountIcon from "../assets/user-286 (1).svg";
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
+
 // import { useParams } from "react-router-dom";
 
 function Navbar({ connected, userAddress }) {
   // eslint-disable-next-line no-unused-vars
   const { height, width } = useWindowDimensions();
   // const params = useParams();
-  const params = useParams();
+  // const params = useParams();
   const isConnected = connected;
   const reloadPage = () => {
     window.location.reload();
@@ -20,26 +21,29 @@ function Navbar({ connected, userAddress }) {
     // Asking if metamask is already present or not
     if (window.ethereum) {
       // res[0] for fetching a first wallet
-      window.ethereum.request({ method: "eth_requestAccounts" });
+      window.ethereum
+        .request({ method: "eth_requestAccounts" })
+        .on("confirmation", (reciept) => {
+          reloadPage();
+        });
     } else {
       alert("install metamask extension!!");
     }
-    setTimeout(reloadPage, 10000);
   };
 
   return (
     // <div className="">
-    <nav className="navbar mb-0 shadow-lg " width={width}>
+    <nav className=" mb-3 shadow-lg ">
       <Link to="/" className="flex ml-5 ">
         <img src={Logo} alt="" className="logo" />
       </Link>
 
-      <div className="nav2">
+      <div className="nav2 ">
         <div className="dropdown dropdown-hover">
-          <button className="btn btn-link ">
+          <button className="btn btn-link  ">
             <Link
               to="/shop"
-              className="navShop text-2xl font-bold rounded-btn mr-12"
+              className="navShop text-2xl font-bold rounded-btn mr-12 "
             >
               Shop
             </Link>

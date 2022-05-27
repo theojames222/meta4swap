@@ -5,13 +5,13 @@ function Headlines({ text, content }) {
     <>
       <div className="divider"></div>
       <div
-        className="container items-center mx-auto justify-center"
+        className="container mx-20 md:mx-4"
         style={{
           display: "flex",
           alignItems: "center",
         }}
       >
-        <h1 className="homeHeader text-5xl "> {text}</h1>
+        <h1 className="homeHeader text-5xl justify-center "> {text}</h1>
       </div>
       <div
         className="container items-center mx-auto justify-center pb-3"
