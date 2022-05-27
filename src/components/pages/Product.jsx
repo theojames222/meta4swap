@@ -156,6 +156,8 @@ function Product({ userAddress }) {
 
       console.log(itemInfo["id"]);
       console.log(itemInfo["metadata"]);
+      console.log(itemInfo["creator"]);
+
       fetch(itemInfo["metadata"])
         .then((response) => response.json())
         .then((data) => {
@@ -246,16 +248,19 @@ function Product({ userAddress }) {
       ((listingData.price * 10 ** 18) / window.ethPrice) *
       10 ** 8 *
       quantity["quantity"];
-    const slippage = (orderPrice * 100) / 10000;
+    const slippage = parseInt((orderPrice * 100) / 10000);
 
     console.log(orderPrice);
+    console.log(slippage);
     //UI eth price for Theo
     console.log(orderPrice / 10 ** 18);
 
     M4SContract.methods.createOrder(itemId, quantity["quantity"]).send({
       from: account,
       value: orderPrice + slippage,
-    });
+    }).on('receipt', function(){
+      navigate(`/transactions/${userAddress}`);
+  });;
   };
 
   // const onClick = async (e) => {
