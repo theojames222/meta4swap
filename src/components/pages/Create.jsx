@@ -5,6 +5,7 @@ import { JsonUpload } from "../actions/JsonUpload";
 import { ImageUpload } from "../actions/ImageUpload";
 function Create({ connected, userAddress }) {
   const [defaultAccount, setDefaultAccount] = useState(null);
+
   const [imageUrl, setImageUrl] = useState("");
   // const [btnDisabled, setbtnDisabled] = useState(true);
   const [formData, setFormData] = useState({
@@ -42,13 +43,30 @@ function Create({ connected, userAddress }) {
     }));
   };
 
-  const onChange3 = (e) => {
-    if (e.target.id === "productName" && e.target.value.trim().length >= 3) {
-      console.log("productName");
-    } else {
-      console.log("not yet");
-    }
-  };
+  // const onChange3 = (e) => {
+  //   if (e.target.id === "productName" && e.target.value.trim().length >= 3) {
+  //     setFormData((prevState) => ({
+  //       ...prevState,
+  //       [e.target.id]: e.target.value,
+  //     }));
+  //   } else if (
+  //     e.target.id === "description" &&
+  //     e.target.value.trim().length >= 15
+  //   ) {
+  //     setFormData((prevState) => ({
+  //       ...prevState,
+  //       [e.target.id]: e.target.value,
+  //     }));
+  //   } else if (e.target.id === "price" && e.target.value > 0) {
+  //     setFormData((prevState) => ({
+  //       ...prevState,
+  //       [e.target.id]: e.target.value,
+  //     }));
+  //     setbtnDisabled(false);
+  //   } else {
+  //     setbtnDisabled(true);
+  //   }
+  // };
   // const handleInputImageChange = (e) => {
   //   if (imageUrl === "") {
   //     setbtnDisabled(true);
@@ -104,10 +122,10 @@ function Create({ connected, userAddress }) {
                 <span className="formLabel3">Product Name</span>
                 <input
                   type="text"
-                  placeholder="Name of Product"
+                  placeholder={`Product Name(min 3 characters)*`}
                   className="input input-bordered w-full"
                   id="productName"
-                  onChange={onChange3}
+                  onChange={onChange}
                 />
               </label>
             </div>
@@ -149,7 +167,7 @@ function Create({ connected, userAddress }) {
                 <span className="formLabel">Description</span>
                 <textarea
                   className="textarea textarea-bordered w-full"
-                  placeholder="Brief product description"
+                  placeholder={`Brief description of product \n (min 15 characters)*`}
                   id="description"
                   onChange={onChange}
                 ></textarea>

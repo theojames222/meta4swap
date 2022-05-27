@@ -61,9 +61,10 @@ export const JsonUpload = ({
     //insert product type here
     M4SContract.methods
       .createItem(metaDataUrl, live, web3.utils.toWei(price), productType)
-      .send().on('receipt', function(){
+      .send()
+      .on("receipt", function () {
         navigate(`/user/${userAddress}`);
-    });
+      });
   };
 
   const uploadText = async (e) => {
@@ -93,7 +94,7 @@ export const JsonUpload = ({
       <button
         className="btn btn-primary"
         onClick={uploadText}
-        // disabled={disabled}
+        disabled={disabled}
       >
         Upload Metadata
       </button>

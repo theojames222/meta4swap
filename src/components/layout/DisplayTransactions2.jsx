@@ -1,11 +1,12 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import avalanche from "../assets/avalanche-avax-logo.png";
+import matic from "../assets/polygon-matic-logo.svg";
 import { Link } from "react-router-dom";
 import m4sAbi from "../abi/m4s_abi.json";
 import Web3 from "web3/dist/web3.min.js";
 function DisplayTransactions2({ listing, id }) {
-  const avgSym = <img className="eth" src={avalanche} alt="avalanche" />;
+  const maticSym = <img className="eth" src={matic} alt="matic" />;
   const price = listing.price / 10 ** 18;
   const [listingData, setListingData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -94,7 +95,7 @@ function DisplayTransactions2({ listing, id }) {
                       (((price * 10 ** 18) / window.ethPrice) * 10 ** 8) /
                       10 ** 18
                     ).toFixed(3)}{" "}
-                    {avgSym})
+                    {maticSym})
                   </div>
                 </div>
               </td>

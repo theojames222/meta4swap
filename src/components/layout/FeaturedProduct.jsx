@@ -22,6 +22,7 @@ function FeaturedProduct() {
       const Item = Moralis.Object.extend("ItemCreated");
       const query = new Moralis.Query(Item);
       query.equalTo("productType", "0");
+      query.limit(8);
       const results = await query.find();
       await Promise.all(
         results.map(async (item) => {

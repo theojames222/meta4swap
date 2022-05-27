@@ -11,7 +11,12 @@ import {
 
 const client = create("https://ipfs.infura.io:5001/api/v0");
 
-export const ImageUpload = ({ setUrl, setDefaultAccount, connected }) => {
+export const ImageUpload = ({
+  setUrl,
+  setDefaultAccount,
+  connected,
+  disabled,
+}) => {
   const [image, setImage] = useState({});
   const [imagePreview, setImagePreview] = useState("");
   const [loading, setLoading] = useState(false);
@@ -64,7 +69,11 @@ export const ImageUpload = ({ setUrl, setDefaultAccount, connected }) => {
     } catch (err) {
       console.log("Error uploading the file : ", err);
     }
+
     setLoading(false);
+    if (disabled === true) {
+      alert("Please completely fill out form data to continue!");
+    }
   };
 
   console.log(connected);
