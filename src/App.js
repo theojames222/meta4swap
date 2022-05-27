@@ -95,9 +95,12 @@ function App() {
               path="/category/:categoryName/:listingId"
               element={<Product userAddress={userAddress} />}
             />
-            <Route path="/order" element={<Order />} />
             <Route
               path="/user/:userId"
+              element={<UserPage userAddress={userAddress} />}
+            />
+            <Route
+              path="/user/listings/:userId"
               element={<Order userAddress={userAddress} />}
             />
             <Route

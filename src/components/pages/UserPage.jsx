@@ -2,14 +2,14 @@ import React from "react";
 import whatsapp from "../assets/whatsapp.png";
 import discord from "../assets/discord.png";
 import telegram from "../assets/telegram.png";
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { collection, getDocs, query, where, limit } from "firebase/firestore";
-import { db } from "../../firebase.config";
+import { useEffect, useState, useCallback } from "react";
+import { useParams, Link } from "react-router-dom";
+// import { collection, getDocs, query, where, limit } from "firebase/firestore";
+// import { db } from "../../firebase.config";
 import ListingItem from "../layout/ListingItem";
 // import { Link } from "react-router-dom";
-
-function UserPage() {
+const Moralis = require("moralis");
+function UserPage({ userAddress }) {
   const whatsappSym = (
     <img className="logoContact1" src={whatsapp} alt="whatsapp" />
   );
@@ -20,64 +20,75 @@ function UserPage() {
     <img className="logoContact3" src={telegram} alt="telegram" />
   );
 
-  const [listings, setListings] = useState(null);
+  const [listings, setListings] = useState([]);
   const [loading, setLoading] = useState(true);
-
   const params = useParams();
+  const getUserItems = useCallback(async () => {
+    try {
+      let userItems = [];
+      const serverUrl = "https://gu15uqsbipep.usemoralis.com:2053/server";
+      const appId = "F28xSksEmA0YDFTQskgodpG3W5JSZK0uBm9Abnde";
+      const masterKey = "G5799rbYbzVEjmd9B2tFNfgX184JryV3ntW283dy";
+      await Moralis.start({ serverUrl, appId, masterKey });
+      const Item = Moralis.Object.extend("ItemCreated");
+      const query = new Moralis.Query(Item);
+      //replace my address with user's address
+      query.equalTo("creator", params.userId);
+      const results = await query.find();
+      await Promise.all(
+        results.map(async (item) => {
+          const metadata = item.get("metadata");
+          const itemId = item.get("itemId");
+          const ipfsURL = metadata;
+          const response = await fetch(ipfsURL)
+            .then((resp) => resp.json())
+            .then((response) => response);
+          userItems.push({ id: itemId, data: response });
+        })
+      );
+      setListings(userItems);
+      setLoading(false);
+    } catch (error) {
+      console.log("error");
+    }
+  }, [setLoading, setListings, params.userId]);
+
   useEffect(() => {
-    const fetchListings = async () => {
-      try {
-        //Get reference
-        const listingsRef = collection(db, "listings");
+    getUserItems();
 
-        //Create a query
-        const q = query(
-          listingsRef,
-          where("id", "==", params.userId),
-          limit(16)
-        );
-
-        //Execute query
-        const querySnap = await getDocs(q);
-
-        let listings = [];
-        querySnap.forEach((doc) => {
-          console.log(doc.data());
-          console.log(doc.id);
-          return listings.push({ id: doc.id, data: doc.data() });
-        });
-        setListings(listings);
-        setLoading(false);
-      } catch (error) {
-        console.log("error");
-      }
-    };
-    fetchListings();
+    console.log(listings);
+    // console.log(listings);
+    setLoading(false);
   }, []);
-  console.log(listings);
-  console.log(params.userId);
+
   return (
     <div className="category mb-10">
       {loading ? (
         <h1>Loading...</h1>
       ) : listings && listings.length > 0 ? (
         <>
-          <header className="infoHeader">
-            <ul className=" mt-3 menu menu-horizontal  rounded-box items-">
-              <li>
-                <a href={`/user/${params.userId}`}>Listings</a>
-              </li>
-              <div class="divider divider-horizontal"></div>
-              <li>
-                <a href={`/transactions/${params.userId}`}>Transactions</a>
-              </li>
-            </ul>
-            {/* <div>
+          {userAddress !== params.userId ? (
+            ""
+          ) : (
+            <header className="infoHeader">
+              <ul className=" mt-3 menu menu-horizontal  rounded-box items-">
+                <li>
+                  <Link to={`/user/listings/${params.userId}`} disabled={true}>
+                    Listings
+                  </Link>
+                </li>
+                <div class="divider divider-horizontal"></div>
+                <li>
+                  <a href={`/transactions/${params.userId}`}>Transactions</a>
+                </li>
+              </ul>
+              {/* <div>
               <Link to={`/user/${params.userId}`}>Listings</Link>
               <br />
               <Link to="/transactions">Transactions</Link>
             </div> */}
-          </header>
+            </header>
+          )}
 
           <header className="infoHeader">
             <div>
@@ -93,11 +104,9 @@ function UserPage() {
             </div>
             <div className="flex">
               {/* Validate this data before presenting */}
-              <a href="https://faq.whatsapp.com/iphone/how-to-link-to-whatsapp-from-a-different-app/?lang=en">
-                {whatsappSym}
-              </a>
-              <div>{discordSym}</div>
-              <div>{telegramSym}</div>
+              <a href={`${listings[0].data.whatsapp}`}>{whatsappSym}</a>
+              <a href={`${listings[0].data.discord}`}>{discordSym}</a>
+              <a href={`https://${listings[0].data.telegram}`}>{telegramSym}</a>
             </div>
           </header>
           <main className="pt-10">
@@ -113,7 +122,7 @@ function UserPage() {
           </main>
         </>
       ) : (
-        <p>No listings available for {params.categoryName}</p>
+        <p>No listings available for {params.userId}</p>
       )}
     </div>
   );

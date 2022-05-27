@@ -1,20 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-const TransactionItem = ({ transaction, id, listings }) => {
-  const [item, setItem] = useState(null);
-
-  useEffect(() => {
-    // console.log(listings);
-    const currentListing = listings
-      .filter((listing) => listing.id === transaction.listing)
-      .map((filteredListing) => filteredListing);
-    setItem(currentListing);
-  }, []);
-  // console.log(item);
-  // const itemData = item.map((it) => {
-  //   return it.data;
-  // });
-  // console.log(itemData.price);
+const TransactionItem = ({ id, listings }) => {
   const modalComplete = (
     <>
       <input type="checkbox" id="my-modal-3" class="modal-toggle" />

@@ -21,6 +21,9 @@ function ListingItem({ listing, id }) {
                 <h2 className="card-title pt-3 font-bold text-xl truncate">
                   {listing.productName}
                 </h2>
+                <p className="badge badge-ghost badge-sm">{`${
+                  listing.category === "product" ? "Product" : "Service"
+                }`}</p>
                 <p className="text-accent-focus text-lg font-bold">Price:</p>
                 <div
                   className="flex"

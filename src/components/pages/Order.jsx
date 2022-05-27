@@ -1,11 +1,15 @@
 import React from "react";
 import { useEffect, useState, useCallback } from "react";
-import ListingItem from "../layout/ListingItem";
+import { useParams, Link } from "react-router-dom";
+// import TransactionItem from "../layout/TransactionItem";
+// import ListingItem from "../layout/ListingItem";
+import DisplayTransactions from "../layout/DisplayTransactions";
 
 const Moralis = require("moralis");
 function Order({ userAddress }) {
   const [listings, setListings] = useState([]);
   const [loading, setLoading] = useState(true);
+  const params = useParams();
   const getUserItems = useCallback(async () => {
     try {
       let userItems = [];
@@ -43,24 +47,58 @@ function Order({ userAddress }) {
     // console.log(listings);
     setLoading(false);
   }, []);
-
+  console.log(listings.id);
   return (
     <div className="category mb-10">
       {loading ? (
         <h1>Loading...</h1>
       ) : listings && listings.length > 0 ? (
         <>
-          <main className="pt-10">
-            <ul className="grid grid-cols-1 gap-8 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2">
-              {listings.map((listing) => (
-                <ListingItem
-                  listing={listing.data}
-                  id={listing.id}
-                  key={listing.id}
-                />
-              ))}
+          <header className="infoHeader">
+            <ul className=" mt-3 menu menu-horizontal  rounded-box items-">
+              <li>
+                <Link to={`/user/listings/${userAddress}`} disabled={true}>
+                  Listings
+                </Link>
+              </li>
+              <div className="divider divider-horizontal"></div>
+              <li>
+                <a href={`/shop`}>Transactions</a>
+              </li>
             </ul>
-          </main>
+
+            {/* <div>
+              <Link to={`/user/${params.userId}`}>Listings</Link>
+              <br />
+              <Link to="/transactions">Transactions</Link>
+            </div> */}
+          </header>
+          <h1 className="infoHeader2 text-2xl">Recently Created Listings</h1>
+          <div className=" flex justify-center">
+            <div className="overflow-x-auto ">
+              <thead className="table  ">
+                <tr>
+                  <th className="pl-10 pr-10">Item Id.</th>
+                  <th className="pl-10 pr-20">Item Name</th>
+                  <th className="pl-10 pr-10">Price</th>
+                  <th className="pl-20 pr-5">Actions</th>
+                </tr>
+              </thead>
+              <table className="table">
+                <main>
+                  <ul>
+                    {listings.map((listing) => (
+                      <DisplayTransactions
+                        listing={listing.data}
+                        id={listing.id}
+                        key={listing.id}
+                      />
+                    ))}
+                  </ul>
+                </main>
+              </table>
+            </div>
+          </div>
         </>
       ) : (
         <p>No listings available for Products</p>
