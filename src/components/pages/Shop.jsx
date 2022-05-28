@@ -1,6 +1,7 @@
 import { useEffect, useState, useCallback } from "react";
 import Spinner from "../shared/Spinner";
 import ListingItem from "../layout/ListingItem";
+import Headlines from "../layout/Headlines";
 const Moralis = require("moralis");
 function Shop() {
   const [listings, setListings] = useState([]);
@@ -43,6 +44,10 @@ function Shop() {
 
   return (
     <>
+      <Headlines
+        text={"Products Listings & Services Listings"}
+        content={"Shop Meta4Swap marketplace"}
+      />
       <div className="category mb-10">
         {loading ? (
           <Spinner />

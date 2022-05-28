@@ -4,7 +4,11 @@ function Headlines({ text, content }) {
   const page = window.location.href;
   return (
     <>
-      {page.includes("category") ? "" : <div className="divider"></div>}
+      {page.includes("category") || page.includes("shop") ? (
+        ""
+      ) : (
+        <div className="divider"></div>
+      )}
 
       <div
         className="container mx-20 md:mx-4"
