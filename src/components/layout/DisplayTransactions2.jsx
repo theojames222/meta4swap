@@ -27,7 +27,7 @@ function DisplayTransactions2({ listing, id }) {
         from: account,
       }
     );
-    //THEO add itemId here
+  
     const orderId = listing.orderId;
     console.log(orderId);
 
@@ -50,7 +50,7 @@ function DisplayTransactions2({ listing, id }) {
         from: account,
       }
     );
-    //THEO add itemId here
+ 
     const orderId = listing.orderId;
     console.log(orderId);
 
@@ -73,7 +73,7 @@ function DisplayTransactions2({ listing, id }) {
         from: account,
       }
     );
-    //THEO add itemId here
+ 
     const orderId = listing.orderId;
     console.log(orderId);
 
@@ -101,12 +101,12 @@ function DisplayTransactions2({ listing, id }) {
         setListingData(data);
         setLoading(false);
       });
-    // setLoading(false);
+  
   };
   useEffect(() => {
     getItem();
 
-    // console.log(listings);
+
     setLoading(false);
   }, []);
 
@@ -137,9 +137,7 @@ function DisplayTransactions2({ listing, id }) {
                     <div className="smallHeader pl-10 pt-5">
                       {listing.orderId}
                     </div>
-                    {/* <div className="badge badge-ghost badge-sm">
-                      {listing.category}
-                    </div> */}
+                 
                   </div>
                 </div>
                 <br />
@@ -160,7 +158,6 @@ function DisplayTransactions2({ listing, id }) {
                 </div>
               </td>
               <th className="px-10">
-                {/* <button className="btn btn-ghost btn-xs">Actions Modal</button> */}
                 <ul className="menu menu-compact ">
                   <li>
                     <button

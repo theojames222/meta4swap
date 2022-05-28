@@ -2,9 +2,12 @@ import React from "react";
 import Switch from "../actions/Switch";
 import { useEffect, useState, useCallback } from "react";
 import { useParams, Link } from "react-router-dom";
-// import DisplayTransactions from "../layout/DisplayTransactions";
+import Spinner from "../shared/Spinner";
+
 import DisplayTransactions2 from "../layout/DisplayTransactions2";
+
 const Moralis = require("moralis");
+
 function Transactions({ userAddress }) {
   const [listingsBuyer, setListingsBuyer] = useState([]);
   const [listingsSeller, setListingsSeller] = useState([]);
@@ -12,38 +15,6 @@ function Transactions({ userAddress }) {
   const [value, setValue] = useState(false);
   const params = useParams();
   const page = window.location.href;
-
-  // const getOrdersBuyer = useCallback(async () => {
-  //   try {
-  //     let ordersBuyer = [];
-  //     const serverUrl = "https://gu15uqsbipep.usemoralis.com:2053/server";
-  //     const appId = "F28xSksEmA0YDFTQskgodpG3W5JSZK0uBm9Abnde";
-  //     const masterKey = "G5799rbYbzVEjmd9B2tFNfgX184JryV3ntW283dy";
-  //     await Moralis.start({ serverUrl, appId, masterKey });
-  //     const Item = Moralis.Object.extend("OrderCreatedBuyer");
-  //     const user = '0xa209d66169840b201e56a80a2c73eb6d0427575d';
-  //     const query = new Moralis.Query(Item);
-  //     //replace my address with user's address
-  //     query.equalTo("buyer", user);
-  //     const results = await query.find();
-  //     await Promise.all(
-  //       results.map(async (item) => {
-  //         const metadata = item.get("metadata");
-  //         const itemId = item.get("itemId");
-  //         const ipfsURL = metadata;
-  //         const response = await fetch(ipfsURL)
-  //           .then((resp) => resp.json())
-  //           .then((response) => response);
-  //         ordersBuyer.push({ id: itemId, data: response });
-  //       })
-  //     );
-  //     console.log(ordersBuyer);
-  //     setListingsBuyer(ordersBuyer);
-  //     setLoading(false);
-  //   } catch (error) {
-  //     console.log("error");
-  //   }
-  // }, [setLoading, setListingsBuyer]);
 
   const getOrdersBuyer = useCallback(async () => {
     let ordersBuyer = [];
@@ -112,14 +83,13 @@ function Transactions({ userAddress }) {
     getOrdersBuyer();
     getOrdersSeller();
 
-    // console.log(listings);
     setLoading(false);
   }, []);
 
   return (
     <div className="category mb-10">
       {loading ? (
-        <h1>Loading...</h1>
+        <Spinner />
       ) : listingsBuyer && listingsBuyer.length > 0 ? (
         <>
           <div>
@@ -141,11 +111,6 @@ function Transactions({ userAddress }) {
                     <a href={`/transactions/${params.userId}`}>Transactions</a>
                   </li>
                 </ul>
-                {/* <div>
-              <Link to={`/user/${params.userId}`}>Listings</Link>
-              <br />
-              <Link to="/transactions">Transactions</Link>
-            </div> */}
               </header>
             )}
             <h1 className="infoHeader2 text-2xl mt-2">{`${
@@ -154,19 +119,7 @@ function Transactions({ userAddress }) {
                 : "Recently Created Listings"
             }`}</h1>
             <Switch isOn={value} handleToggle={() => setValue(!value)} />
-            {/* <div className="flex">
-              <div className="form-control">
-                <label className=" label cursor-pointer">
-                  <span className="label-text">Buyer</span>
-                  <input
-                    type="checkbox"
-                    className="toggle toggle-accent mx-2"
-                    checked
-                  />
-                  <span className="label-text">Seller</span>
-                </label>
-              </div>
-            </div> */}
+
             <div className={value === true ? "hidden" : ""}>
               <div className=" infoHeader mt-5">Items Purchased</div>
               <div className=" flex justify-center">
@@ -228,7 +181,7 @@ function Transactions({ userAddress }) {
           </div>
         </>
       ) : (
-        <p>You have no current transactions</p>
+        <Spinner />
       )}
     </div>
   );

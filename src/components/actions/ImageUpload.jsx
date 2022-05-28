@@ -32,30 +32,6 @@ export const ImageUpload = ({
       setImagePreview("");
     }
   };
-  // const btnhandler = () => {
-  //   // Asking if metamask is already present or not
-  //   if (window.ethereum) {
-  //     // res[0] for fetching a first wallet
-  //     window.ethereum.request({ method: "eth_requestAccounts" });
-  //   } else {
-  //     alert("install metamask extension!!");
-  //   }
-  // };
-  // const connectMetaMask = () => {
-  //   if (window.ethereum) {
-  //     // res[0] for fetching a first wallet
-  //     window.ethereum
-  //       .request({ method: "eth_requestAccounts" })
-  //       .then((result) => {
-  //         accountChangedHandler(result[0]);
-  //       });
-  //   } else {
-  //     alert("install metamask extension!!");
-  //   }
-  //   const accountChangedHandler = (newAccount) => {
-  //     setDefaultAccount(newAccount);
-  //   };
-  // };
 
   const uploadFile = async (e) => {
     setLoading(true);
@@ -96,18 +72,6 @@ export const ImageUpload = ({
               </h5>
             ) : (
               <div>
-                {/* {connected !== true ? (
-                  <button
-                    className="btnConnect text-white text-2xl mr-2"
-                    onClick={btnhandler}
-                  >
-                    Connect
-                  </button>
-                ) : (
-                  <Button type="submit" className="mb-3">
-                    Upload Image
-                  </Button>
-                )} */}
                 <Button type="submit" className="mb-3">
                   Upload Image
                 </Button>

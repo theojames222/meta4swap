@@ -1,15 +1,13 @@
 import React from "react";
 import { useEffect, useState, useCallback } from "react";
-import { useParams } from "react-router-dom";
 import Headlines from "../layout/Headlines";
-// import { collection, getDocs, query, where, limit } from "firebase/firestore";
-// import { db } from "../../firebase.config";
+
 import ListingItem from "../layout/ListingItem";
+import Spinner from "../shared/Spinner";
 const Moralis = require("moralis");
 function CategoryProducts() {
   const [listings, setListings] = useState([]);
   const [loading, setLoading] = useState(true);
-  const params = useParams();
 
   const getProducts = useCallback(async () => {
     try {
@@ -44,11 +42,10 @@ function CategoryProducts() {
     getProducts();
 
     console.log(listings);
-    // console.log(listings);
+
     setLoading(false);
   }, []);
-  // console.log(productsData);
-  // console.log(listings);
+
   return (
     <>
       <Headlines
@@ -57,7 +54,7 @@ function CategoryProducts() {
       />
       <div className="category mb-10">
         {loading ? (
-          <h1>Loading...</h1>
+          <Spinner />
         ) : listings && listings.length > 0 ? (
           <>
             <main className="pt-10">
@@ -73,7 +70,7 @@ function CategoryProducts() {
             </main>
           </>
         ) : (
-          <p>No listings available for Products</p>
+          <Spinner />
         )}
       </div>
     </>

@@ -1,8 +1,8 @@
 import React from "react";
 import { useEffect, useState, useCallback } from "react";
 import { useParams, Link } from "react-router-dom";
-// import TransactionItem from "../layout/TransactionItem";
-// import ListingItem from "../layout/ListingItem";
+import Spinner from "../shared/Spinner";
+
 import DisplayTransactions from "../layout/DisplayTransactions";
 
 const Moralis = require("moralis");
@@ -19,7 +19,7 @@ function Order({ userAddress }) {
       await Moralis.start({ serverUrl, appId, masterKey });
       const Item = Moralis.Object.extend("ItemCreated");
       const query = new Moralis.Query(Item);
-      //replace my address with user's address
+
       query.equalTo("creator", userAddress);
       const results = await query.find();
       await Promise.all(
@@ -44,14 +44,13 @@ function Order({ userAddress }) {
     getUserItems();
 
     console.log(listings);
-    // console.log(listings);
+
     setLoading(false);
   }, []);
-  console.log(listings.id);
   return (
     <div className="category mb-10">
       {loading ? (
-        <h1>Loading...</h1>
+        <Spinner />
       ) : listings && listings.length > 0 ? (
         <>
           <header className="infoHeader">
@@ -66,12 +65,6 @@ function Order({ userAddress }) {
                 <a href={`/transactions/${params.userId}`}>Transactions</a>
               </li>
             </ul>
-
-            {/* <div>
-              <Link to={`/user/${params.userId}`}>Listings</Link>
-              <br />
-              <Link to="/transactions">Transactions</Link>
-            </div> */}
           </header>
           <h1 className="infoHeader2 text-2xl">Recently Created Listings</h1>
           <div className=" flex justify-center">
@@ -101,7 +94,7 @@ function Order({ userAddress }) {
           </div>
         </>
       ) : (
-        <p>No listings available for Products</p>
+        <Spinner />
       )}
     </div>
   );

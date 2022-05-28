@@ -1,16 +1,15 @@
 import React, { useCallback } from "react";
 import Headlines from "./Headlines";
 import { useEffect, useState } from "react";
-// import { useParams } from "react-router-dom";
+
 import ListingItem from "../layout/ListingItem";
-import { v4 as uuidv4 } from "uuid";
+import Spinner from "../shared/Spinner";
 
 const Moralis = require("moralis");
 
 function FeaturedProduct() {
   const [listings, setListings] = useState([]);
   const [loading, setLoading] = useState(true);
-  // const params = useParams();
 
   const getProducts = useCallback(async () => {
     try {
@@ -46,16 +45,15 @@ function FeaturedProduct() {
     getProducts();
 
     console.log(listings);
-    // console.log(listings);
+
     setLoading(false);
   }, []);
-  // console.log(productsData);
-  // console.log(listings);
+
   return (
     <div className="category">
       <Headlines text="Featured Products" content="Latest products" />
       {loading ? (
-        <h1 className="text-center">Loading...</h1>
+        <Spinner />
       ) : listings && listings.length > 0 ? (
         <>
           <div
@@ -77,14 +75,10 @@ function FeaturedProduct() {
           </div>
         </>
       ) : (
-        <p className="text-center">No listings available for Products</p>
+        <Spinner />
       )}
     </div>
   );
 }
 
 export default FeaturedProduct;
-
-// if(loading){
-//   <h1>Loading...</h1>
-// }else if(listings && listings.length >0)

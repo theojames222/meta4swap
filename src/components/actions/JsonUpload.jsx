@@ -6,7 +6,6 @@ import Web3 from "web3/dist/web3.min.js";
 import { db } from "../../firebase.config";
 import { setDoc, doc, serverTimestamp } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
-// import { ImageUpload } from "./ImageUpload";
 
 const client = create("https://ipfs.infura.io:5001/api/v0");
 const abi = m4sAbi;

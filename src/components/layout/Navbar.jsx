@@ -1,26 +1,15 @@
 import { Link } from "react-router-dom";
-import useWindowDimensions from "../hooks/useWindowDimensions";
 import Logo from "../assets/logo2.png";
 import accountIcon from "../assets/user-286 (1).svg";
-// import { useParams } from "react-router-dom";
-
-// import { useParams } from "react-router-dom";
 
 function Navbar({ connected, userAddress }) {
-  // eslint-disable-next-line no-unused-vars
-  const { height, width } = useWindowDimensions();
-  // const params = useParams();
-  // const params = useParams();
   const isConnected = connected;
   const reloadPage = () => {
     window.location.reload();
   };
-  // Button handler button for handling a
-  // request event for metamask
+
   const btnhandler = () => {
-    // Asking if metamask is already present or not
     if (window.ethereum) {
-      // res[0] for fetching a first wallet
       window.ethereum
         .request({ method: "eth_requestAccounts" })
         .then((result) => {
@@ -36,7 +25,6 @@ function Navbar({ connected, userAddress }) {
   };
 
   return (
-    // <div className="">
     <nav className=" mb-3 shadow-lg ">
       <Link to="/" className="flex ml-5 ">
         <img src={Logo} alt="" className="logo" />
@@ -87,7 +75,6 @@ function Navbar({ connected, userAddress }) {
         )}
       </div>
     </nav>
-    // </div>
   );
 }
 

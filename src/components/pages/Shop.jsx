@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback } from "react";
-
+import Spinner from "../shared/Spinner";
 import ListingItem from "../layout/ListingItem";
 const Moralis = require("moralis");
 function Shop() {
@@ -38,7 +38,6 @@ function Shop() {
     getAll();
 
     console.log(listings);
-    // console.log(listings);
     setLoading(false);
   }, []);
 
@@ -46,7 +45,7 @@ function Shop() {
     <>
       <div className="category mb-10">
         {loading ? (
-          <h1>Loading...</h1>
+          <Spinner />
         ) : listings && listings.length > 0 ? (
           <>
             <main className="pt-10">
@@ -62,13 +61,9 @@ function Shop() {
             </main>
           </>
         ) : (
-          <p>No listings available</p>
+          <Spinner />
         )}
       </div>
-      {/* pagignation
-      {/* navbar */}
-      {/* sidebar with filters */}
-      {/* grid */}
     </>
   );
 }

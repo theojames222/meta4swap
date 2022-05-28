@@ -2,6 +2,7 @@ import React from "react";
 import Headlines from "./Headlines";
 import { useEffect, useState, useCallback } from "react";
 import ListingItem from "../layout/ListingItem";
+import Spinner from "../shared/Spinner";
 
 const Moralis = require("moralis");
 function FeaturedService() {
@@ -42,17 +43,15 @@ function FeaturedService() {
     getServices();
 
     console.log(listings);
-    // console.log(listings);
+
     setLoading(false);
   }, []);
-  // console.log(productsData);
-  // console.log(listings);
 
   return (
     <div className="category">
       <Headlines text="Featured Services" content="Latest Services" />
       {loading ? (
-        <h1 className="text-center">Loading...</h1>
+        <Spinner />
       ) : listings && listings.length > 0 ? (
         <>
           <div
@@ -75,7 +74,7 @@ function FeaturedService() {
           </div>
         </>
       ) : (
-        <p className="text-center">No listings available for Services</p>
+        <Spinner />
       )}
     </div>
   );

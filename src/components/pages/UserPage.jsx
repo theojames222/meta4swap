@@ -4,10 +4,10 @@ import discord from "../assets/discord.png";
 import telegram from "../assets/telegram.png";
 import { useEffect, useState, useCallback } from "react";
 import { useParams, Link } from "react-router-dom";
-// import { collection, getDocs, query, where, limit } from "firebase/firestore";
-// import { db } from "../../firebase.config";
+import Spinner from "../shared/Spinner";
+
 import ListingItem from "../layout/ListingItem";
-// import { Link } from "react-router-dom";
+
 const Moralis = require("moralis");
 function UserPage({ userAddress }) {
   const whatsappSym = (
@@ -57,14 +57,14 @@ function UserPage({ userAddress }) {
     getUserItems();
 
     console.log(listings);
-    // console.log(listings);
+
     setLoading(false);
   }, []);
 
   return (
     <div className="category mb-10">
       {loading ? (
-        <h1>Loading...</h1>
+        <Spinner />
       ) : listings && listings.length > 0 ? (
         <>
           {userAddress !== params.userId ? (
@@ -82,11 +82,6 @@ function UserPage({ userAddress }) {
                   <a href={`/transactions/${params.userId}`}>Transactions</a>
                 </li>
               </ul>
-              {/* <div>
-              <Link to={`/user/${params.userId}`}>Listings</Link>
-              <br />
-              <Link to="/transactions">Transactions</Link>
-            </div> */}
             </header>
           )}
 
@@ -103,7 +98,6 @@ function UserPage({ userAddress }) {
               <h1 className="  text-lg homeHeader">Contact</h1>
             </div>
             <div className="flex">
-              {/* Validate this data before presenting */}
               {listings[0].data.whatsapp !== "https://wa.me/" ||
               listings[1].data.whatsapp !== "https://wa.me/" ||
               listings[2].data.whatsapp !== "https://wa.me/" ? (
@@ -142,7 +136,7 @@ function UserPage({ userAddress }) {
           </main>
         </>
       ) : (
-        <p>No listings available for {params.userId}</p>
+        <Spinner />
       )}
     </div>
   );

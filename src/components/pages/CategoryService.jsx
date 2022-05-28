@@ -2,6 +2,7 @@ import React from "react";
 import { useEffect, useState, useCallback } from "react";
 import ListingItem from "../layout/ListingItem";
 import Headlines from "../layout/Headlines";
+import Spinner from "../shared/Spinner";
 const Moralis = require("moralis");
 function CategoryService() {
   const [listings, setListings] = useState([]);
@@ -40,11 +41,10 @@ function CategoryService() {
     getServices();
 
     console.log(listings);
-    // console.log(listings);
+
     setLoading(false);
   }, []);
-  // console.log(productsData);
-  // console.log(listings);
+
   return (
     <>
       <Headlines
@@ -53,7 +53,7 @@ function CategoryService() {
       />
       <div className="category mb-10">
         {loading ? (
-          <h1>Loading...</h1>
+          <Spinner />
         ) : listings && listings.length > 0 ? (
           <>
             <main className="pt-10">
@@ -69,7 +69,7 @@ function CategoryService() {
             </main>
           </>
         ) : (
-          <p>No listings available for Products</p>
+          <Spinner />
         )}
       </div>
     </>

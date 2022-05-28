@@ -1,25 +1,18 @@
 import avalanche from "../assets/avalanche-avax-logo.png";
+import Spinner from "../shared/Spinner";
 
-// import { FaStar } from "react-icons/fa";
 import StarRating from "../actions/StarRating";
 import { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import { doc, getDoc } from "firebase/firestore";
-import { setDoc, serverTimestamp } from "firebase/firestore";
-import { db } from "../../firebase.config";
-// import shareIcon from "../assets/shareIcon.svg";
+
 import m4sAbi from "../abi/m4s_abi.json";
 import Web3 from "web3/dist/web3.min.js";
-// import { ethers } from "ethers";
-import { v4 as uuidv4 } from "uuid";
-
-const Moralis = require("moralis");
 
 function Product({ userAddress }) {
   const avaxSym = <img className="eth" src={avalanche} alt="matic" />;
-  const [listing, setListing] = useState(null);
+
   const [loading, setLoading] = useState(true);
-  // const [shareLinkCopied, setShareLinkCopied] = useState(false);
+
   const [quantity, setQuantity] = useState({ quantity: 1 });
   const [listingData, setListingData] = useState({});
 
@@ -28,18 +21,6 @@ function Product({ userAddress }) {
   let itemId = params.listingId;
 
   useEffect(() => {
-    console.log(`quantity: ${quantity}`);
-    // const fetchListing = async () => {
-    //   const docRef = doc(db, "listings", params.listingId);
-    //   const docSnap = await getDoc(docRef);
-
-    //   if (docSnap.exists()) {
-    //     console.log(docSnap.data());
-
-    //     setListing(docSnap.data());
-    //   }
-    // };
-
     const fetchEthPrice = async () => {
       const web3 = new Web3(
         new Web3.providers.HttpProvider(
@@ -55,81 +36,7 @@ function Product({ userAddress }) {
 
       console.log(ethPrice);
       window.ethPrice = ethPrice;
-      // setLoading(false);
     };
-
-    // const getUserItems = async () => {
-    //   const serverUrl = "https://gu15uqsbipep.usemoralis.com:2053/server";
-    //   const appId = "F28xSksEmA0YDFTQskgodpG3W5JSZK0uBm9Abnde";
-    //   const masterKey = "G5799rbYbzVEjmd9B2tFNfgX184JryV3ntW283dy";
-    //   await Moralis.start({ serverUrl, appId, masterKey });
-    //   const Item = Moralis.Object.extend("ItemCreated");
-    //   const query = new Moralis.Query(Item);
-    //   //replace my address with user's address
-    //   query.equalTo("creator", "0x5f5b7c5c23f2826b0fdc25d21944bceaf146fd78");
-    //   const results = await query.find();
-    //   console.log(results.length);
-    //   for (let i = 0; i < results.length; i++) {
-    //     const object = results[i];
-    //     console.log(object.get("metadata"));
-    //     console.log(object.get("itemId"));
-    //     const ipfsURL =
-    //       "https://ipfs.infura.io/ipfs/QmcGaApMPcm7PPGNtFQYmdiNKkpANitFc1VTPStkQp843x";
-    //     fetch(ipfsURL)
-    //       .then((response) => response.json())
-    //       .then((data) => console.log("This is your data: ", data));
-    //   }
-    // };
-
-    // const getProducts = async () => {
-    //   const serverUrl = "https://gu15uqsbipep.usemoralis.com:2053/server";
-    //   const appId = "F28xSksEmA0YDFTQskgodpG3W5JSZK0uBm9Abnde";
-    //   const masterKey = "G5799rbYbzVEjmd9B2tFNfgX184JryV3ntW283dy";
-    //   await Moralis.start({ serverUrl, appId, masterKey });
-    //   const Item = Moralis.Object.extend("ItemCreated");
-    //   const query = new Moralis.Query(Item);
-    //   query.equalTo("productType", "0");
-    //   const results = await query.find();
-    //   console.log(results.length);
-    //   for (let i = 0; i < results.length; i++) {
-    //     const object = results[i];
-    //     console.log(object.get("metadata"));
-    //     console.log(object.get("itemId"));
-    //   }
-    // };
-
-    // const getServices = async () => {
-    //   const serverUrl = "https://gu15uqsbipep.usemoralis.com:2053/server";
-    //   const appId = "F28xSksEmA0YDFTQskgodpG3W5JSZK0uBm9Abnde";
-    //   const masterKey = "G5799rbYbzVEjmd9B2tFNfgX184JryV3ntW283dy";
-    //   await Moralis.start({ serverUrl, appId, masterKey });
-    //   const Item = Moralis.Object.extend("ItemCreated");
-    //   const query = new Moralis.Query(Item);
-    //   query.equalTo("productType", "1");
-    //   const results = await query.find();
-    //   console.log(results.length);
-    //   for (let i = 0; i < results.length; i++) {
-    //     const object = results[i];
-    //     console.log(object.get("metadata"));
-    //     console.log(object.get("itemId"));
-    //   }
-    // };
-
-    // const getAllItems = async () => {
-    //   const serverUrl = "https://gu15uqsbipep.usemoralis.com:2053/server";
-    //   const appId = "F28xSksEmA0YDFTQskgodpG3W5JSZK0uBm9Abnde";
-    //   const masterKey = "G5799rbYbzVEjmd9B2tFNfgX184JryV3ntW283dy";
-    //   await Moralis.start({ serverUrl, appId, masterKey });
-    //   const Item = Moralis.Object.extend("ItemCreated");
-    //   const query = new Moralis.Query(Item);
-    //   const results = await query.find();
-    //   console.log(results.length);
-    //   for (let i = 0; i < results.length; i++) {
-    //     const object = results[i];
-    //     console.log(object.get("metadata"));
-    //     console.log(object.get("itemId"));
-    //   }
-    // };
 
     const getItem = async () => {
       // const itemId = 1;
@@ -142,16 +49,6 @@ function Product({ userAddress }) {
         m4sAbi,
         "0xb4e61D08721007e0BA357B8AAF24D4B87b2649E1"
       );
-      //const itemId = 1;
-      // const itemInfo = await M4SContract.methods
-      // .itemInfo(window.itemId)
-      // .call();
-
-      // console.log(itemInfo['id']);
-      // console.log(itemInfo['metadata']);
-      // fetch(itemInfo['metadata'])
-      //     .then((response) => response.json())
-      //     .then((data) => console.log("This is your data: ", data));
 
       const itemInfo = await M4SContract.methods.itemInfo(itemId).call();
 
@@ -165,58 +62,11 @@ function Product({ userAddress }) {
           setListingData(data);
           setLoading(false);
         });
-      // setLoading(false);
     };
 
-    // const getOrdersBuyer = async () => {
-    //   const serverUrl = "https://gu15uqsbipep.usemoralis.com:2053/server";
-    //   const appId = "F28xSksEmA0YDFTQskgodpG3W5JSZK0uBm9Abnde";
-    //   const masterKey = "G5799rbYbzVEjmd9B2tFNfgX184JryV3ntW283dy";
-    //   await Moralis.start({ serverUrl, appId, masterKey });
-    //   const Item = Moralis.Object.extend("OrderCreatedBuyer");
-    //   const query = new Moralis.Query(Item);
-    //   //replace my address with user's address
-    //   const user = "0x5f5b7c5c23f2826b0fdc25d21944bceaf146fd78";
-    //   query.equalTo("buyer", user);
-    //   const results = await query.find();
-    //   console.log(results.length);
-    //   for (let i = 0; i < results.length; i++) {
-    //     const object = results[i];
-    //     console.log(object.get("orderId"));
-    //     console.log(object.get("itemId"));
-    //     console.log(object.get("price"));
-    //   }
-    // };
-
-    // const getOrdersSeller = async () => {
-    //   const serverUrl = "https://gu15uqsbipep.usemoralis.com:2053/server";
-    //   const appId = "F28xSksEmA0YDFTQskgodpG3W5JSZK0uBm9Abnde";
-    //   const masterKey = "G5799rbYbzVEjmd9B2tFNfgX184JryV3ntW283dy";
-    //   await Moralis.start({ serverUrl, appId, masterKey });
-    //   const Item = Moralis.Object.extend("OrderCreatedSeller");
-    //   const query = new Moralis.Query(Item);
-    //   //replace my address with user's address
-    //   const user = "0x5f5b7c5c23f2826b0fdc25d21944bceaf146fd78";
-    //   query.equalTo("seller", user);
-    //   const results = await query.find();
-    //   console.log(results.length);
-    //   for (let i = 0; i < results.length; i++) {
-    //     const object = results[i];
-    //     console.log(object.get("orderId"));
-    //     console.log(object.get("itemId"));
-    //     console.log(object.get("price"));
-    //   }
-    // };
-
-    // fetchListing();
     fetchEthPrice();
-    // getUserItems();
-    // getProducts();
-    // getServices();
+
     getItem();
-    // getOrdersSeller();
-    // getOrdersBuyer();
-    // getAllItems();
   }, [navigate, params.listingId]);
 
   const onChange = (e) => {
@@ -242,9 +92,6 @@ function Product({ userAddress }) {
       }
     );
 
-    //const itemId = 1;
-    //console.log((price));
-    //console.log((window.ethPrice));
     const orderPrice =
       ((listingData.price * 10 ** 18) / window.ethPrice) *
       10 ** 8 *
@@ -253,7 +100,7 @@ function Product({ userAddress }) {
 
     console.log(orderPrice);
     console.log(slippage);
-    //UI eth price for Theo
+
     console.log(orderPrice / 10 ** 18);
 
     M4SContract.methods
@@ -267,56 +114,11 @@ function Product({ userAddress }) {
       });
   };
 
-  // const onClick = async (e) => {
-  //   e.preventDefault();
-  //   const transactionId = uuidv4();
-  //   const orderPrice = ((listing.price * 10 ** 18) / window.ethPrice) * 10 ** 8;
-  //   const transaction = {
-  //     order: transactionId,
-  //     buyer: userAddress,
-  //     seller: listing.id,
-  //     listing: params.listingId,
-  //     status: "active",
-  //     price: listing.price,
-  //     orderPrice: orderPrice,
-  //   };
-  //   try {
-  //     await setDoc(doc(db, "transactions", transactionId), transaction);
-  //   } catch (error) {
-  //     console.log("unable to upload");
-  //   }
-
-  //   console.log(userAddress);
-  //   console.log(listing.id);
-  //   console.log(params.listingId);
-  // };
-
-  // const uploadText = async (e) => {
-  //   e.preventDefault();
-  //   const docId = uuidv4();
-  //   try {
-  //     const added = await client.add(metaDataJSONString);
-  //     const url = `https://ipfs.infura.io/ipfs/${added.path}`;
-  //     setMetaDataUrl(url);
-  //     console.log(metaDataUrl);
-  //     setUploaded(true);
-  //     console.log(uploaded);
-  //     setPrice(metaData.price);
-  //     setLive(true);
-  //     if (metaData.category === "service") {
-  //       setProductType(1);
-  //     }
-  //     setbtnDisabled(false);
-  //     await setDoc(doc(db, "listings", docId), metaData);
-  //   } catch (err) {
-  //     console.log("Error uploading the file : ", err);
-  //   }
-  // };
   console.log(listingData);
   return (
     <>
       {loading ? (
-        <h1>Loading...</h1>
+        <Spinner />
       ) : (
         <>
           <div>

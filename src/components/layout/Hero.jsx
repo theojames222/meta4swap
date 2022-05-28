@@ -4,7 +4,7 @@ import useWindowDimensions from "../hooks/useWindowDimensions";
 import { Link } from "react-router-dom";
 
 function Hero() {
-  const { height, width } = useWindowDimensions();
+  const width = useWindowDimensions();
   return (
     <div
       className="hero h-96 align-center w-auto mx-10"

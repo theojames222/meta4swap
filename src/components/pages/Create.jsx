@@ -1,13 +1,12 @@
 import { Container } from "react-bootstrap";
 import { useState } from "react";
-// import ItemCard from "../layout/ItemCard";
 import { JsonUpload } from "../actions/JsonUpload";
 import { ImageUpload } from "../actions/ImageUpload";
 function Create({ connected, userAddress }) {
   const [defaultAccount, setDefaultAccount] = useState(null);
 
   const [imageUrl, setImageUrl] = useState("");
-  // const [btnDisabled, setbtnDisabled] = useState(true);
+
   const [formData, setFormData] = useState({
     productName: "",
     category: "",
@@ -20,10 +19,8 @@ function Create({ connected, userAddress }) {
     discord: "https://discord.gg/",
     whatsapp: "https://wa.me/",
   });
-  // const { productName, description, unit, quantity, price, imageLink } =
-  //   formData;
+
   if (window.ethereum) {
-    // res[0] for fetching a first wallet
     window.ethereum
       .request({ method: "eth_requestAccounts" })
       .then((result) => {
@@ -42,42 +39,6 @@ function Create({ connected, userAddress }) {
       [e.target.id]: e.target.value,
     }));
   };
-
-  // const onChange3 = (e) => {
-  //   if (e.target.id === "productName" && e.target.value.trim().length >= 3) {
-  //     setFormData((prevState) => ({
-  //       ...prevState,
-  //       [e.target.id]: e.target.value,
-  //     }));
-  //   } else if (
-  //     e.target.id === "description" &&
-  //     e.target.value.trim().length >= 15
-  //   ) {
-  //     setFormData((prevState) => ({
-  //       ...prevState,
-  //       [e.target.id]: e.target.value,
-  //     }));
-  //   } else if (e.target.id === "price" && e.target.value > 0) {
-  //     setFormData((prevState) => ({
-  //       ...prevState,
-  //       [e.target.id]: e.target.value,
-  //     }));
-  //     setbtnDisabled(false);
-  //   } else {
-  //     setbtnDisabled(true);
-  //   }
-  // };
-  // const handleInputImageChange = (e) => {
-  //   if (imageUrl === "") {
-  //     setbtnDisabled(true);
-  //   } else {
-  //     setbtnDisabled(false);
-  //   }
-  // };
-
-  // const onClick = () => {
-  //   console.log(formData);
-  // };
 
   const onChange2 = (e) => {
     if (e.target.id === "telegram") {
@@ -192,13 +153,6 @@ function Create({ connected, userAddress }) {
                   <option>per pound</option>
                   <option>per day</option>
                 </select>
-                {/* <input
-                  type="text"
-                  placeholder="Unit(per hour, per item, per pound)"
-                  className="input input-bordered w-full"
-                  id="unit"
-                  onChange={onChange}
-                /> */}
               </label>
             </div>
             <div className="form-control">
@@ -278,7 +232,6 @@ function Create({ connected, userAddress }) {
 
               <h3>Image Url:</h3>
               <a
-                // onClick={handleInputImageChange}
                 id="imageLink"
                 href={imageUrl}
                 target="_blank"
@@ -304,10 +257,6 @@ function Create({ connected, userAddress }) {
             id={defaultAccount}
             userAddress={userAddress}
           />
-
-          {/* <button className="btn btn-primary" onClick={onClick}>
-            Create on Blockchain
-          </button> */}
         </div>
       </div>
     </>

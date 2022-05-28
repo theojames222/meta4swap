@@ -1,28 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
 const TransactionItem = ({ id, listings }) => {
-  const modalComplete = (
-    <>
-      <input type="checkbox" id="my-modal-3" class="modal-toggle" />
-      <div class="modal">
-        <div class="modal-box relative">
-          <label
-            for="my-modal-3"
-            class="btn btn-sm btn-circle absolute right-2 top-2"
-          >
-            ✕
-          </label>
-          <h3 class="text-lg font-bold">
-            Congratulations random Interner user!
-          </h3>
-          <p class="py-4">
-            You've been selected for a chance to get one year of subscription to
-            use Wikipedia for free!
-          </p>
-        </div>
-      </div>
-    </>
-  );
   return (
     <>
       <div className="overflow-x-auto w-full">
@@ -55,7 +33,6 @@ const TransactionItem = ({ id, listings }) => {
                 </div>
               </td>
               <th className="px-1">
-                {/* <button className="btn btn-ghost btn-xs">Actions Modal</button> */}
                 <ul className="menu menu-compact ">
                   <li>
                     <button

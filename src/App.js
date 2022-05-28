@@ -2,12 +2,10 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
 import Home from "./components/pages/Home";
-import Explore from "./components/layout/Explore";
 import Create from "./components/pages/Create";
 import Shop from "./components/pages/Shop";
 import Product from "./components/pages/Product";
 import Order from "./components/pages/Order";
-import Category from "./components/pages/Category";
 import { useState, useEffect } from "react";
 import UserPage from "./components/pages/UserPage";
 import Transactions from "./components/pages/Transactions";
@@ -15,18 +13,6 @@ import Web3 from "web3/dist/web3.min.js";
 import m4sAbi from "./abi/m4s_abi.json";
 import CategoryProducts from "./components/pages/CategoryProducts";
 import CategoryService from "./components/pages/CategoryService";
-// async function connect(onConnected) {
-//   if (!window.ethereum) {
-//     alert("Get MetaMask!");
-//     return;
-//   }
-
-//   const accounts = await window.ethereum.request({
-//     method: "eth_requestAccounts",
-//   });
-
-//   onConnected(accounts[0]);
-// }
 
 async function checkIfWalletIsConnected(onConnected) {
   if (window.ethereum) {
