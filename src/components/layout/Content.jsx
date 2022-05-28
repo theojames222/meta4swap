@@ -11,26 +11,23 @@ function Content() {
     {
       icon: form,
       header: "Create Listing",
-      content: `Use Meta4Swap create form to immediately list goods and
-  services on the Avalanche`,
+      content: `Use the Meta4Swap create form to immediately list goods and
+  services on the Avalanche Blockchain`,
     },
     {
       icon: market,
       header: "Shop Products & Services",
-      content: ` Shop the Meta4Swap Marketplace to find the right product or
-  service that meets your current needs and pay with AVAX`,
+      content: ` Shop the Meta4Swap Marketplace for products and services priced in USD and pay with AVAX`,
     },
     {
       icon: wallet,
       header: "Connect Wallet",
-      content: `Effortlessly connect your Metamask wallet to purchase products
-  and services from the blockchain!`,
+      content: `Effortlessly connect your Metamask wallet and purchase items in one transaction! No approval transactions needed.`,
     },
     {
       icon: payment,
       header: "Fast & Effortless Transaction",
-      content: ` Just two short clicks away from transparent purchases on the
-  Avalanche network with AVAX.`,
+      content: ` Your money is protected and held in escrow until the order is completed. Dispute transactions if you're unhappy with the order.`,
     },
   ];
   return (

@@ -11,7 +11,7 @@ function Footer() {
           <p className="ml-3 mt-3">Copyright © 2022 - All right reserved</p>
         </div>
         <div className="justify-self-end">
-          <p className="mr-5"> Powered by TheoDoas</p>
+          <p className="mr-5"> Powered by TheoDAOs</p>
         </div>
       </footer>
     </div>

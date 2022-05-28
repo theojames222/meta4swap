@@ -22,15 +22,16 @@ function DisplayTransactions2({ listing, id }) {
 
     const M4SContract = new web3.eth.Contract(
       m4sAbi,
-      "0x0680A9396b1d54D1b2D393580E1B4BDB20f4D2F8",
+      "0xb4e61D08721007e0BA357B8AAF24D4B87b2649E1",
       {
         from: account,
       }
     );
     //THEO add itemId here
-    const itemId = listing.itemId;
+    const orderId = listing.orderId;
+    console.log(orderId);
 
-    M4SContract.methods.complete(itemId).send();
+    M4SContract.methods.complete(orderId).send();
   };
 
   const cancelOrder = async (e) => {
@@ -44,15 +45,16 @@ function DisplayTransactions2({ listing, id }) {
 
     const M4SContract = new web3.eth.Contract(
       m4sAbi,
-      "0x0680A9396b1d54D1b2D393580E1B4BDB20f4D2F8",
+      "0xb4e61D08721007e0BA357B8AAF24D4B87b2649E1",
       {
         from: account,
       }
     );
     //THEO add itemId here
-    const itemId = listing.itemId;
+    const orderId = listing.orderId;
+    console.log(orderId);
 
-    M4SContract.methods.cancel(itemId).send();
+    M4SContract.methods.cancel(orderId).send();
   };
 
   const disputeOrder = async (e) => {
@@ -66,26 +68,27 @@ function DisplayTransactions2({ listing, id }) {
 
     const M4SContract = new web3.eth.Contract(
       m4sAbi,
-      "0x0680A9396b1d54D1b2D393580E1B4BDB20f4D2F8",
+      "0xb4e61D08721007e0BA357B8AAF24D4B87b2649E1",
       {
         from: account,
       }
     );
     //THEO add itemId here
-    const itemId = listing.itemId;
+    const orderId = listing.orderId;
+    console.log(orderId);
 
-    M4SContract.methods.dispute(itemId).send();
+    M4SContract.methods.dispute(orderId).send();
   };
   const getItem = async () => {
     const itemId = listing.itemId;
     const web3 = new Web3(
       new Web3.providers.HttpProvider(
-        "https://rinkeby.infura.io/v3/18c3956af9734c289bfed9eee03ee1a7"
+        "https://api.avax-test.network/ext/bc/C/rpc"
       )
     );
     const M4SContract = new web3.eth.Contract(
       m4sAbi,
-      "0x0680A9396b1d54D1b2D393580E1B4BDB20f4D2F8"
+      "0xb4e61D08721007e0BA357B8AAF24D4B87b2649E1"
     );
 
     const itemInfo = await M4SContract.methods.itemInfo(itemId).call();
