@@ -104,17 +104,23 @@ function UserPage({ userAddress }) {
             </div>
             <div className="flex">
               {/* Validate this data before presenting */}
-              {listings[0].data.whatsapp !== "https://wa.me/" ? (
+              {listings[0].data.whatsapp !== "https://wa.me/" ||
+              listings[1].data.whatsapp !== "https://wa.me/" ||
+              listings[2].data.whatsapp !== "https://wa.me/" ? (
                 <a href={`${listings[0].data.whatsapp}`}>{whatsappSym}</a>
               ) : (
                 ""
               )}
-              {listings[0].data.discord !== "https://discord.gg/" ? (
+              {listings[0].data.discord !== "https://discord.gg/" ||
+              listings[1].data.discord !== "https://discord.gg/" ||
+              listings[2].data.discord !== "https://discord.gg/" ? (
                 <a href={`${listings[0].data.discord}`}>{discordSym}</a>
               ) : (
                 ""
               )}
-              {listings[0].data.telegram !== "t.me/" ? (
+              {listings[0].data.telegram !== "t.me/" ||
+              listings[1].data.telegram !== "t.me/" ||
+              listings[2].data.telegram !== "t.me/" ? (
                 <a href={`https://${listings[0].data.telegram}`}>
                   {telegramSym}
                 </a>
