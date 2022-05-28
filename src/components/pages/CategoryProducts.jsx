@@ -1,6 +1,7 @@
 import React from "react";
 import { useEffect, useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
+import Headlines from "../layout/Headlines";
 // import { collection, getDocs, query, where, limit } from "firebase/firestore";
 // import { db } from "../../firebase.config";
 import ListingItem from "../layout/ListingItem";
@@ -49,27 +50,33 @@ function CategoryProducts() {
   // console.log(productsData);
   // console.log(listings);
   return (
-    <div className="category mb-10">
-      {loading ? (
-        <h1>Loading...</h1>
-      ) : listings && listings.length > 0 ? (
-        <>
-          <main className="pt-10">
-            <ul className="grid grid-cols-1 gap-8 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2">
-              {listings.map((listing) => (
-                <ListingItem
-                  listing={listing.data}
-                  id={listing.id}
-                  key={listing.id}
-                />
-              ))}
-            </ul>
-          </main>
-        </>
-      ) : (
-        <p>No listings available for Products</p>
-      )}
-    </div>
+    <>
+      <Headlines
+        text="Product Listings"
+        content="Shop products on AVAX blockchain!"
+      />
+      <div className="category mb-10">
+        {loading ? (
+          <h1>Loading...</h1>
+        ) : listings && listings.length > 0 ? (
+          <>
+            <main className="pt-10">
+              <ul className="grid grid-cols-1 gap-8 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2">
+                {listings.map((listing) => (
+                  <ListingItem
+                    listing={listing.data}
+                    id={listing.id}
+                    key={listing.id}
+                  />
+                ))}
+              </ul>
+            </main>
+          </>
+        ) : (
+          <p>No listings available for Products</p>
+        )}
+      </div>
+    </>
   );
 }
 

@@ -1,9 +1,11 @@
 import PropTypes from "prop-types";
 
 function Headlines({ text, content }) {
+  const page = window.location.href;
   return (
     <>
-      <div className="divider"></div>
+      {page.includes("category") ? "" : <div className="divider"></div>}
+
       <div
         className="container mx-20 md:mx-4"
         style={{
