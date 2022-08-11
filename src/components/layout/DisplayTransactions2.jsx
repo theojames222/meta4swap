@@ -145,14 +145,11 @@ function DisplayTransactions2({ listing, id }) {
               <td>
                 {" "}
                 <div className="pl-20 pr-5">
-                  <div className="font-bold">{`$ ${price.toFixed(4)}`}</div>
+                  <div className="font-bold">{`$ ${(price*window.ethPrice/10**8).toFixed(2)}`}</div>
                   <div className="text-sm opacity-50">
                     {" "}
                     (
-                    {(
-                      (((price * 10 ** 18) / window.ethPrice) * 10 ** 8) /
-                      10 ** 18
-                    ).toFixed(3)}{" "}
+                      {price.toFixed(4)}{" "}
                     {avaxSym})
                   </div>
                 </div>
