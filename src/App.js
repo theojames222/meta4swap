@@ -14,6 +14,7 @@ import m4sAbi from "./abi/m4s_abi.json";
 import CategoryProducts from "./components/pages/CategoryProducts";
 import CategoryService from "./components/pages/CategoryService";
 import CreateForm from "./components/layout/CreateForm";
+import ServicePage from "./components/pages/ServicePage";
 
 async function checkIfWalletIsConnected(onConnected) {
   if (window.ethereum) {
@@ -79,8 +80,9 @@ function App() {
             />
             <Route path="/shop" element={<Shop />} />
             <Route
-              path="/category/:categoryName/:listingId"
-              element={<Product userAddress={userAddress} />}
+              path="/service/testServicePage"
+              // path="/category/:categoryName/:listingId"
+              element={<ServicePage userAddress={userAddress} />}
             />
             <Route
               path="/user/:userId"

@@ -85,13 +85,23 @@ function CreateForm({ connected, userAddress }) {
         </div>
         <div className="formContainer ">
           <header>
-            <p className="smallHeader text-5xl mb-5">Create Listing</p>
+            <p className="smallHeader text-5xl mb-5 px-5">Create Listing</p>
           </header>
-          <div className="flex justify-center align-center">
-            <button className="btn btn-primary" onClick={onClick}>
+          <div className="flex justify-center align-center mt-3">
+            <button
+              className={`btn btn-outline btn-primary btn-${
+                serviceForm === true ? "active" : ""
+              } w-1/2 ${serviceForm === true ? "text-white" : ""}`}
+              onClick={onClick}
+            >
               Service
             </button>
-            <button className="btn btn-secondary" onClick={onClick2}>
+            <button
+              className={`btn btn-outline btn-primary btn-${
+                taskForm === true ? "active" : ""
+              } w-1/2  `}
+              onClick={onClick2}
+            >
               Task
             </button>
           </div>
@@ -105,9 +115,9 @@ function CreateForm({ connected, userAddress }) {
               <label className="input-group pb-0.5">
                 <input
                   type="text"
-                  placeholder={`${
-                    serviceForm === true ? "Service" : "Task"
-                  } Name(min 10 characters)*`}
+                  placeholder={`Enter a name for the ${
+                    serviceForm === true ? "service" : "task"
+                  }(min 10 characters)*`}
                   className="input input-bordered w-full"
                   id="itemName"
                   onChange={onChange}
@@ -123,8 +133,12 @@ function CreateForm({ connected, userAddress }) {
               </header>
               <label className="input-group pb-0.5">
                 <textarea
-                  className="textarea textarea-bordered w-full"
-                  placeholder={`Brief description of product \n (min 15 characters)*`}
+                  className="textarea textarea-bordered w-full h-28"
+                  placeholder={`${
+                    serviceForm === true
+                      ? "Describe your service in more detail. Include what the final product looks like and the technologies used.(min 15 characters)*"
+                      : `Describe the task in more detail. Include what you need completed and what skills and technologies are required.(min 15 characters)*`
+                  }`}
                   id="description"
                   onChange={onChange}
                 ></textarea>

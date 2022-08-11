@@ -37,13 +37,13 @@ function Content() {
 
       <>
         <div
-          className="container "
+          className="container items-center mx-auto justify-center "
           style={{
             alignItems: "center",
             justifyContent: "space-evenly",
           }}
         >
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 ">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 ">
             {contentsArr.map((card) => (
               <div className="card text-primary items-center">
                 <div className="card-body justify-center items-center text-center">

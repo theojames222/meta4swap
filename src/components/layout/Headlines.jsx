@@ -11,7 +11,7 @@ function Headlines({ text, content }) {
       )}
 
       <div
-        className="container mx-20 md:mx-4"
+        className="container  items-center mx-auto justify-center pb-3"
         style={{
           display: "flex",
           alignItems: "center",
