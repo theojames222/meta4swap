@@ -12,14 +12,15 @@ const abi = m4sAbi;
 export const JsonUpload = ({
   disabled,
   metaData2,
-  imageUrl,
+  // imageUrl,
   id,
   userAddress,
+  hidden,
 }) => {
   const metaData = {
     id: id,
     ...metaData2,
-    imageUrl: imageUrl,
+    // imageUrl: imageUrl,
     timestamp: serverTimestamp(),
     date: new Intl.DateTimeFormat("en-US", {
       year: "numeric",
@@ -89,12 +90,8 @@ export const JsonUpload = ({
   };
 
   return (
-    <div>
-      <button
-        className="btn btn-primary"
-        onClick={uploadText}
-        disabled={disabled}
-      >
+    <div hidden={hidden}>
+      <button className="btn btn-primary" onClick={uploadText}>
         Upload Metadata
       </button>
       <br />

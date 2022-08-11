@@ -13,6 +13,7 @@ import Web3 from "web3/dist/web3.min.js";
 import m4sAbi from "./abi/m4s_abi.json";
 import CategoryProducts from "./components/pages/CategoryProducts";
 import CategoryService from "./components/pages/CategoryService";
+import CreateForm from "./components/layout/CreateForm";
 
 async function checkIfWalletIsConnected(onConnected) {
   if (window.ethereum) {
@@ -73,7 +74,7 @@ function App() {
             <Route
               path="/create"
               element={
-                <Create connected={connected} userAddress={userAddress} />
+                <CreateForm connected={connected} userAddress={userAddress} />
               }
             />
             <Route path="/shop" element={<Shop />} />

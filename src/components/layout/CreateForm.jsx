@@ -1,0 +1,224 @@
+import { useState } from "react";
+import { JsonUpload } from "../actions/JsonUpload";
+
+function CreateForm({ connected, userAddress }) {
+  const [defaultAccount, setDefaultAccount] = useState(null);
+
+  const [formData, setFormData] = useState({
+    itemName: "",
+    category: "",
+    description: "",
+    eta: "",
+    price: 0,
+    priceUnit: "USD",
+    telegram: "t.me/",
+    discord: "https://discord.gg/",
+    whatsapp: "https://wa.me/",
+  });
+
+  const [taskForm, setTaskForm] = useState(false);
+  const [serviceForm, setServiceForm] = useState(false);
+  const [hidden, setHidden] = useState(true);
+
+  //   if (window.ethereum) {
+  //     window.ethereum
+  //       .request({ method: "eth_requestAccounts" })
+  //       .then((result) => {
+  //         accountChangedHandler(result[0]);
+  //       });
+  //   } else {
+  //     alert("install metamask extension!!");
+  //   }
+  //   const accountChangedHandler = (newAccount) => {
+  //     setDefaultAccount(newAccount);
+  //   };
+  let ethPrice = 0;
+  const onChange = (e) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      [e.target.id]: e.target.value,
+    }));
+  };
+
+  const onChange2 = (e) => {
+    if (e.target.id === "telegram") {
+      setFormData((prevState) => ({
+        ...prevState,
+        [e.target.id]: `t.me/${e.target.value}`,
+      }));
+    } else if (e.target.id === "discord") {
+      setFormData((prevState) => ({
+        ...prevState,
+        [e.target.id]: `https://discord.gg/${e.target.value}`,
+      }));
+    } else if (e.target.id === "whatsapp") {
+      setFormData((prevState) => ({
+        ...prevState,
+        [e.target.id]: `https://wa.me/${e.target.value}`,
+      }));
+    }
+  };
+
+  const onClick = () => {
+    setServiceForm(true);
+    setTaskForm(false);
+    setHidden(false);
+    //set hidden required in both click functions for task and service buttons
+  };
+  const onClick2 = () => {
+    setTaskForm(true);
+    setServiceForm(false);
+    setHidden(false);
+  };
+
+  console.log(formData);
+  return (
+    <>
+      <div className="content ">
+        <div className="container w-1/4 pl-10 pt-4 text-black font-bold fixed ">
+          <h2> Quick Guide :</h2>
+          <p>{`1. Connect to MetaMask(required)`}</p>
+          <p>{`2. Fill out all form fields`} </p>
+          <p>{`3. Upload product image`} </p>
+          <p>{`4. Upload metadata`} </p>
+          <p>{`5. Upload to blockchain! `} </p>
+        </div>
+        <div className="formContainer ">
+          <header>
+            <p className="smallHeader text-5xl mb-5">Create Listing</p>
+          </header>
+          <div className="flex justify-center align-center">
+            <button className="btn btn-primary" onClick={onClick}>
+              Service
+            </button>
+            <button className="btn btn-secondary" onClick={onClick2}>
+              Task
+            </button>
+          </div>
+          <form className="" hidden={hidden}>
+            <div className="form-control">
+              <header className="mt-6">
+                <h2 className="smallHeader">{`${
+                  serviceForm === true ? "Service Name" : "Task Name"
+                }`}</h2>
+              </header>
+              <label className="input-group pb-0.5">
+                <input
+                  type="text"
+                  placeholder={`${
+                    serviceForm === true ? "Service" : "Task"
+                  } Name(min 10 characters)*`}
+                  className="input input-bordered w-full"
+                  id="itemName"
+                  onChange={onChange}
+                />
+              </label>
+            </div>
+
+            <div className="form-control">
+              <header className="mt-6">
+                <h2 className="smallHeader">{`${
+                  serviceForm === true ? "Service" : "Task"
+                } Description`}</h2>
+              </header>
+              <label className="input-group pb-0.5">
+                <textarea
+                  className="textarea textarea-bordered w-full"
+                  placeholder={`Brief description of product \n (min 15 characters)*`}
+                  id="description"
+                  onChange={onChange}
+                ></textarea>
+              </label>
+            </div>
+            <div className="form-control">
+              <header className="mt-6">
+                <h2 className="smallHeader">{`${
+                  serviceForm === true ? "Service" : "Task"
+                } ETA`}</h2>
+              </header>
+              <label className="input-group pb-0.5">
+                <input
+                  type="text"
+                  placeholder={`How many days to complete the ${
+                    serviceForm === true ? "service" : "task"
+                  }`}
+                  className="input input-bordered w-full"
+                  id="eta"
+                  onChange={onChange}
+                />
+              </label>
+            </div>
+            <div className="form-control">
+              <header className="mt-6">
+                <h2 className="smallHeader">{`Price`}</h2>
+              </header>
+              <label className="input-group pb-5">
+                <input
+                  type="text"
+                  placeholder="Price in USD"
+                  className="input input-bordered w-full"
+                  id="price"
+                  onChange={onChange}
+                />
+              </label>
+              {formData.price !== 0 ? (
+                <h3>{`Price in ETH: ${Number(formData.price) + 1200}`}</h3>
+              ) : (
+                ""
+              )}
+            </div>
+            <header className="mt-6">
+              <h2 className="smallHeader">{`Contact Info `}</h2>
+              <h4 className="pb-2">Only username required</h4>
+            </header>
+            <div className="form-control">
+              <label className="input-group pb-0.5">
+                <span className="formLabel7">Telegram</span>
+                <input
+                  type="text"
+                  placeholder="username"
+                  className="input input-bordered w-full"
+                  id="telegram"
+                  onChange={onChange2}
+                />
+              </label>
+            </div>
+            <div className="form-control">
+              <label className="input-group pb-0.5">
+                <span className="formLabel8">Discord</span>
+                <input
+                  type="text"
+                  placeholder={`servername`}
+                  className="input input-bordered w-full"
+                  id="discord"
+                  onChange={onChange2}
+                />
+              </label>
+            </div>
+            <div className="form-control">
+              <label className="input-group pb-10">
+                <span className="formLabel9">WhatsApp</span>
+                <input
+                  type="text"
+                  placeholder={`phone # (ex. 1112223333)`}
+                  className="input input-bordered w-full"
+                  id="whatsapp"
+                  onChange={onChange2}
+                />
+              </label>
+            </div>
+          </form>
+
+          <JsonUpload
+            metaData2={formData}
+            id={defaultAccount}
+            userAddress={userAddress}
+            hidden={hidden}
+          />
+        </div>
+      </div>
+    </>
+  );
+}
+
+export default CreateForm;

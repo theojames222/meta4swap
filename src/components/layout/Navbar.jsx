@@ -37,7 +37,7 @@ function Navbar({ connected, userAddress }) {
               to="/shop"
               className="navShop text-2xl font-bold rounded-btn mr-12 "
             >
-              Shop
+              Services
             </Link>
           </button>
           <ul
@@ -52,6 +52,11 @@ function Navbar({ connected, userAddress }) {
             </li>
           </ul>
         </div>
+        <button className="btn btn-link">
+          <Link to="/" className="navShop text-2xl font-bold rounded-btn mr-12">
+            Tasks
+          </Link>
+        </button>
         <button className="btn btn-link">
           <Link
             to="/create"

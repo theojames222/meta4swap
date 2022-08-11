@@ -58,7 +58,7 @@ function CategoryProducts() {
         ) : listings && listings.length > 0 ? (
           <>
             <main className="pt-10">
-              <ul className="grid grid-cols-1 gap-8 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2">
+              <ul className="grid grid-cols-1 gap-2 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2">
                 {listings.map((listing) => (
                   <ListingItem
                     listing={listing.data}
