@@ -15,6 +15,7 @@ import CategoryProducts from "./components/pages/CategoryProducts";
 import CategoryService from "./components/pages/CategoryService";
 import CreateForm from "./components/layout/CreateForm";
 import ServicePage from "./components/pages/ServicePage";
+import NavbarTest from "./components/layout/NavbarTest";
 
 async function checkIfWalletIsConnected(onConnected) {
   if (window.ethereum) {
@@ -66,8 +67,9 @@ function App() {
   return (
     <Router>
       <div className="flex flex-col">
-        <Navbar connected={connected} userAddress={userAddress} />
-        <main>
+        <NavbarTest />
+        {/* <Navbar connected={connected} userAddress={userAddress} /> */}
+        <main className="mt-24">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/category/products" element={<CategoryProducts />} />

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import Logo from "../assets/logo2.png";
 import accountIcon from "../assets/user-286 (1).svg";
 
-function Navbar({ connected, userAddress }) {
+function NavbarTest({ connected, userAddress }) {
   const isConnected = connected;
   const reloadPage = () => {
     window.location.reload();
@@ -26,7 +26,7 @@ function Navbar({ connected, userAddress }) {
 
   return (
     <header className="flex flex-col">
-      <nav className=" mb-3 shadow-lg ">
+      <nav className="fixed z-50 w-full bg-white top-0 flex flex-wrap items-center justify-between px-2 py-3 shadow-lg">
         <Link to="/" className="flex ml-5 ">
           <img src={Logo} alt="" className="logo" />
         </Link>
@@ -88,4 +88,4 @@ function Navbar({ connected, userAddress }) {
   );
 }
 
-export default Navbar;
+export default NavbarTest;
