@@ -63,12 +63,20 @@ function CreateForm({ connected, userAddress }) {
     setServiceForm(true);
     setTaskForm(false);
     setHidden(false);
+    setFormData((prevState) => ({
+      ...prevState,
+      category: "service",
+    }));
     //set hidden required in both click functions for task and service buttons
   };
   const onClick2 = () => {
     setTaskForm(true);
     setServiceForm(false);
     setHidden(false);
+    setFormData((prevState) => ({
+      ...prevState,
+      category: "task",
+    }));
   };
 
   console.log(formData);

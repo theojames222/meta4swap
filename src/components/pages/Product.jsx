@@ -122,7 +122,7 @@ function Product({ userAddress }) {
       ) : (
         <>
           <div>
-            <Link to={`/user/${listingData.id}`}>
+            <Link to={`/account/${listingData.id}`}>
               <h2 className="text-xl font-bold ml-5 pt-4">
                 {`Creator : ${listingData.id.substring(
                   0,

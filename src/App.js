@@ -80,18 +80,20 @@ function App() {
                 <CreateForm connected={connected} userAddress={userAddress} />
               }
             />
-            <Route path="/shop" element={<Shop />} />
+            <Route path="/services" element={<Shop />} />
+            <Route path="/tasks" element={<Shop />} />
+
             <Route
-              path="/service/testServicePage"
+              path="/listing/:type/:listingId"
               // path="/category/:categoryName/:listingId"
               element={<ServicePage userAddress={userAddress} />}
             />
             <Route
-              path="/user/:userId"
+              path="/account/:userId"
               element={<UserPage userAddress={userAddress} />}
             />
             <Route
-              path="/user/listings/:userId"
+              path="/order/:type/:orderId"
               element={<Order userAddress={userAddress} />}
             />
             <Route

@@ -35,27 +35,16 @@ function NavbarTest({ connected, userAddress }) {
           <div className="dropdown dropdown-hover">
             <button className="btn btn-link  ">
               <Link
-                to="/shop"
+                to="/services"
                 className="navShop text-2xl font-bold rounded-btn mr-12 "
               >
                 Services
               </Link>
             </button>
-            <ul
-              tabIndex="0"
-              className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
-            >
-              <li>
-                <a href="/category/products">Products</a>
-              </li>
-              <li>
-                <a href="/category/services">Services</a>
-              </li>
-            </ul>
           </div>
           <button className="btn btn-link">
             <Link
-              to="/"
+              to="/tasks"
               className="navShop text-2xl font-bold rounded-btn mr-12"
             >
               Tasks
@@ -70,7 +59,7 @@ function NavbarTest({ connected, userAddress }) {
             </Link>
           </button>
           {isConnected ? (
-            <Link to={`/user/${userAddress}`}>
+            <Link to={`/account/${userAddress}`}>
               {" "}
               <img src={accountIcon} alt="account" className="accountIcon" />
             </Link>
