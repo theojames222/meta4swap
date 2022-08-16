@@ -6,8 +6,21 @@ import Web3 from "web3/dist/web3.min.js";
 import { db } from "../../firebase.config";
 import { setDoc, doc, serverTimestamp } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
+import { Buffer } from "buffer";
 
-const client = create("https://ipfs.infura.io:5001/api/v0");
+const projectId = '2DSQcwzwT76SmNIGvQhj2xU1lVW';
+const projectSecret = '214d0b37f4845f97cbdf513eee8248ff';
+const auth =
+    'Basic ' + Buffer.from(projectId + ':' + projectSecret).toString('base64');
+
+const client = create({
+  host: 'ipfs.infura.io',
+  port: 5001,
+  protocol: 'https',
+  headers: {
+      authorization: auth,
+  },
+});
 const abi = m4sAbi;
 export const JsonUpload = ({
   disabled,
@@ -74,7 +87,7 @@ export const JsonUpload = ({
     const docId = uuidv4();
     try {
       const added = await client.add(metaDataJSONString);
-      const url = `https://ipfs.infura.io/ipfs/${added.path}`;
+      const url = `https://meta4swap.infura-ipfs.io/ipfs/${added.path}`;
       setMetaDataUrl(url);
       console.log(metaDataUrl);
       setUploaded(true);
