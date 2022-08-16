@@ -9,13 +9,13 @@ function Content() {
     {
       icon: form,
       header: "Create Listing",
-      content: `Use the Meta4Swap create form to immediately list goods and
-  services on the Avalanche Blockchain`,
+      content: `Use the Meta4Swap create form to immediately list your freelance
+  services on Ethereum blockchain`,
     },
     {
       icon: market,
-      header: "Shop Products & Services",
-      content: ` Shop the Meta4Swap Marketplace for products and services priced in USD and pay with AVAX`,
+      header: "Shop Freelance Services",
+      content: ` Shop the Meta4Swap Marketplace to find talented freelancers w/services priced in USD and pay in USD or ETH`,
     },
     {
       icon: wallet,
@@ -32,7 +32,7 @@ function Content() {
     <div className="category">
       <Headlines
         text="Meta4Swap Benefits"
-        content="Effortlessly Buy and Sell products and services on the Blockchain"
+        content="Effortlessly find talent, create and list freelance services on the Blockchain"
       />
 
       <>

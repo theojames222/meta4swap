@@ -12,6 +12,7 @@ const abi = m4sAbi;
 export const JsonUpload = ({
   disabled,
   metaData2,
+  whatsapp,
   // imageUrl,
   id,
   userAddress,
@@ -20,6 +21,7 @@ export const JsonUpload = ({
   const metaData = {
     id: id,
     ...metaData2,
+    whatsapp: whatsapp.slice(1),
     // imageUrl: imageUrl,
     timestamp: serverTimestamp(),
     date: new Intl.DateTimeFormat("en-US", {
@@ -89,6 +91,10 @@ export const JsonUpload = ({
     }
   };
 
+  // const uploadText = (e) => {
+  //   console.log(metaData, metaDataJSONString);
+  //   console.log(whatsapp, whatsapp.slice(1));
+  // };
   return (
     <div hidden={hidden}>
       <button className="btn btn-primary" onClick={uploadText}>

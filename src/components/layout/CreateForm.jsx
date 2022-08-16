@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { JsonUpload } from "../actions/JsonUpload";
+import PhoneInput from "react-phone-number-input";
+import "react-phone-number-input/style.css";
 
 function CreateForm({ connected, userAddress }) {
   const [defaultAccount, setDefaultAccount] = useState(null);
@@ -13,12 +15,16 @@ function CreateForm({ connected, userAddress }) {
     priceUnit: "USD",
     telegram: "t.me/",
     discord: "https://discord.gg/",
-    whatsapp: "https://wa.me/",
+    // whatsapp: "https://wa.me/",
   });
 
   const [taskForm, setTaskForm] = useState(false);
   const [serviceForm, setServiceForm] = useState(false);
   const [hidden, setHidden] = useState(true);
+  const [messageName, setMessageName] = useState("");
+  const [messageDescription, setMessageDescription] = useState("");
+  const [btnDisabled, setBtnDisabled] = useState(true);
+  const [value, setValue] = useState("");
 
   //   if (window.ethereum) {
   //     window.ethereum
@@ -41,20 +47,59 @@ function CreateForm({ connected, userAddress }) {
   };
 
   const onChange2 = (e) => {
-    if (e.target.id === "telegram") {
+    if (e.target.id === "telegram" && e.target.value.trim().length >= 5) {
+      setBtnDisabled(false);
       setFormData((prevState) => ({
         ...prevState,
         [e.target.id]: `t.me/${e.target.value}`,
       }));
-    } else if (e.target.id === "discord") {
+    } else if (e.target.id === "discord" && e.target.value.trim().length >= 2) {
+      setBtnDisabled(false);
       setFormData((prevState) => ({
         ...prevState,
         [e.target.id]: `https://discord.gg/${e.target.value}`,
       }));
-    } else if (e.target.id === "whatsapp") {
+    } //else if (e.target.id === "whatsapp" && value !== "") {
+    //   setBtnDisabled(false);
+    //   setFormData((prevState) => ({
+    //     ...prevState,
+    //     [e.target.id]: `https://wa.me/${value}`,
+    //   }));
+    // }
+  };
+  const onChange3 = (e) => {
+    if (e.target.value === "" || 0) {
+      setBtnDisabled(true);
+      setMessageName(null);
+    } else if (
+      e.target.id === "itemName" &&
+      e.target.value.trim().length <= 10
+    ) {
+      setBtnDisabled(true);
+      setMessageName(`Must be at least 10 characters in length`);
+    } else {
+      setMessageName(null);
       setFormData((prevState) => ({
         ...prevState,
-        [e.target.id]: `https://wa.me/${e.target.value}`,
+        [e.target.id]: e.target.value,
+      }));
+    }
+  };
+  const onChange4 = (e) => {
+    if (e.target.value === "" || 0) {
+      setBtnDisabled(true);
+      setMessageDescription(null);
+    } else if (
+      e.target.id === "description" &&
+      e.target.value.trim().length <= 15
+    ) {
+      setBtnDisabled(true);
+      setMessageDescription(`Must be at least 15 characters in length`);
+    } else {
+      setMessageDescription(null);
+      setFormData((prevState) => ({
+        ...prevState,
+        [e.target.id]: e.target.value,
       }));
     }
   };
@@ -79,7 +124,7 @@ function CreateForm({ connected, userAddress }) {
     }));
   };
 
-  console.log(formData);
+  console.log(formData, value);
   return (
     <>
       <div className="content ">
@@ -128,9 +173,14 @@ function CreateForm({ connected, userAddress }) {
                   }(min 10 characters)*`}
                   className="input input-bordered w-full"
                   id="itemName"
-                  onChange={onChange}
+                  onChange={onChange3}
                 />
               </label>
+              {messageName && (
+                <div className="text-sm" style={{ color: "red" }}>
+                  {messageName}
+                </div>
+              )}
             </div>
 
             <div className="form-control">
@@ -148,9 +198,14 @@ function CreateForm({ connected, userAddress }) {
                       : `Describe the task in more detail. Include what you need completed and what skills and technologies are required.(min 15 characters)*`
                   }`}
                   id="description"
-                  onChange={onChange}
+                  onChange={onChange4}
                 ></textarea>
               </label>
+              {messageDescription && (
+                <div className="text-sm" style={{ color: "red" }}>
+                  {messageDescription}
+                </div>
+              )}
             </div>
             <div className="form-control">
               <header className="mt-6">
@@ -191,7 +246,10 @@ function CreateForm({ connected, userAddress }) {
             </div>
             <header className="mt-6">
               <h2 className="smallHeader">{`Contact Info `}</h2>
-              <h4 className="pb-2">Only username required</h4>
+              <h4 className="">At least on form of contact required</h4>
+              <h4 className="text-sm pb-2" style={{ color: "red" }}>
+                *Input username only
+              </h4>
             </header>
             <div className="form-control">
               <label className="input-group pb-0.5">
@@ -220,19 +278,26 @@ function CreateForm({ connected, userAddress }) {
             <div className="form-control">
               <label className="input-group pb-10">
                 <span className="formLabel9">WhatsApp</span>
-                <input
+                <PhoneInput
+                  placeholder="Enter phone number"
+                  value={value}
+                  onChange={setValue}
+                  id="whatsapp"
+                />
+                {/* <input
                   type="text"
                   placeholder={`phone # (ex. 1112223333)`}
                   className="input input-bordered w-full"
                   id="whatsapp"
                   onChange={onChange2}
-                />
+                /> */}
               </label>
             </div>
           </form>
 
           <JsonUpload
             metaData2={formData}
+            whatsapp={value}
             id={defaultAccount}
             userAddress={userAddress}
             hidden={hidden}
