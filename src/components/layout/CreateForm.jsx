@@ -104,6 +104,12 @@ function CreateForm({ connected, userAddress }) {
     }
   };
 
+  function handeOnChange(value) {
+    this.setValue({
+      whatsapp: value,
+    });
+  }
+
   const onClick = () => {
     setServiceForm(true);
     setTaskForm(false);
@@ -124,7 +130,7 @@ function CreateForm({ connected, userAddress }) {
     }));
   };
 
-  console.log(formData, value);
+  // console.log(formData, value);
   return (
     <>
       <div className="content ">
@@ -281,7 +287,7 @@ function CreateForm({ connected, userAddress }) {
                 <PhoneInput
                   placeholder="Enter phone number"
                   value={value}
-                  onChange={setValue}
+                  onChange={value === null ? "" : setValue}
                   id="whatsapp"
                 />
                 {/* <input

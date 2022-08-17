@@ -21,7 +21,7 @@ export const JsonUpload = ({
   const metaData = {
     id: id,
     ...metaData2,
-    whatsapp: whatsapp.slice(1),
+    whatsapp: whatsapp,
     // imageUrl: imageUrl,
     timestamp: serverTimestamp(),
     date: new Intl.DateTimeFormat("en-US", {
@@ -33,6 +33,11 @@ export const JsonUpload = ({
       second: "2-digit",
     }).format(Date.now()),
   };
+
+  if (metaData.whatsapp !== undefined || null) {
+    metaData.whatsapp = metaData.whatsapp.slice(1);
+  }
+  console.log(metaData.whatsapp);
   const metaDataJSONString = JSON.stringify(metaData);
   const [uploaded, setUploaded] = useState(false);
   const [metaDataUrl, setMetaDataUrl] = useState("");
