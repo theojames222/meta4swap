@@ -8,17 +8,17 @@ import { setDoc, doc, serverTimestamp } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { Buffer } from "buffer";
 
-const projectId = '2DSQcwzwT76SmNIGvQhj2xU1lVW';
-const projectSecret = '214d0b37f4845f97cbdf513eee8248ff';
+const projectId = "2DSQcwzwT76SmNIGvQhj2xU1lVW";
+const projectSecret = "214d0b37f4845f97cbdf513eee8248ff";
 const auth =
-    'Basic ' + Buffer.from(projectId + ':' + projectSecret).toString('base64');
+  "Basic " + Buffer.from(projectId + ":" + projectSecret).toString("base64");
 
 const client = create({
-  host: 'ipfs.infura.io',
+  host: "ipfs.infura.io",
   port: 5001,
-  protocol: 'https',
+  protocol: "https",
   headers: {
-      authorization: auth,
+    authorization: auth,
   },
 });
 const abi = m4sAbi;
@@ -48,7 +48,7 @@ export const JsonUpload = ({
   };
 
   if (metaData.whatsapp !== undefined || null) {
-    metaData.whatsapp = metaData.whatsapp.slice(1);
+    metaData.whatsapp = `https://wa.me/${metaData.whatsapp.slice(1)}`;
   }
   console.log(metaData.whatsapp);
   const metaDataJSONString = JSON.stringify(metaData);
