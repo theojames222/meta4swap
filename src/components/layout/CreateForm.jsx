@@ -104,12 +104,6 @@ function CreateForm({ connected, userAddress }) {
     }
   };
 
-  function handeOnChange(value) {
-    this.setValue({
-      whatsapp: value,
-    });
-  }
-
   const onClick = () => {
     setServiceForm(true);
     setTaskForm(false);
@@ -134,14 +128,6 @@ function CreateForm({ connected, userAddress }) {
   return (
     <>
       <div className="content ">
-        <div className="container w-1/4 pl-10 pt-4 text-black font-bold fixed ">
-          <h2> Quick Guide :</h2>
-          <p>{`1. Connect to MetaMask(required)`}</p>
-          <p>{`2. Fill out all form fields`} </p>
-          <p>{`3. Upload product image`} </p>
-          <p>{`4. Upload metadata`} </p>
-          <p>{`5. Upload to blockchain! `} </p>
-        </div>
         <div className="formContainer ">
           <header>
             <p className="smallHeader text-5xl mb-5 px-5">Create Listing</p>
@@ -285,6 +271,7 @@ function CreateForm({ connected, userAddress }) {
               <label className="input-group pb-10">
                 <span className="formLabel9">WhatsApp</span>
                 <PhoneInput
+                  className="input input-bordered w-full"
                   placeholder="Enter phone number"
                   value={value}
                   onChange={value === null ? "" : setValue}
