@@ -9,23 +9,23 @@ function Content() {
     {
       icon: form,
       header: "Create Listing",
-      content: `Use the Meta4Swap create form to immediately list your freelance
-  services on Ethereum blockchain`,
+      content: `Use Meta4Swap create form to immediately list freelance
+  services or create a task to find talent for your next project right on Ethereum blockchain!`,
     },
     {
       icon: market,
       header: "Shop Freelance Services",
-      content: ` Shop the Meta4Swap Marketplace to find talented freelancers w/services priced in USD and pay in USD or ETH`,
+      content: ` Shop Meta4Swap platform to find talent w/services priced in USD and pay in USD or ETH. Freelancers can shop tasks to get paid in USD or ETH`,
     },
     {
       icon: wallet,
       header: "Connect Wallet",
-      content: `Effortlessly connect your Metamask wallet and purchase items in one transaction! No approval transactions needed.`,
+      content: `Effortlessly connect your Metamask wallet or Coinbase wallet and purchase services in one transaction! No approval transactions needed.`,
     },
     {
       icon: payment,
       header: "Fast & Effortless Transaction",
-      content: ` Your money is protected and held in escrow until the order is completed. Dispute transactions if you're unhappy with the order.`,
+      content: ` Your money is protected and held in escrow until the order is completed. Dispute transactions if unhappy with the order.`,
     },
   ];
   return (
