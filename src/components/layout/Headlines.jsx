@@ -4,7 +4,9 @@ function Headlines({ text, content }) {
   const page = window.location.href;
   return (
     <>
-      {page.includes("category") || page.includes("shop") ? (
+      {page.includes("category") ||
+      page.includes("shop") ||
+      page.includes("tasks") ? (
         ""
       ) : (
         <div className="divider"></div>
@@ -17,7 +19,16 @@ function Headlines({ text, content }) {
           alignItems: "center",
         }}
       >
-        <h1 className="homeHeader text-5xl justify-center "> {text}</h1>
+        <h1
+          className={`${
+            page.includes("tasks")
+              ? "homeHeader text-4xl"
+              : "homeHeader text-5xl"
+          }`}
+        >
+          {" "}
+          {text}
+        </h1>
       </div>
       <div
         className="container items-center mx-auto justify-center pb-3"

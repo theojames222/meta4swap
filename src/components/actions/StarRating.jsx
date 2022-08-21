@@ -8,7 +8,10 @@ function StarRating() {
 
   return (
     <>
-      <p>{`Avg. Rating is: ${rating} ${rating < 2 ? "star" : "stars"}`}</p>
+      <h2
+        className="justify-center align-center"
+        style={{ justify: "center", align: "center" }}
+      >{`Avg. Rating is: ${rating} ${rating < 2 ? "star" : "stars"}`}</h2>
       <div className="ratingFeature pb-4">
         {[...Array(5)].map((star, i) => {
           const ratingValue = i + 1;

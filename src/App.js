@@ -16,6 +16,7 @@ import CategoryService from "./components/pages/CategoryService";
 import CreateForm from "./components/layout/CreateForm";
 import ServicePage from "./components/pages/ServicePage";
 import NavbarTest from "./components/layout/NavbarTest";
+import NewTransactions from "./components/pages/NewTransactions";
 
 async function checkIfWalletIsConnected(onConnected) {
   if (window.ethereum) {
@@ -81,7 +82,7 @@ function App() {
               }
             />
             <Route path="/services" element={<Shop />} />
-            <Route path="/tasks" element={<Shop />} />
+            <Route path="/tasks" element={<NewTransactions />} />
 
             <Route
               path="/listing/:type/:listingId"
