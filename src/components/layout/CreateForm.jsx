@@ -17,7 +17,6 @@ function CreateForm({ connected, userAddress }) {
     discord: "https://discord.gg/",
     // whatsapp: "https://wa.me/",
   });
-
   const [taskForm, setTaskForm] = useState(false);
   const [serviceForm, setServiceForm] = useState(false);
   const [hidden, setHidden] = useState(true);
@@ -26,19 +25,19 @@ function CreateForm({ connected, userAddress }) {
   const [btnDisabled, setBtnDisabled] = useState(true);
   const [value, setValue] = useState("");
 
-  //   if (window.ethereum) {
-  //     window.ethereum
-  //       .request({ method: "eth_requestAccounts" })
-  //       .then((result) => {
-  //         accountChangedHandler(result[0]);
-  //       });
-  //   } else {
-  //     alert("install metamask extension!!");
-  //   }
-  //   const accountChangedHandler = (newAccount) => {
-  //     setDefaultAccount(newAccount);
-  //   };
-  let ethPrice = 0;
+  if (window.ethereum) {
+    window.ethereum
+      .request({ method: "eth_requestAccounts" })
+      .then((result) => {
+        accountChangedHandler(result[0]);
+      });
+  } else {
+    alert("install metamask extension!!");
+  }
+  const accountChangedHandler = (newAccount) => {
+    setDefaultAccount(newAccount);
+  };
+
   const onChange = (e) => {
     setFormData((prevState) => ({
       ...prevState,
@@ -103,6 +102,7 @@ function CreateForm({ connected, userAddress }) {
       }));
     }
   };
+  console.log(btnDisabled);
 
   const onClick = () => {
     setServiceForm(true);
@@ -231,7 +231,11 @@ function CreateForm({ connected, userAddress }) {
                 />
               </label>
               {formData.price !== 0 ? (
-                <h3>{`Price in ETH: ${Number(formData.price) + 1200}`}</h3>
+                <h3>{`Price in ETH: ${(
+                  (((Number(formData.price) * 10 ** 18) / window.ethPrice) *
+                    10 ** 8) /
+                  10 ** 18
+                ).toFixed(3)}`}</h3>
               ) : (
                 ""
               )}

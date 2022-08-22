@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { v4 as uuidv4 } from "uuid";
+// import { v4 as uuidv4 } from "uuid";
 import { create } from "ipfs-http-client";
 import m4sAbi from "../abi/m4s_abi.json";
 import Web3 from "web3/dist/web3.min.js";
-import { db } from "../../firebase.config";
-import { setDoc, doc, serverTimestamp } from "firebase/firestore";
+// import { db } from "../../firebase.config";
+// import { setDoc, doc, serverTimestamp } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { Buffer } from "buffer";
 
@@ -36,7 +36,7 @@ export const JsonUpload = ({
     ...metaData2,
     whatsapp: whatsapp,
     // imageUrl: imageUrl,
-    timestamp: serverTimestamp(),
+    // timestamp: serverTimestamp(),
     date: new Intl.DateTimeFormat("en-US", {
       year: "numeric",
       month: "2-digit",
@@ -83,13 +83,13 @@ export const JsonUpload = ({
       .createItem(metaDataUrl, live, web3.utils.toWei(price), productType)
       .send()
       .on("receipt", function () {
-        navigate(`/user/${userAddress}`);
+        navigate(`/account/${userAddress}`);
       });
   };
 
   const uploadText = async (e) => {
     e.preventDefault();
-    const docId = uuidv4();
+    // const docId = uuidv4();
     try {
       const added = await client.add(metaDataJSONString);
       const url = `https://meta4swap.infura-ipfs.io/ipfs/${added.path}`;
@@ -99,11 +99,11 @@ export const JsonUpload = ({
       console.log(uploaded);
       setPrice(metaData.price);
       setLive(true);
-      if (metaData.category === "service") {
+      if (metaData.category === "task") {
         setProductType(1);
       }
       setbtnDisabled(false);
-      await setDoc(doc(db, "listings", docId), metaData);
+      // await setDoc(doc(db, "listings", docId), metaData);
     } catch (err) {
       console.log("Error uploading the file : ", err);
     }
