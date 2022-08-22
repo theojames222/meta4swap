@@ -73,14 +73,19 @@ export const JsonUpload = ({
 
     const M4SContract = new web3.eth.Contract(
       abi,
-      "0xb4e61D08721007e0BA357B8AAF24D4B87b2649E1",
+      "0xC06130dB84fe3840c4CdB207EDd4b4e800aA957d",
       {
         from: account,
       }
     );
     //insert product type here
+    console.log(M4SContract);
+    console.log(metaDataUrl);
+    console.log(live);
+    console.log(web3.utils.toWei(price));
+    console.log(productType);
     M4SContract.methods
-      .createItem(metaDataUrl, live, web3.utils.toWei(price), productType)
+      .create(metaDataUrl, live, web3.utils.toWei(price), productType)
       .send()
       .on("receipt", function () {
         navigate(`/account/${userAddress}`);
