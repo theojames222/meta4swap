@@ -61,8 +61,8 @@ function Shop() {
           <Spinner />
         ) : listings && listings.length > 0 ? (
           <>
-            <main className="pt-10">
-              <ul className="grid grid-cols-1 gap-8 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2">
+            <main className="pt-10 px-5">
+              <ul className="grid grid-cols-1 gap-x-5 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4">
                 {listings.map((listing) => (
                   <ListingItem
                     listing={listing.data}

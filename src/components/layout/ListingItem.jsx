@@ -11,20 +11,20 @@ function ListingItem({ listing, id }) {
   return (
     <>
       <div
-        className="container-sm justify-center pt-5"
+        className="container-lg mx-0 justify-center pt-5 px-0"
         style={{ display: "flex" }}
       >
         <Link to={`/${listing.category}/${id}`}>
-          <div className="card  bg-base-100 shadow-xl  ">
-            <div className="card-body">
-              <div className="">
+          <div className="card bg-base-100 shadow-xl   ">
+            <div className="card-body w-full">
+              <div className="w-60">
                 <h2 className="card-title justify-center text-center">
                   {listing.itemName}
                 </h2>
                 <div class="divider"></div>
               </div>
-              <div className="h-1/3 pb-3 ">
-                <p className="justify-center text-center">
+              <div className="h-20 pb-3 text-ellipsis overflow-hidden ... ">
+                <p className=" h-26 max-h-full justify-center text-center overflow-y-auto ... ">
                   {listing.description}
                 </p>
               </div>
