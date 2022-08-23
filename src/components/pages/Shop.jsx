@@ -10,17 +10,21 @@ function Shop() {
   const getAll = useCallback(async () => {
     try {
       let listingsAll = [];
+      console.log("yo");
       const serverUrl = "https://gu15uqsbipep.usemoralis.com:2053/server";
       const appId = "F28xSksEmA0YDFTQskgodpG3W5JSZK0uBm9Abnde";
       const masterKey = "G5799rbYbzVEjmd9B2tFNfgX184JryV3ntW283dy";
       await Moralis.start({ serverUrl, appId, masterKey });
-      const Item = Moralis.Object.extend("ItemCreated");
+      const Item = Moralis.Object.extend("m4services1");
+      console.log(Item);
       const query = new Moralis.Query(Item);
       const results = await query.find();
       await Promise.all(
         results.map(async (item) => {
           const metadata = item.get("metadata");
+          console.log(metadata);
           const itemId = item.get("itemId");
+          console.log(itemId);
           const ipfsURL = metadata;
           const response = await fetch(ipfsURL)
             .then((resp) => resp.json())
@@ -32,6 +36,7 @@ function Shop() {
       setLoading(false);
     } catch (error) {
       console.log("error");
+      console.log(error);
     }
   }, [setLoading, setListings]);
 
