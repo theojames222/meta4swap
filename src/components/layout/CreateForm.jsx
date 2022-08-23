@@ -160,9 +160,9 @@ function CreateForm({ connected, userAddress }) {
               <label className="input-group pb-0.5">
                 <input
                   type="text"
-                  placeholder={`Enter a name for the ${
+                  placeholder={`enter a name for the ${
                     serviceForm === true ? "service" : "task"
-                  }(min 10 characters)*`}
+                  }`}
                   className="input input-bordered w-full"
                   id="itemName"
                   onChange={onChange3}
@@ -186,8 +186,8 @@ function CreateForm({ connected, userAddress }) {
                   className="textarea textarea-bordered w-full h-28"
                   placeholder={`${
                     serviceForm === true
-                      ? "Describe your service in more detail. Include what the final product looks like and the technologies used.(min 15 characters)*"
-                      : `Describe the task in more detail. Include what you need completed and what skills and technologies are required.(min 15 characters)*`
+                      ? "describe your service in more detail and include what the buyer will receive."
+                      : `describe the task in more detail and include what you need help with.`
                   }`}
                   id="description"
                   onChange={onChange4}
@@ -208,7 +208,7 @@ function CreateForm({ connected, userAddress }) {
               <label className="input-group pb-0.5">
                 <input
                   type="text"
-                  placeholder={`How many days to complete the ${
+                  placeholder={`how many days to complete the ${
                     serviceForm === true ? "service" : "task"
                   }`}
                   className="input input-bordered w-full"
@@ -224,7 +224,9 @@ function CreateForm({ connected, userAddress }) {
               <label className="input-group pb-5">
                 <input
                   type="text"
-                  placeholder="Price in USD"
+                  placeholder={`${
+                    serviceForm === true ? "service" : "task"
+                  } price in USD`}
                   className="input input-bordered w-full"
                   id="price"
                   onChange={onChange}
@@ -242,10 +244,8 @@ function CreateForm({ connected, userAddress }) {
             </div>
             <header className="mt-6">
               <h2 className="smallHeader">{`Contact Info `}</h2>
-              <h4 className="">At least on form of contact required</h4>
-              <h4 className="text-sm pb-2" style={{ color: "red" }}>
-                *Input username only
-              </h4>
+              <h4 className="">at least one form of contact required</h4>
+
             </header>
             <div className="form-control">
               <label className="input-group pb-0.5">
@@ -277,7 +277,7 @@ function CreateForm({ connected, userAddress }) {
                 <PhoneInput
                   defaultCountry="US"
                   className="input input-bordered w-full"
-                  placeholder="Enter phone number"
+                  placeholder="enter phone number"
                   value={value}
                   onChange={value === null ? "" : setValue}
                   id="whatsapp"
