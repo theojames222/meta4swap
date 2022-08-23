@@ -232,7 +232,7 @@ function CreateForm({ connected, userAddress }) {
               </label>
               {formData.price !== 0 ? (
                 <h3>{`Price in ETH: ${(
-                  (((Number(formData.price) * 10 ** 18) / window.ethPrice) *
+                  (((Number((formData.price).replace(/\,/g,'')) * 10 ** 18) / window.ethPrice) *
                     10 ** 8) /
                   10 ** 18
                 ).toFixed(3)}`}</h3>
@@ -275,6 +275,7 @@ function CreateForm({ connected, userAddress }) {
               <label className="input-group pb-10">
                 <span className="formLabel9">WhatsApp</span>
                 <PhoneInput
+                  defaultCountry="US"
                   className="input input-bordered w-full"
                   placeholder="Enter phone number"
                   value={value}
