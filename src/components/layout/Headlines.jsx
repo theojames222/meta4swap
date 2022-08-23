@@ -6,7 +6,8 @@ function Headlines({ text, content }) {
     <>
       {page.includes("category") ||
       page.includes("shop") ||
-      page.includes("tasks") ? (
+      page.includes("tasks") ||
+      page.includes("services") ? (
         ""
       ) : (
         <div className="divider"></div>
@@ -21,7 +22,7 @@ function Headlines({ text, content }) {
       >
         <h1
           className={`${
-            page.includes("tasks")
+            page.includes("tasks") || page.includes("services")
               ? "homeHeader text-4xl"
               : "homeHeader text-5xl"
           }`}

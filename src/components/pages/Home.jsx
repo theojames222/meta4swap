@@ -3,13 +3,14 @@ import Content from "../layout/Content";
 // import FeaturedProduct from "../layout/FeaturedProduct";
 import FeaturedService from "../layout/FeaturedService";
 import LatestServices from "../layout/LatestServices";
+import LatestTasks from "../layout/LatestTasks";
 
 function Home() {
   return (
     <>
       <Hero />
       <LatestServices />
-      {/* <FeaturedService /> */}
+      <LatestTasks />
       <Content />
     </>
   );

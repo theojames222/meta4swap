@@ -11,7 +11,7 @@ import UserPage from "./components/pages/UserPage";
 import Transactions from "./components/pages/Transactions";
 import Web3 from "web3/dist/web3.min.js";
 import m4sAbi from "./abi/m4s_abi.json";
-import CategoryProducts from "./components/pages/CategoryProducts";
+import CategoryTask from "./components/pages/CategoryTask";
 import CategoryService from "./components/pages/CategoryService";
 import CreateForm from "./components/layout/CreateForm";
 import ServicePage from "./components/pages/ServicePage";
@@ -68,24 +68,22 @@ function App() {
   return (
     <Router>
       <div className="flex flex-col">
-        <NavbarTest />
+        <NavbarTest connected={connected} userAddress={userAddress} />
         {/* <Navbar connected={connected} userAddress={userAddress} /> */}
         <main className="mt-24">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/category/products" element={<CategoryProducts />} />
-            <Route path="/category/services" element={<CategoryService />} />
             <Route
               path="/create"
               element={
                 <CreateForm connected={connected} userAddress={userAddress} />
               }
             />
-            <Route path="/services" element={<Shop />} />
-            <Route path="/tasks" element={<NewTransactions />} />
+            <Route path="/services" element={<CategoryService />} />
+            <Route path="/tasks" element={<CategoryTask />} />
 
             <Route
-              path="/listing/:type/:listingId"
+              path="/:type/:listingId"
               // path="/category/:categoryName/:listingId"
               element={<ServicePage userAddress={userAddress} />}
             />

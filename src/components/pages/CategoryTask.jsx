@@ -5,7 +5,7 @@ import Headlines from "../layout/Headlines";
 import ListingItem from "../layout/ListingItem";
 import Spinner from "../shared/Spinner";
 const Moralis = require("moralis");
-function CategoryProducts() {
+function CategoryTask() {
   const [listings, setListings] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -48,10 +48,7 @@ function CategoryProducts() {
 
   return (
     <>
-      <Headlines
-        text="Product Listings"
-        content="Shop products on AVAX blockchain!"
-      />
+      <Headlines text="Task Listings" content="Find tasks on Meta4Swap!" />
       <div className="category mb-10">
         {loading ? (
           <Spinner />
@@ -77,4 +74,4 @@ function CategoryProducts() {
   );
 }
 
-export default CategoryProducts;
+export default CategoryTask;

@@ -14,7 +14,7 @@ function ListingItem({ listing, id }) {
         className="container-sm justify-center pt-5"
         style={{ display: "flex" }}
       >
-        <Link to={`/category/${listing.category}/${id}`}>
+        <Link to={`/${listing.category}/${id}`}>
           <div>
             <div className="card bg-none items-center ">
               <figure className="shadow-2xl itemImg  ">

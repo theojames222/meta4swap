@@ -45,7 +45,7 @@ function Shop() {
   return (
     <>
       <Headlines
-        text={"Products Listings & Services Listings"}
+        text={"Freelance Service Listings"}
         content={"Shop Meta4Swap marketplace"}
       />
       <div className="category mb-10">

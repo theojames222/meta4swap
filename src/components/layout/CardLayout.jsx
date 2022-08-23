@@ -14,8 +14,8 @@ function CardLayout() {
         }}
       >
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 ">
-          {/* Change Route /listing/:type/:listingId */}
-          <Link to="/listing/service/testServicePage">
+          {/* Change Route /:type/:listingId */}
+          <Link to="/service/testServicePage">
             <div className="card  bg-base-100 shadow-xl  mx-5 mt-5">
               <div className="card-body">
                 <div className="">
@@ -34,7 +34,7 @@ function CardLayout() {
               </div>
             </div>
           </Link>
-          <Link to="/listing/service/testServicePage">
+          <Link to="/service/testServicePage">
             <div className="card  bg-base-100 shadow-xl  mx-5 mt-5">
               <div className="card-body">
                 <div className="">
@@ -53,7 +53,7 @@ function CardLayout() {
               </div>
             </div>
           </Link>
-          <Link to="/listing/service/testServicePage">
+          <Link to="/service/testServicePage">
             <div className="card  bg-base-100 shadow-xl  mx-5 mt-5">
               <div className="card-body">
                 <div className="">
@@ -72,7 +72,7 @@ function CardLayout() {
               </div>
             </div>
           </Link>
-          <Link to="/listing/service/testServicePage">
+          <Link to="/service/testServicePage">
             <div className="card  bg-base-100 shadow-xl  mx-5 mt-5">
               <div className="card-body">
                 <div className="">

@@ -3,7 +3,7 @@ import { useEffect, useState, useCallback } from "react";
 import ListingItem from "../layout/ListingItem";
 import Headlines from "../layout/Headlines";
 import Spinner from "../shared/Spinner";
-const Moralis = require("moralis");
+const Moralis = require("moralis-v1");
 function CategoryService() {
   const [listings, setListings] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -17,7 +17,7 @@ function CategoryService() {
       await Moralis.start({ serverUrl, appId, masterKey });
       const Item = Moralis.Object.extend("ItemCreated");
       const query = new Moralis.Query(Item);
-      query.equalTo("productType", "1");
+      query.equalTo("itemType", "1");
       const results = await query.find();
       await Promise.all(
         results.map(async (item) => {
