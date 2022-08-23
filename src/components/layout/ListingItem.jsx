@@ -15,43 +15,38 @@ function ListingItem({ listing, id }) {
         style={{ display: "flex" }}
       >
         <Link to={`/${listing.category}/${id}`}>
-          <div>
-            <div className="card bg-none items-center ">
-              <figure className="shadow-2xl itemImg  ">
-                <img src={listing.imageUrl} alt={listing.productName} />
-              </figure>
-              <div className="card-body items-center text-center pb-3">
-                <h2 className="card-title pt-3 font-bold text-xl truncate">
-                  {listing.productName}
+          <div className="card  bg-base-100 shadow-xl  ">
+            <div className="card-body">
+              <div className="">
+                <h2 className="card-title justify-center text-center">
+                  {listing.itemName}
                 </h2>
-                <p className="badge badge-ghost badge-sm">{`${
-                  listing.category === "product" ? "Product" : "Service"
-                }`}</p>
-                <p className="text-accent-focus text-lg font-bold">Price:</p>
-                <div
-                  className="flex"
-                  style={{
-                    justifyContent: "space-evenly",
-                  }}
-                >
-                  <p className="text font-bold mr-3">{`${
-                    listing.priceUnit === "USD" ? "$" : "€"
-                  } ${listing.price}`}</p>
-                  <p className="text ">
-                    (
-                    {(
-                      (((listing.price * 10 ** 18) / window.ethPrice) *
-                        10 ** 8) /
-                      10 ** 18
-                    ).toFixed(3)}{" "}
-                    {avaxSym})
-                  </p>
+                <div class="divider"></div>
+              </div>
+              <div className="h-1/3 pb-3 ">
+                <p className="justify-center text-center">
+                  {listing.description}
+                </p>
+              </div>
+              <div className="container">
+                <h3 className="card-title text-base justify-center">
+                  {"Price: "}
+                  {`$${listing.price}`}
+                </h3>
+
+                <h4 className="text-sm text-base justify-center text-center p-0">
+                  {`(${(
+                    (((listing.price * 10 ** 18) / window.ethPrice) * 10 ** 8) /
+                    10 ** 18
+                  ).toFixed(3)}) ETH`}
+                </h4>
+              </div>
+              <div className="card-actions justify-center">
+                <div className="card-actions pt-2 btnBuyHome ">
+                  <button className="btn btn-primary">Buy Now</button>
                 </div>
               </div>
             </div>
-          </div>
-          <div className="card-actions pt-2 btnBuyHome ">
-            <button className="btn btn-primary">Buy Now</button>
           </div>
         </Link>
       </div>

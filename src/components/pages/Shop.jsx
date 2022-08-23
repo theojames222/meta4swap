@@ -2,7 +2,7 @@ import { useEffect, useState, useCallback } from "react";
 import Spinner from "../shared/Spinner";
 import ListingItem from "../layout/ListingItem";
 import Headlines from "../layout/Headlines";
-const Moralis = require("moralis");
+const Moralis = require("moralis-v1");
 function Shop() {
   const [listings, setListings] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -30,27 +30,30 @@ function Shop() {
             .then((resp) => resp.json())
             .then((response) => response);
           listingsAll.push({ id: itemId, data: response });
+          console.log(listingsAll);
+          setListings(listingsAll);
+          setLoading(false);
         })
       );
-      setListings(listingsAll);
-      setLoading(false);
+
+      // setListings(listingsAll);
+      // setLoading(false);
     } catch (error) {
       console.log("error");
-      console.log(error);
+      // console.log(error);
     }
   }, [setLoading, setListings]);
 
   useEffect(() => {
     getAll();
 
-    console.log(listings);
     setLoading(false);
   }, []);
 
   return (
     <>
       <Headlines
-        text={"Freelance Service Listings"}
+        text={"Products Listings & Services Listings"}
         content={"Shop Meta4Swap marketplace"}
       />
       <div className="category mb-10">

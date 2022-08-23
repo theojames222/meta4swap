@@ -3,7 +3,7 @@ import { useEffect, useState, useCallback } from "react";
 import ListingItem from "../layout/ListingItem";
 import Headlines from "../layout/Headlines";
 import Spinner from "../shared/Spinner";
-const Moralis = require("moralis-v1");
+const Moralis = require("moralis");
 function CategoryService() {
   const [listings, setListings] = useState([]);
   const [loading, setLoading] = useState(true);
