@@ -26,7 +26,7 @@ function ListingItem({ listing, id }) {
                 </div>
               </div>
               <div className="h-20 pb-3 text-ellipsis overflow-hidden ... ">
-                <p className=" h-26 max-h-full justify-center text-center overflow-y-auto ... ">
+                <p className=" h-26 max-h-full justify-center text-center overflow-y-auto ... scrollbar-hide ">
                   {listing.description}
                 </p>
               </div>

@@ -1,5 +1,5 @@
 import Spinner from "../shared/Spinner";
-import ethSymbol from "../assets/Ethereum-Symbol.png";
+// import ethSymbol from "../assets/Ethereum-Symbol.png";
 
 import { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
@@ -7,7 +7,7 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import m4sAbi from "../abi/m4s_abi.json";
 import Web3 from "web3/dist/web3.min.js";
 function ServicePage({ userAddress }) {
-  const ethSym = <img className="eth" src={ethSymbol} alt="eth" />;
+  // const ethSym = <img className="eth" src={ethSymbol} alt="eth" />;
 
   const [loading, setLoading] = useState(true);
 
@@ -70,11 +70,11 @@ function ServicePage({ userAddress }) {
     getItem();
   }, [navigate, params.listingId]);
 
-  const onChange = (e) => {
-    setQuantity(() => ({
-      [e.target.id]: e.target.value,
-    }));
-  };
+  // const onChange = (e) => {
+  //   setQuantity(() => ({
+  //     [e.target.id]: e.target.value,
+  //   }));
+  // };
   const buyNow = async (e) => {
     console.log(quantity["quantity"]);
     e.preventDefault();
@@ -190,7 +190,9 @@ function ServicePage({ userAddress }) {
                       {/* {ethSym} */}
                     </h2>
                     <div className="card-actions justify-center">
-                      <button className="btn btn-primary">Buy Now</button>
+                      <button className="btn btn-primary" onClick={buyNow}>
+                        Buy Now
+                      </button>
                     </div>
                   </div>
                 </div>
