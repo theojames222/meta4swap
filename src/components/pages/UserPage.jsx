@@ -8,7 +8,7 @@ import Spinner from "../shared/Spinner";
 
 import ListingItem from "../layout/ListingItem";
 
-const Moralis = require("moralis");
+const Moralis = require("moralis-v1");
 function UserPage({ userAddress }) {
   const whatsappSym = (
     <img className="logoContact1" src={whatsapp} alt="whatsapp" />
@@ -30,7 +30,7 @@ function UserPage({ userAddress }) {
       const appId = "F28xSksEmA0YDFTQskgodpG3W5JSZK0uBm9Abnde";
       const masterKey = "G5799rbYbzVEjmd9B2tFNfgX184JryV3ntW283dy";
       await Moralis.start({ serverUrl, appId, masterKey });
-      const Item = Moralis.Object.extend("ItemCreated");
+      const Item = Moralis.Object.extend("m4services1");
       const query = new Moralis.Query(Item);
       //replace my address with user's address
       query.equalTo("creator", params.userId);
@@ -44,6 +44,8 @@ function UserPage({ userAddress }) {
             .then((resp) => resp.json())
             .then((response) => response);
           userItems.push({ id: itemId, data: response });
+          setListings(userItems);
+          setLoading(false);
         })
       );
       setListings(userItems);
@@ -67,37 +69,23 @@ function UserPage({ userAddress }) {
         <Spinner />
       ) : listings && listings.length > 0 ? (
         <>
-          {userAddress !== params.userId ? (
+          {userAddress === params.userId ? (
             ""
           ) : (
-            <header className="infoHeader">
-              <ul className=" mt-3 menu menu-horizontal  rounded-box items-">
-                <li>
-                  <Link to={`/user/listings/${params.userId}`} disabled={true}>
-                    Listings
-                  </Link>
-                </li>
-                <div class="divider divider-horizontal"></div>
-                <li>
-                  <a href={`/transactions/${params.userId}`}>Transactions</a>
-                </li>
-              </ul>
-            </header>
-          )}
-
-          <header className="infoHeader">
-            <div>
-              <h1 className="  text-2xl homeHeader">User Store</h1>
-            </div>
-            <div>
-              <h2 className=" text-xl font-bold">{params.userId}</h2>
-            </div>
-          </header>
-          <header className="infoHeader">
-            <div>
-              <h1 className="  text-lg homeHeader">Contact</h1>
-            </div>
-            <div className="flex">
+            <>
+              <header className="infoHeader">
+                <div>
+                  <h1 className="  text-2xl homeHeader">User Listings</h1>
+                </div>
+                <div>
+                  <h2 className=" text-xl font-bold">{params.userId}</h2>
+                </div>
+              </header>
+              <header className="infoHeader">
+                <div>
+                  <h1 className="  text-lg homeHeader">Contact</h1>
+                </div>
+                {/* <div className="flex">
               {listings[0].data.whatsapp !== "https://wa.me/" ||
               listings[1].data.whatsapp !== "https://wa.me/" ||
               listings[2].data.whatsapp !== "https://wa.me/" ? (
@@ -121,9 +109,12 @@ function UserPage({ userAddress }) {
               ) : (
                 ""
               )}
-            </div>
-          </header>
-          <main className="pt-10">
+            </div> */}
+              </header>{" "}
+            </>
+          )}
+
+          <main className={`${userAddress === params.userId ? "" : "pt-10"}`}>
             <ul className="grid grid-cols-1 gap-8 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2">
               {listings.map((listing) => (
                 <ListingItem

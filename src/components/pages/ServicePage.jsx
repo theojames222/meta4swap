@@ -137,7 +137,7 @@ function ServicePage({ userAddress }) {
                 </div>
                 <div className="container pb-5">
                   <h2 className="smallHeader">{`Creator: `}</h2>
-                  <Link to={`/account/${listingData.id}`}>
+                  <Link to={`/listings/account/${listingData.id}`}>
                     <h3>{listingData.id}</h3>
                   </Link>
                 </div>
@@ -186,8 +186,8 @@ function ServicePage({ userAddress }) {
                         (((listingData.price * 10 ** 18) / window.ethPrice) *
                           10 ** 8) /
                         10 ** 18
-                      ).toFixed(3)})`}
-                      {ethSym}
+                      ).toFixed(3)}) ETH`}
+                      {/* {ethSym} */}
                     </h2>
                     <div className="card-actions justify-center">
                       <button className="btn btn-primary">Buy Now</button>

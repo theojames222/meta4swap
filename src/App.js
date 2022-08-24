@@ -88,8 +88,12 @@ function App() {
               element={<ServicePage userAddress={userAddress} />}
             />
             <Route
-              path="/account/:userId"
+              path="/listings/account/:userId"
               element={<UserPage userAddress={userAddress} />}
+            />
+            <Route
+              path="/account/:userId"
+              element={<NewTransactions userAddress={userAddress} />}
             />
             <Route
               path="/order/:type/:orderId"

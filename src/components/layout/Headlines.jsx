@@ -7,7 +7,8 @@ function Headlines({ text, content }) {
       {page.includes("category") ||
       page.includes("shop") ||
       page.includes("tasks") ||
-      page.includes("services") ? (
+      page.includes("services") ||
+      page.includes("account") ? (
         ""
       ) : (
         <div className="divider"></div>

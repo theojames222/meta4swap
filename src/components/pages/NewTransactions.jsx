@@ -1,14 +1,15 @@
 import React from "react";
 import Headlines from "../layout/Headlines";
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import LatestServices from "../layout/LatestServices";
+import { Link, useParams } from "react-router-dom";
+import UserPage from "./UserPage";
 
-function NewTransactions() {
+function NewTransactions({ userAddress }) {
   const [listing, setListings] = useState(false);
   const [transactions, setTransactions] = useState(true);
   const [tasks, setTasks] = useState(false);
   const [services, setServices] = useState(true);
+  const params = useParams();
 
   const onClick = () => {
     setListings(true);
@@ -32,7 +33,7 @@ function NewTransactions() {
         <>
           {" "}
           <div className="content mx-20 ">
-            <div className="pb-10">
+            <div className="">
               <Headlines
                 text="My Account :"
                 content={`${"0xA209d66169840b201e56a80a2C73EB6d0427575d".substring(
@@ -81,10 +82,11 @@ function NewTransactions() {
                 </button>
               </div>
             </div>
+            <UserPage userAddress={userAddress} />
           </div>
         </>
       ) : (
-        <div className="content mx-20 ">
+        <div className="content mx-20 pb-10">
           <div className="pb-10">
             <Headlines
               text="My Account :"
