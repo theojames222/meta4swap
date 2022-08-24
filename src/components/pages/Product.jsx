@@ -24,12 +24,12 @@ function Product({ userAddress }) {
     const fetchEthPrice = async () => {
       const web3 = new Web3(
         new Web3.providers.HttpProvider(
-          "https://api.avax-test.network/ext/bc/C/rpc"
+          "https://goerli.infura.io/v3/18c3956af9734c289bfed9eee03ee1a7"
         )
       );
       const M4SContract = new web3.eth.Contract(
         m4sAbi,
-        "0xb4e61D08721007e0BA357B8AAF24D4B87b2649E1"
+        "0xC06130dB84fe3840c4CdB207EDd4b4e800aA957d"
       );
 
       const ethPrice = await M4SContract.methods.getLatestPrice().call();
@@ -42,19 +42,22 @@ function Product({ userAddress }) {
       // const itemId = 1;
       const web3 = new Web3(
         new Web3.providers.HttpProvider(
-          "https://api.avax-test.network/ext/bc/C/rpc"
+          "https://goerli.infura.io/v3/18c3956af9734c289bfed9eee03ee1a7"
         )
       );
       const M4SContract = new web3.eth.Contract(
         m4sAbi,
-        "0xb4e61D08721007e0BA357B8AAF24D4B87b2649E1"
+        "0xC06130dB84fe3840c4CdB207EDd4b4e800aA957d"
       );
 
       const itemInfo = await M4SContract.methods.itemInfo(itemId).call();
 
       console.log(itemInfo["id"]);
       console.log(itemInfo["metadata"]);
-      console.log(itemInfo["creator"]);
+      console.log(itemInfo["owner"]);
+      console.log(itemInfo["isLive"]);
+      console.log(itemInfo["price"]);
+      console.log(itemInfo["serviceType"]);
 
       fetch(itemInfo["metadata"])
         .then((response) => response.json())
@@ -86,7 +89,7 @@ function Product({ userAddress }) {
 
     const M4SContract = new web3.eth.Contract(
       m4sAbi,
-      "0xb4e61D08721007e0BA357B8AAF24D4B87b2649E1",
+      "0xC06130dB84fe3840c4CdB207EDd4b4e800aA957d",
       {
         from: account,
       }
