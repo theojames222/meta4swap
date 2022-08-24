@@ -1,5 +1,6 @@
-import avalanche from "../assets/avalanche-avax-logo.png";
+// import avalanche from "../assets/avalanche-avax-logo.png";
 import Spinner from "../shared/Spinner";
+import ethSymbol from "../assets/Ethereum-Symbol.png";
 
 import StarRating from "../actions/StarRating";
 import { useEffect, useState } from "react";
@@ -9,7 +10,7 @@ import m4sAbi from "../abi/m4s_abi.json";
 import Web3 from "web3/dist/web3.min.js";
 
 function Product({ userAddress }) {
-  const avaxSym = <img className="eth" src={avalanche} alt="matic" />;
+  const ethSym = <img className="eth" src={ethSymbol} alt="eth" />;
 
   const [loading, setLoading] = useState(true);
 
@@ -161,7 +162,7 @@ function Product({ userAddress }) {
                         10 ** 8) /
                       10 ** 18
                     ).toFixed(3)}{" "}
-                    {avaxSym})
+                    {ethSym})
                   </p>
                 </div>
                 <div
