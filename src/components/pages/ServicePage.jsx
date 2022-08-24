@@ -170,7 +170,7 @@ function ServicePage({ userAddress }) {
                 </figure> */}
                   <div className="card-body">
                     <h2
-                      className="card-title text-2xl justify-center pb-5"
+                      className="card-title text-2xl text-center justify-center pb-5"
                       style={{ color: "gray" }}
                     >
                       {listingData.itemName}
