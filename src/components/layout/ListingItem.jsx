@@ -16,12 +16,14 @@ function ListingItem({ listing, id }) {
       >
         <Link to={`/${listing.category}/${id}`}>
           <div className="card bg-base-100 shadow-xl   ">
-            <div className="card-body w-full">
-              <div className="w-60">
-                <h2 className="card-title justify-center text-center">
-                  {listing.itemName}
-                </h2>
-                <div class="divider"></div>
+            <div className="card-body ">
+              <div className="justify-center text-center flex">
+                <div className="w-60 h-20 justify-center text-center text-ellipsis overflow-hidden ... ">
+                  <h2 className="h-26 max-h-full card-title justify-center text-center overflow-y-auto ...">
+                    {listing.itemName}
+                  </h2>
+                  {/* <div class="divider"></div> */}
+                </div>
               </div>
               <div className="h-20 pb-3 text-ellipsis overflow-hidden ... ">
                 <p className=" h-26 max-h-full justify-center text-center overflow-y-auto ... ">

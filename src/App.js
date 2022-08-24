@@ -80,7 +80,7 @@ function App() {
               }
             />
             <Route path="/services" element={<CategoryService />} />
-            <Route path="/tasks" element={<Shop />} />
+            <Route path="/tasks" element={<CategoryTask />} />
 
             <Route
               path="/:type/:listingId"

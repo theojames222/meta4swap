@@ -3,7 +3,7 @@ import { useEffect, useState, useCallback } from "react";
 import ListingItem from "../layout/ListingItem";
 import Headlines from "../layout/Headlines";
 import Spinner from "../shared/Spinner";
-const Moralis = require("moralis");
+const Moralis = require("moralis-v1");
 function CategoryService() {
   const [listings, setListings] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -15,9 +15,9 @@ function CategoryService() {
       const appId = "F28xSksEmA0YDFTQskgodpG3W5JSZK0uBm9Abnde";
       const masterKey = "G5799rbYbzVEjmd9B2tFNfgX184JryV3ntW283dy";
       await Moralis.start({ serverUrl, appId, masterKey });
-      const Item = Moralis.Object.extend("ItemCreated");
+      const Item = Moralis.Object.extend("m4services1");
       const query = new Moralis.Query(Item);
-      query.equalTo("itemType", "1");
+      query.equalTo("itemType", "0");
       const results = await query.find();
       await Promise.all(
         results.map(async (item) => {
@@ -28,10 +28,10 @@ function CategoryService() {
             .then((resp) => resp.json())
             .then((response) => response);
           services.push({ id: itemId, data: response });
+          setListings(services);
+          setLoading(false);
         })
       );
-      setListings(services);
-      setLoading(false);
     } catch (error) {
       console.log("error");
     }
@@ -49,15 +49,25 @@ function CategoryService() {
     <>
       <Headlines
         text="Services Listings"
-        content="Shop services on AVAX blockchain!"
+        content="Shop services with Meta4Swap"
       />
-      <div className="category mb-10">
-        {loading ? (
-          <Spinner />
-        ) : listings && listings.length > 0 ? (
-          <>
-            <main className="pt-10">
-              <ul className="grid grid-cols-1 gap-8 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2">
+      <div
+        className="container items-center mx-2 "
+        style={{
+          // justifyContent: "space-evenly",
+          alignContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <div className="category flex mb-10">
+          {loading ? (
+            <Spinner />
+          ) : listings && listings.length > 0 ? (
+            <>
+              <ul
+                className=" grid grid-cols-8 gap-4 xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-2"
+                style={{}}
+              >
                 {listings.map((listing) => (
                   <ListingItem
                     listing={listing.data}
@@ -66,11 +76,11 @@ function CategoryService() {
                   />
                 ))}
               </ul>
-            </main>
-          </>
-        ) : (
-          <Spinner />
-        )}
+            </>
+          ) : (
+            <Spinner />
+          )}
+        </div>
       </div>
     </>
   );

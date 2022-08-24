@@ -32,7 +32,7 @@ function Headlines({ text, content }) {
         </h1>
       </div>
       <div
-        className="container items-center mx-auto justify-center pb-3"
+        className="container items-center mx-auto justify-center "
         style={{
           display: "flex",
           alignItems: "center",
