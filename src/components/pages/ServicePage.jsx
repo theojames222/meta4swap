@@ -13,6 +13,7 @@ function ServicePage({ userAddress }) {
 
   const [quantity, setQuantity] = useState({ quantity: 1 });
   const [listingData, setListingData] = useState({});
+  const [isLive, setIsLive] = useState(null);
 
   const navigate = useNavigate();
   const params = useParams();
@@ -56,6 +57,7 @@ function ServicePage({ userAddress }) {
       console.log(itemInfo["isLive"]);
       console.log(itemInfo["price"]);
       console.log(itemInfo["serviceType"]);
+      setIsLive(itemInfo["isLive"]);
 
       fetch(itemInfo["metadata"])
         .then((response) => response.json())
@@ -145,8 +147,7 @@ function ServicePage({ userAddress }) {
                   <div className="pr-10">
                     <h2 className="smallHeader justify-center align-center">{`Status:`}</h2>
                     <h3 className="justify-center align-center item-center">
-                      {" "}
-                      {`Open/Closed`}
+                      {`${isLive === true ? "Open" : "Closed"}`}
                     </h3>
                   </div>
                   <div className="pr-10">
@@ -182,11 +183,11 @@ function ServicePage({ userAddress }) {
                       {`$${Number(listingData.price).toFixed(2)}`}
                     </h2>
                     <h2 className="text-center justify-center pb-5">
-                      {`(${(
+                      {`${(
                         (((listingData.price * 10 ** 18) / window.ethPrice) *
                           10 ** 8) /
                         10 ** 18
-                      ).toFixed(3)}) ETH`}
+                      ).toFixed(3)} ETH`}
                       {/* {ethSym} */}
                     </h2>
                     <div className="card-actions justify-center">

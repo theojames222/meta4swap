@@ -4,5 +4,9 @@ module.exports = {
     extend: {},
     container: {},
   },
-  plugins: [require("daisyui"), require("tailwind-scrollbar-hide")],
+  plugins: [
+    require("daisyui"),
+    require("tailwind-scrollbar-hide"),
+    require("@tailwindcss/line-clamp"),
+  ],
 };

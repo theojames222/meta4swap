@@ -20,7 +20,7 @@ function LatestTasks() {
       const Item = Moralis.Object.extend("m4services1");
       const query = new Moralis.Query(Item);
       query.equalTo("itemType", "1");
-      query.limit(4);
+      query.limit(5);
       const results = await query.find();
       await Promise.all(
         results.map(async (item) => {
