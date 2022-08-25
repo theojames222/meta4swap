@@ -72,11 +72,10 @@ function ServicePage({ userAddress }) {
     getItem();
   }, [navigate, params.listingId]);
 
-  // const onChange = (e) => {
-  //   setQuantity(() => ({
-  //     [e.target.id]: e.target.value,
-  //   }));
-  // };
+  const offer = (e) => {
+    console.log("offer made");
+  };
+
   const buyNow = async (e) => {
     console.log(quantity["quantity"]);
     e.preventDefault();
@@ -191,8 +190,17 @@ function ServicePage({ userAddress }) {
                       {/* {ethSym} */}
                     </h2>
                     <div className="card-actions justify-center">
-                      <button className="btn btn-primary" onClick={buyNow}>
-                        Buy Now
+                      <button
+                        className="btn btn-primary"
+                        onClick={
+                          listingData.category === "task" ? offer : buyNow
+                        }
+                      >
+                        {`${
+                          listingData.category === "task"
+                            ? "Offer Now"
+                            : "Buy Now"
+                        }`}
                       </button>
                     </div>
                   </div>

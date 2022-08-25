@@ -45,7 +45,9 @@ function ListingItem({ listing, id }) {
               </div>
               <div className="card-actions justify-center">
                 <div className="card-actions pt-2 btnBuyHome ">
-                  <button className="btn btn-primary">Buy Now</button>
+                  <button className="btn btn-primary">{`${
+                    listing.category === "task" ? "Offer Now" : "Buy Now"
+                  }`}</button>
                 </div>
               </div>
             </div>
