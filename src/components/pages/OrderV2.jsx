@@ -6,19 +6,19 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 
 import m4sAbi from "../abi/m4s_abi.json";
 import Web3 from "web3/dist/web3.min.js";
-import OfferTable from "../layout/OfferTable";
-function ServicePage({ userAddress }) {
+function OrderV2({ userAddress }) {
   // const ethSym = <img className="eth" src={ethSymbol} alt="eth" />;
-  const page = window.location.href;
+
   const [loading, setLoading] = useState(true);
 
   const [quantity, setQuantity] = useState({ quantity: 1 });
   const [listingData, setListingData] = useState({});
   const [isLive, setIsLive] = useState(null);
-
+  const [hidden, setHidden] = useState(true);
   const navigate = useNavigate();
   const params = useParams();
-  let itemId = params.listingId;
+  //   let itemId = params.listingId;
+  let itemId = 5;
 
   useEffect(() => {
     const fetchEthPrice = async () => {
@@ -135,6 +135,23 @@ function ServicePage({ userAddress }) {
   };
 
   console.log(listingData);
+  const cancelOrder = (e) => {
+    e.preventDefault();
+    console.log("order cancelled");
+  };
+  const disputeOrder = (e) => {
+    e.preventDefault();
+    console.log("order under review");
+  };
+  const completeOrder = (e) => {
+    e.preventDefault();
+    console.log("order completed");
+  };
+
+  const hideDescription = (e) => {
+    e.preventDefault();
+    hidden === true ? setHidden(false) : setHidden(true);
+  };
   return (
     <>
       {loading ? (
@@ -177,15 +194,43 @@ function ServicePage({ userAddress }) {
                   </div>
                 </div>
 
-                <h2 className="smallHeader">{`Service Description`}</h2>
-                <p className="Description w-3/4 pb-10">
+                <h2
+                  className="smallHeader"
+                  onClick={hideDescription}
+                >{`Service Description`}</h2>
+                <p className="Description w-3/4 pb-20" hidden={hidden}>
                   {listingData.description}
                 </p>
-                {page.includes("task") ? (
-                  <OfferTable listingData={listingData} />
-                ) : (
-                  ""
-                )}
+                {/* <div className="overflow-x-auto">
+                  <table className="table table-compact w-3/4">
+                    <thead>
+                      <tr>
+                        <th>User</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>{listingData.id}</td>
+                        <td>
+                          <button className="btn-sm btn-primary">Buy</button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>{listingData.id}</td>
+                        <td>
+                          <button className="btn-sm btn-primary">Buy</button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>{listingData.id}</td>
+                        <td>
+                          <button className="btn-sm btn-primary">Buy</button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div> */}
               </div>
 
               <div className="fixed right-0 mr-10">
@@ -214,7 +259,42 @@ function ServicePage({ userAddress }) {
                       ).toFixed(3)} ETH`}
                       {/* {ethSym} */}
                     </h2>
-                    <div className="card-actions justify-center">
+                    <div
+                      className="container items-center justify-center"
+                      style={{
+                        alignContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <ul
+                        className="menu menu-compact items-center justify-center"
+                        style={{
+                          alignContent: "center",
+                          alignItems: "center",
+                        }}
+                      >
+                        <li>
+                          <button
+                            for="complete-modal"
+                            className="compBtn modal-button"
+                            onClick={completeOrder}
+                          >
+                            Complete
+                          </button>
+                        </li>
+                        <li>
+                          <button className="canBtn" onClick={cancelOrder}>
+                            Cancel
+                          </button>
+                        </li>
+                        <li>
+                          <button className="disputeBtn" onClick={disputeOrder}>
+                            Dispute
+                          </button>
+                        </li>
+                      </ul>
+                    </div>
+                    {/* <div className="card-actions justify-center">
                       <button
                         className="btn btn-primary"
                         onClick={
@@ -227,7 +307,7 @@ function ServicePage({ userAddress }) {
                             : "Buy Now"
                         }`}
                       </button>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>
@@ -239,4 +319,4 @@ function ServicePage({ userAddress }) {
   );
 }
 
-export default ServicePage;
+export default OrderV2;

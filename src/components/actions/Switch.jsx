@@ -3,7 +3,7 @@ import React from "react";
 const Switch = ({ isOn, handleToggle }) => {
   return (
     <>
-      <div className="flex  mt-5 infoHeader3">
+      <div className="flex smallHeader pb-2 ">
         <input
           checked={isOn}
           onChange={handleToggle}
@@ -18,7 +18,7 @@ const Switch = ({ isOn, handleToggle }) => {
         >
           <span className={`react-switch-button`} />
         </label>
-        <p className="mx-3 mt-1"> Seller Listings </p>
+        <p className="mx-3 mt-1"> Tasks </p>
       </div>
     </>
   );

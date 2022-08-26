@@ -7,6 +7,7 @@ import { useParams, Link } from "react-router-dom";
 import Spinner from "../shared/Spinner";
 
 import ListingItem from "../layout/ListingItem";
+import Headlines from "../layout/Headlines";
 
 const Moralis = require("moralis-v1");
 function UserPage({ userAddress }) {
@@ -70,7 +71,7 @@ function UserPage({ userAddress }) {
       ) : listings && listings.length > 0 ? (
         <>
           {userAddress === params.userId ? (
-            ""
+            <Headlines text="My Account" content="Listings on Meta4Swap" />
           ) : (
             <>
               <header className="infoHeader">

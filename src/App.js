@@ -17,6 +17,7 @@ import CreateForm from "./components/layout/CreateForm";
 import ServicePage from "./components/pages/ServicePage";
 import NavbarTest from "./components/layout/NavbarTest";
 import NewTransactions from "./components/pages/NewTransactions";
+import OrderV2 from "./components/pages/OrderV2";
 
 async function checkIfWalletIsConnected(onConnected) {
   if (window.ethereum) {
@@ -96,8 +97,9 @@ function App() {
               element={<NewTransactions userAddress={userAddress} />}
             />
             <Route
-              path="/order/:type/:orderId"
-              element={<Order userAddress={userAddress} />}
+              // path="/order/:type/:orderId"
+              path="/order"
+              element={<OrderV2 userAddress={userAddress} />}
             />
             <Route
               path="/transactions/:userId"
