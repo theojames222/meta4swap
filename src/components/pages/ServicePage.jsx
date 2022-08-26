@@ -160,7 +160,39 @@ function ServicePage({ userAddress }) {
                 </div>
 
                 <h2 className="smallHeader">{`Service Description`}</h2>
-                <p className="Description w-3/4">{listingData.description}</p>
+                <p className="Description w-3/4 pb-20">
+                  {listingData.description}
+                </p>
+                <div className="overflow-x-auto">
+                  <table className="table table-compact w-3/4">
+                    <thead>
+                      <tr>
+                        <th>User</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>{listingData.id}</td>
+                        <td>
+                          <button className="btn-sm btn-primary">Buy</button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>{listingData.id}</td>
+                        <td>
+                          <button className="btn-sm btn-primary">Buy</button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>{listingData.id}</td>
+                        <td>
+                          <button className="btn-sm btn-primary">Buy</button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
 
               <div className="fixed right-0 mr-10">
