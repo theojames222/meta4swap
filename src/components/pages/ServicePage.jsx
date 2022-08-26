@@ -77,7 +77,6 @@ function ServicePage({ userAddress }) {
   };
 
   const buyNow = async (e) => {
-    console.log(quantity["quantity"]);
     e.preventDefault();
     const web3 = new Web3(window.ethereum);
     await window.ethereum.enable();
@@ -99,18 +98,40 @@ function ServicePage({ userAddress }) {
       10 ** 8 *
       quantity["quantity"];
     const slippage = parseInt((orderPrice * 100) / 10000);
-
     console.log(orderPrice);
     console.log(slippage);
-
     console.log(orderPrice / 10 ** 18);
 
     M4SContract.methods
-      .createOrder(itemId, quantity["quantity"])
+      .buy(itemId)
       .send({
         from: account,
         value: orderPrice + slippage,
       })
+      .on("receipt", function () {
+        navigate(`/transactions/${userAddress}`);
+      });
+  };
+
+  const offerNow = async (e) => {
+    e.preventDefault();
+    const web3 = new Web3(window.ethereum);
+    await window.ethereum.enable();
+    const accounts = await window.ethereum.request({
+      method: "eth_requestAccounts",
+    });
+    var account = accounts[0];
+
+    const M4SContract = new web3.eth.Contract(
+      m4sAbi,
+      "0xC06130dB84fe3840c4CdB207EDd4b4e800aA957d",
+      {
+        from: account,
+      }
+    );
+    M4SContract.methods
+      .offer(itemId)
+      .send()
       .on("receipt", function () {
         navigate(`/transactions/${userAddress}`);
       });
