@@ -1,11 +1,10 @@
 import Spinner from "../shared/Spinner";
 // import ethSymbol from "../assets/Ethereum-Symbol.png";
-
 import { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
-
 import m4sAbi from "../abi/m4s_abi.json";
 import Web3 from "web3/dist/web3.min.js";
+
 function OrderV2({ userAddress }) {
   // const ethSym = <img className="eth" src={ethSymbol} alt="eth" />;
 
@@ -177,6 +176,7 @@ function OrderV2({ userAddress }) {
     e.preventDefault();
     hidden === true ? setHidden(false) : setHidden(true);
   };
+
   return (
     <>
       {loading ? (
