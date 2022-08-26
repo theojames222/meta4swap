@@ -20,51 +20,6 @@ function OrderV2({ userAddress }) {
   let orderId = 1;
 
   useEffect(() => {
-    const fetchEthPrice = async () => {
-      const web3 = new Web3(
-        new Web3.providers.HttpProvider(
-          "https://goerli.infura.io/v3/18c3956af9734c289bfed9eee03ee1a7"
-        )
-      );
-      const M4SContract = new web3.eth.Contract(
-        m4sAbi,
-        "0xC06130dB84fe3840c4CdB207EDd4b4e800aA957d"
-      );
-
-      const ethPrice = await M4SContract.methods.getLatestPrice().call();
-
-      console.log(ethPrice);
-      window.ethPrice = ethPrice;
-    };
-
-    const getItem = async () => {
-      const web3 = new Web3(
-        new Web3.providers.HttpProvider(
-          "https://goerli.infura.io/v3/18c3956af9734c289bfed9eee03ee1a7"
-        )
-      );
-      const M4SContract = new web3.eth.Contract(
-        m4sAbi,
-        "0xC06130dB84fe3840c4CdB207EDd4b4e800aA957d"
-      );
-
-      const itemInfo = await M4SContract.methods.itemInfo(window.itemId).call();
-
-      console.log(itemInfo["id"]);
-      console.log(itemInfo["metadata"]);
-      console.log(itemInfo["owner"]);
-      console.log(itemInfo["isLive"]);
-      console.log(itemInfo["price"]);
-      console.log(itemInfo["serviceType"]);
-      setIsLive(itemInfo["isLive"]);
-
-      fetch(itemInfo["metadata"])
-        .then((response) => response.json())
-        .then((data) => {
-          setListingData(data);
-          setLoading(false);
-        });
-    };
 
     const getOrder = async () => {
       const web3 = new Web3(
@@ -105,7 +60,35 @@ function OrderV2({ userAddress }) {
       */
     };
 
-    fetchEthPrice();
+    const getItem = async () => {
+      const web3 = new Web3(
+        new Web3.providers.HttpProvider(
+          "https://goerli.infura.io/v3/18c3956af9734c289bfed9eee03ee1a7"
+        )
+      );
+      const M4SContract = new web3.eth.Contract(
+        m4sAbi,
+        "0xC06130dB84fe3840c4CdB207EDd4b4e800aA957d"
+      );
+
+      const itemInfo = await M4SContract.methods.itemInfo(window.itemId).call();
+
+      console.log(itemInfo["id"]);
+      console.log(itemInfo["metadata"]);
+      console.log(itemInfo["owner"]);
+      console.log(itemInfo["isLive"]);
+      console.log(itemInfo["price"]);
+      console.log(itemInfo["serviceType"]);
+      setIsLive(itemInfo["isLive"]);
+
+      fetch(itemInfo["metadata"])
+        .then((response) => response.json())
+        .then((data) => {
+          setListingData(data);
+          setLoading(false);
+        });
+    };
+
     getOrder();
     getItem();
 
