@@ -10,8 +10,6 @@ function OrderV2({ userAddress }) {
   // const ethSym = <img className="eth" src={ethSymbol} alt="eth" />;
 
   const [loading, setLoading] = useState(true);
-
-  const [quantity, setQuantity] = useState({ quantity: 1 });
   const [listingData, setListingData] = useState({});
   const [isLive, setIsLive] = useState(null);
   const [hidden, setHidden] = useState(true);
@@ -19,6 +17,7 @@ function OrderV2({ userAddress }) {
   const params = useParams();
   //   let itemId = params.listingId;
   let itemId = 5;
+  let orderId = 1;
 
   useEffect(() => {
     const fetchEthPrice = async () => {
@@ -39,7 +38,6 @@ function OrderV2({ userAddress }) {
     };
 
     const getItem = async () => {
-      // const itemId = 1;
       const web3 = new Web3(
         new Web3.providers.HttpProvider(
           "https://goerli.infura.io/v3/18c3956af9734c289bfed9eee03ee1a7"
@@ -50,7 +48,7 @@ function OrderV2({ userAddress }) {
         "0xC06130dB84fe3840c4CdB207EDd4b4e800aA957d"
       );
 
-      const itemInfo = await M4SContract.methods.itemInfo(itemId).call();
+      const itemInfo = await M4SContract.methods.itemInfo(window.itemId).call();
 
       console.log(itemInfo["id"]);
       console.log(itemInfo["metadata"]);
@@ -68,12 +66,52 @@ function OrderV2({ userAddress }) {
         });
     };
 
-    fetchEthPrice();
+    const getOrder = async () => {
+      const web3 = new Web3(
+        new Web3.providers.HttpProvider(
+          "https://goerli.infura.io/v3/18c3956af9734c289bfed9eee03ee1a7"
+        )
+      );
+      const M4SContract = new web3.eth.Contract(
+        m4sAbi,
+        "0xC06130dB84fe3840c4CdB207EDd4b4e800aA957d"
+      );
 
+      const orderInfo = await M4SContract.methods.orderInfo(orderId).call();
+
+      console.log(itemInfo["id"]);
+      console.log(itemInfo["itemId"]);
+      console.log(itemInfo["orderTotal"]);
+      console.log(itemInfo["created"]);
+      console.log(itemInfo["fee"]);
+      console.log(itemInfo["itemPrice"]);
+      console.log(itemInfo["chainLinkPrice"]);
+      console.log(itemInfo["buyerState"]);
+      console.log(itemInfo["sellerState"]);
+      console.log(itemInfo["isLive"]);
+      console.log(itemInfo["buyer"]);
+      console.log(itemInfo["seller"]);
+
+      window.itemId = itemInfo["itemId"];
+
+      //setIsLive(itemInfo["isLive"]);
+      /*
+      fetch(itemInfo["metadata"])
+        .then((response) => response.json())
+        .then((data) => {
+          setListingData(data);
+          setLoading(false);
+        });
+      */
+    };
+
+    fetchEthPrice();
+    getOrder();
     getItem();
+
   }, [navigate, params.listingId]);
 
-  const buyNow = async (e) => {
+  const disputeOrder = async (e) => {
     e.preventDefault();
     const web3 = new Web3(window.ethereum);
     await window.ethereum.enable();
@@ -90,62 +128,66 @@ function OrderV2({ userAddress }) {
       }
     );
 
-    const orderPrice =
-      ((listingData.price * 10 ** 18) / window.ethPrice) *
-      10 ** 8 *
-      quantity["quantity"];
-    const slippage = parseInt((orderPrice * 100) / 10000);
-    console.log(orderPrice);
-    console.log(slippage);
-    console.log(orderPrice / 10 ** 18);
-
     M4SContract.methods
-      .buy(itemId)
-      .send({
-        from: account,
-        value: orderPrice + slippage,
-      })
-      .on("receipt", function () {
-        navigate(`/transactions/${userAddress}`);
-      });
-  };
-
-  const offerNow = async (e) => {
-    e.preventDefault();
-    const web3 = new Web3(window.ethereum);
-    await window.ethereum.enable();
-    const accounts = await window.ethereum.request({
-      method: "eth_requestAccounts",
-    });
-    var account = accounts[0];
-
-    const M4SContract = new web3.eth.Contract(
-      m4sAbi,
-      "0xC06130dB84fe3840c4CdB207EDd4b4e800aA957d",
-      {
-        from: account,
-      }
-    );
-    M4SContract.methods
-      .offer(itemId)
+      .dispute(orderId)
       .send()
       .on("receipt", function () {
         navigate(`/transactions/${userAddress}`);
       });
-  };
 
-  console.log(listingData);
-  const cancelOrder = (e) => {
-    e.preventDefault();
-    console.log("order cancelled");
+      console.log("order disputed");
   };
-  const disputeOrder = (e) => {
+  const completeOrder = async (e) => {
     e.preventDefault();
-    console.log("order under review");
+    const web3 = new Web3(window.ethereum);
+    await window.ethereum.enable();
+    const accounts = await window.ethereum.request({
+      method: "eth_requestAccounts",
+    });
+    var account = accounts[0];
+
+    const M4SContract = new web3.eth.Contract(
+      m4sAbi,
+      "0xC06130dB84fe3840c4CdB207EDd4b4e800aA957d",
+      {
+        from: account,
+      }
+    );
+
+    M4SContract.methods
+      .complete(orderId)
+      .send()
+      .on("receipt", function () {
+        navigate(`/transactions/${userAddress}`);
+      });
+
+      console.log("order completed");
   };
-  const completeOrder = (e) => {
+  const cancelOrder = async (e) => {
     e.preventDefault();
-    console.log("order completed");
+    const web3 = new Web3(window.ethereum);
+    await window.ethereum.enable();
+    const accounts = await window.ethereum.request({
+      method: "eth_requestAccounts",
+    });
+    var account = accounts[0];
+
+    const M4SContract = new web3.eth.Contract(
+      m4sAbi,
+      "0xC06130dB84fe3840c4CdB207EDd4b4e800aA957d",
+      {
+        from: account,
+      }
+    );
+
+    M4SContract.methods
+      .cancel(orderId)
+      .send()
+      .on("receipt", function () {
+        navigate(`/transactions/${userAddress}`);
+      });
+
+      console.log("order cancelled");
   };
 
   const hideDescription = (e) => {
