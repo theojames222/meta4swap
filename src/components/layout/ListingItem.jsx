@@ -8,6 +8,7 @@ function ListingItem({ listing, id }) {
 
   console.log(listing.imageUrl);
   console.log(id);
+  let fLCapital = (s) => (s = s.charAt(0).toUpperCase() + s.slice(1));
   return (
     <>
       <div
@@ -20,7 +21,7 @@ function ListingItem({ listing, id }) {
               <div className="justify-center text-center flex">
                 <div className="w-60 h-20 justify-center text-center text-ellipsis overflow-hidden ... ">
                   <h2 className="h-26 max-h-full card-title justify-center text-center overflow-y-auto ... line-clamp-2">
-                    {listing.itemName}
+                    {`${fLCapital(listing.itemName)}`}
                   </h2>
                   {/* <div class="divider"></div> */}
                 </div>

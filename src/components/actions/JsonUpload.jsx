@@ -30,11 +30,13 @@ export const JsonUpload = ({
   id,
   userAddress,
   hidden,
+  skills,
 }) => {
   const metaData = {
     id: id,
     ...metaData2,
     whatsapp: whatsapp,
+    skills: skills,
     // imageUrl: imageUrl,
     // timestamp: serverTimestamp(),
     date: new Intl.DateTimeFormat("en-US", {

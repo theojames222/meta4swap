@@ -2,9 +2,12 @@ import { useState } from "react";
 import { JsonUpload } from "../actions/JsonUpload";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
+import Skills from "./Skills";
 
 function CreateForm({ connected, userAddress }) {
   const [defaultAccount, setDefaultAccount] = useState(null);
+  const [skillsArr, setSkillsArr] = useState([]);
+  const [skill, setSkill] = useState("");
 
   const [formData, setFormData] = useState({
     itemName: "",
@@ -15,13 +18,13 @@ function CreateForm({ connected, userAddress }) {
     priceUnit: "USD",
     telegram: "t.me/",
     discord: "https://discord.gg/",
-    // whatsapp: "https://wa.me/",
   });
   const [taskForm, setTaskForm] = useState(false);
   const [serviceForm, setServiceForm] = useState(false);
   const [hidden, setHidden] = useState(true);
   const [messageName, setMessageName] = useState("");
   const [messageDescription, setMessageDescription] = useState("");
+  const [messageSkills, setMessageSkills] = useState("");
   const [btnDisabled, setBtnDisabled] = useState(true);
   const [value, setValue] = useState("");
 
@@ -123,7 +126,27 @@ function CreateForm({ connected, userAddress }) {
       category: "task",
     }));
   };
+  const handleChange = (e) => {
+    setSkill(e.target.value);
+  };
 
+  const handleAdd = () => {
+    if (skillsArr.length < 5) {
+      const newList = skillsArr.concat({ skill, id: skillsArr.length + 1 });
+      setSkillsArr(newList);
+      setSkill("");
+    } else {
+      setMessageSkills("***Maximum 5 skills***");
+    }
+  };
+  function handleDelete(id) {
+    const newList = skillsArr.filter((item) => item.id !== id);
+    setSkillsArr(newList);
+    if (skillsArr.length >= 5) {
+      setMessageSkills("");
+    }
+  }
+  console.log(skillsArr);
   // console.log(formData, value);
   return (
     <>
@@ -160,9 +183,9 @@ function CreateForm({ connected, userAddress }) {
               <label className="input-group pb-0.5">
                 <input
                   type="text"
-                  placeholder={`enter a name for the ${
+                  placeholder={`Enter a name for the ${
                     serviceForm === true ? "service" : "task"
-                  }`}
+                  }(min 10 characters)*`}
                   className="input input-bordered w-full"
                   id="itemName"
                   onChange={onChange3}
@@ -186,8 +209,8 @@ function CreateForm({ connected, userAddress }) {
                   className="textarea textarea-bordered w-full h-28"
                   placeholder={`${
                     serviceForm === true
-                      ? "describe your service in more detail and include what the buyer will receive."
-                      : `describe the task in more detail and include what you need help with.`
+                      ? "Describe your service in more detail. Include what the final product looks like and the technologies used.(min 15 characters)*"
+                      : `Describe the task in more detail. Include what you need completed and what skills and technologies are required.(min 15 characters)*`
                   }`}
                   id="description"
                   onChange={onChange4}
@@ -201,6 +224,43 @@ function CreateForm({ connected, userAddress }) {
             </div>
             <div className="form-control">
               <header className="mt-6">
+                <h2 className="smallHeader">{`Skills Needed (Optional)`}</h2>
+                <h4 className="text-sm pb-2">
+                  {`Add up to 5 skills needed to complete ${
+                    serviceForm === true ? "service" : "task"
+                  }.`}
+                </h4>
+              </header>
+              <div>
+                <div>
+                  <input type="text" value={skill} onChange={handleChange} />
+                  <button type="button" onClick={handleAdd}>
+                    Add
+                  </button>
+                </div>
+
+                <ul>
+                  {skillsArr.map((item) => (
+                    <>
+                      <div className="flex">
+                        <li key={item.id}>{item.skill}</li>
+                        <button onClick={() => handleDelete(item.id)}>
+                          (-)
+                        </button>
+                      </div>
+                    </>
+                  ))}
+                </ul>
+                {messageSkills && (
+                  <div className="text-sm" style={{ color: "red" }}>
+                    {messageSkills}
+                  </div>
+                )}
+              </div>
+              {/* <Skills /> */}
+            </div>
+            <div className="form-control">
+              <header className="mt-6">
                 <h2 className="smallHeader">{`${
                   serviceForm === true ? "Service" : "Task"
                 } ETA`}</h2>
@@ -208,7 +268,7 @@ function CreateForm({ connected, userAddress }) {
               <label className="input-group pb-0.5">
                 <input
                   type="text"
-                  placeholder={`how many days to complete the ${
+                  placeholder={`How many days to complete the ${
                     serviceForm === true ? "service" : "task"
                   }`}
                   className="input input-bordered w-full"
@@ -224,9 +284,7 @@ function CreateForm({ connected, userAddress }) {
               <label className="input-group pb-5">
                 <input
                   type="text"
-                  placeholder={`${
-                    serviceForm === true ? "service" : "task"
-                  } price in USD`}
+                  placeholder="Price in USD"
                   className="input input-bordered w-full"
                   id="price"
                   onChange={onChange}
@@ -234,7 +292,7 @@ function CreateForm({ connected, userAddress }) {
               </label>
               {formData.price !== 0 ? (
                 <h3>{`Price in ETH: ${(
-                  (((Number((formData.price).replace(/\,/g,'')) * 10 ** 18) / window.ethPrice) *
+                  (((Number(formData.price) * 10 ** 18) / window.ethPrice) *
                     10 ** 8) /
                   10 ** 18
                 ).toFixed(3)}`}</h3>
@@ -244,8 +302,10 @@ function CreateForm({ connected, userAddress }) {
             </div>
             <header className="mt-6">
               <h2 className="smallHeader">{`Contact Info `}</h2>
-              <h4 className="">at least one form of contact required</h4>
-
+              <h4 className="">At least on form of contact required</h4>
+              <h4 className="text-sm pb-2" style={{ color: "red" }}>
+                *Input username only
+              </h4>
             </header>
             <div className="form-control">
               <label className="input-group pb-0.5">
@@ -275,9 +335,8 @@ function CreateForm({ connected, userAddress }) {
               <label className="input-group pb-10">
                 <span className="formLabel9">WhatsApp</span>
                 <PhoneInput
-                  defaultCountry="US"
                   className="input input-bordered w-full"
-                  placeholder="enter phone number"
+                  placeholder="Enter phone number"
                   value={value}
                   onChange={value === null ? "" : setValue}
                   id="whatsapp"
@@ -294,6 +353,7 @@ function CreateForm({ connected, userAddress }) {
           </form>
 
           <JsonUpload
+            skills={skillsArr}
             metaData2={formData}
             whatsapp={value}
             id={defaultAccount}
