@@ -12,11 +12,13 @@ function OrderV2({ userAddress }) {
   const [listingData, setListingData] = useState({});
   const [isLive, setIsLive] = useState(null);
   const [hidden, setHidden] = useState(true);
+  const [listingId, setListingId] = useState(0);
+
   const navigate = useNavigate();
   const params = useParams();
   //   let itemId = params.listingId;
-  let itemId = 5;
-  let orderId = 1;
+  let itemId = listingId;
+  const orderId = params.orderId;
 
   useEffect(() => {
     const getOrder = async () => {
@@ -46,7 +48,7 @@ function OrderV2({ userAddress }) {
       console.log(orderInfo["seller"]);
 
       window.itemId = orderInfo["itemId"];
-
+      setListingId(Number(orderInfo["itemId"]) + 4);
       //setIsLive(itemInfo["isLive"]);
       /*
       fetch(itemInfo["metadata"])
@@ -90,6 +92,7 @@ function OrderV2({ userAddress }) {
     getOrder();
     getItem();
   }, [navigate, params.listingId]);
+  console.log(itemId);
 
   const disputeOrder = async (e) => {
     e.preventDefault();
@@ -220,7 +223,7 @@ function OrderV2({ userAddress }) {
                 <h2
                   className="smallHeader"
                   onClick={hideDescription}
-                >{`Service Description`}</h2>
+                >{`Service Description (Click to see Description)`}</h2>
                 <p className="Description w-3/4 pb-20" hidden={hidden}>
                   {listingData.description}
                 </p>

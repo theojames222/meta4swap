@@ -97,8 +97,8 @@ function App() {
               element={<NewTransactions userAddress={userAddress} />}
             />
             <Route
-              // path="/order/:type/:orderId"
-              path="/order"
+              path="/order/:type/:orderId"
+              // path="/order"
               element={<OrderV2 userAddress={userAddress} />}
             />
             <Route

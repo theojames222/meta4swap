@@ -142,13 +142,13 @@ function TransactionsTable({ listing, id }) {
                   </div>
                 </div>
               </td>
-              <td className="text-end align-end justify-end px-3">
+              {/* <td className="text-end align-end justify-end px-3">
                 <div className="mx-5 text-center ">
                   <div className="  text-end align-end justify-end">
-                    02/22/22
+                    {`${new Date(orderCreated).toDateString()}`}
                   </div>
                 </div>
-              </td>
+              </td> */}
               <td>
                 <div className="mx-5text-center ">
                   <div className=" text-center px-8">

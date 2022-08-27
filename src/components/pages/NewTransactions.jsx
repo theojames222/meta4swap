@@ -187,7 +187,7 @@ function NewTransactions({ userAddress }) {
                             <th className="px-5 text-center">Order Id</th>
                             <th className="text-center">Item Id</th>
                             <th className="text-center">Amount</th>
-                            <th className="text-center">Date</th>
+                            {/* <th className="text-center">Date</th> */}
                             <th className="pl-5 justify-center text-center">
                               Status
                             </th>
