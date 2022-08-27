@@ -19,7 +19,6 @@ function OrderV2({ userAddress }) {
   let orderId = 1;
 
   useEffect(() => {
-
     const getOrder = async () => {
       const web3 = new Web3(
         new Web3.providers.HttpProvider(
@@ -33,20 +32,20 @@ function OrderV2({ userAddress }) {
 
       const orderInfo = await M4SContract.methods.orderInfo(orderId).call();
 
-      console.log(itemInfo["id"]);
-      console.log(itemInfo["itemId"]);
-      console.log(itemInfo["orderTotal"]);
-      console.log(itemInfo["created"]);
-      console.log(itemInfo["fee"]);
-      console.log(itemInfo["itemPrice"]);
-      console.log(itemInfo["chainLinkPrice"]);
-      console.log(itemInfo["buyerState"]);
-      console.log(itemInfo["sellerState"]);
-      console.log(itemInfo["isLive"]);
-      console.log(itemInfo["buyer"]);
-      console.log(itemInfo["seller"]);
+      console.log(orderInfo["id"]);
+      console.log(orderInfo["itemId"]);
+      console.log(orderInfo["orderTotal"]);
+      console.log(orderInfo["created"]);
+      console.log(orderInfo["fee"]);
+      console.log(orderInfo["itemPrice"]);
+      console.log(orderInfo["chainLinkPrice"]);
+      console.log(orderInfo["buyerState"]);
+      console.log(orderInfo["sellerState"]);
+      console.log(orderInfo["isLive"]);
+      console.log(orderInfo["buyer"]);
+      console.log(orderInfo["seller"]);
 
-      window.itemId = itemInfo["itemId"];
+      window.itemId = orderInfo["itemId"];
 
       //setIsLive(itemInfo["isLive"]);
       /*
@@ -70,7 +69,7 @@ function OrderV2({ userAddress }) {
         "0xC06130dB84fe3840c4CdB207EDd4b4e800aA957d"
       );
 
-      const itemInfo = await M4SContract.methods.itemInfo(window.itemId).call();
+      const itemInfo = await M4SContract.methods.itemInfo(itemId).call();
 
       console.log(itemInfo["id"]);
       console.log(itemInfo["metadata"]);
@@ -90,7 +89,6 @@ function OrderV2({ userAddress }) {
 
     getOrder();
     getItem();
-
   }, [navigate, params.listingId]);
 
   const disputeOrder = async (e) => {
@@ -117,7 +115,7 @@ function OrderV2({ userAddress }) {
         navigate(`/transactions/${userAddress}`);
       });
 
-      console.log("order disputed");
+    console.log("order disputed");
   };
   const completeOrder = async (e) => {
     e.preventDefault();
@@ -143,7 +141,7 @@ function OrderV2({ userAddress }) {
         navigate(`/transactions/${userAddress}`);
       });
 
-      console.log("order completed");
+    console.log("order completed");
   };
   const cancelOrder = async (e) => {
     e.preventDefault();
@@ -169,7 +167,7 @@ function OrderV2({ userAddress }) {
         navigate(`/transactions/${userAddress}`);
       });
 
-      console.log("order cancelled");
+    console.log("order cancelled");
   };
 
   const hideDescription = (e) => {
@@ -214,7 +212,7 @@ function OrderV2({ userAddress }) {
                     <h3>{listingData.eta} </h3>
                   </div>
                   <div className="">
-                    <h2 className="smallHeader">{`Date Posted`}</h2>
+                    <h2 className="smallHeader">{`Created`}</h2>
                     <h3> {`${listingData.date.substring(0, 10)}`}</h3>
                   </div>
                 </div>

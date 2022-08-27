@@ -1,114 +1,163 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import m4sAbi from "../abi/m4s_abi.json";
+import Web3 from "web3/dist/web3.min.js";
+
+import { useParams } from "react-router-dom";
+
 // import Switch from "../actions/Switch";
 
 // Call the data base for usertransactions here
-function TransactionsTable() {
-  const [tasks, setTasks] = useState(false);
-  const [services, setServices] = useState(true);
+function TransactionsTable({ listing, id }) {
   //   const [value, setValue] = useState(false);
-
+  const [listingData, setListingData] = useState([]);
+  const [orderCreated, setOrderCreated] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [isLive, setIsLive] = useState(true);
   //   Add on Toggle instead
   // Display data in map function in tbody
 
-  const [listingsBuyer, setListingsBuyer] = useState([]);
-  const [listingsSeller, setListingsSeller] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [value, setValue] = useState(false);
   const params = useParams();
   const page = window.location.href;
+  const getItem = async () => {
+    const itemId = listing.itemId;
+    const web3 = new Web3(
+      new Web3.providers.HttpProvider(
+        "https://goerli.infura.io/v3/18c3956af9734c289bfed9eee03ee1a7"
+      )
+    );
+    const M4SContract = new web3.eth.Contract(
+      m4sAbi,
+      "0xC06130dB84fe3840c4CdB207EDd4b4e800aA957d"
+    );
 
-  const getOrdersBuyer = useCallback(async () => {
-    let ordersBuyer = [];
-    try {
-      const serverUrl = "https://gu15uqsbipep.usemoralis.com:2053/server";
-      const appId = "F28xSksEmA0YDFTQskgodpG3W5JSZK0uBm9Abnde";
-      const masterKey = "G5799rbYbzVEjmd9B2tFNfgX184JryV3ntW283dy";
-      await Moralis.start({ serverUrl, appId, masterKey });
-      const Item = Moralis.Object.extend("m4orders1");
-      const query = new Moralis.Query(Item);
-      //replace my address with user's address
-      const user = params.userId;
-      query.equalTo("buyer", user);
-      const results = await query.find();
-      console.log(results.length);
-      for (let i = 0; i < results.length; i++) {
-        const object = results[i];
-        const orderId = object.get("orderId");
-        const itemId = object.get("itemId");
-        const price = object.get("price");
-        const serviceType = object.get("serviceType");
-        console.log(orderId);
-        console.log(itemId);
-        console.log(price);
-        console.log(serviceType);
+    const itemInfo = await M4SContract.methods.itemInfo(itemId).call();
 
-        ordersBuyer.push({ orderId: orderId, itemId: itemId, price: price });
-      }
-      setListingsBuyer(ordersBuyer);
-      setLoading(false);
-    } catch (error) {
-      console.log("error");
-    }
-  }, [setLoading, setListingsBuyer, params.userId]);
+    console.log(itemInfo["id"]);
+    console.log(itemInfo["metadata"]);
+    console.log(itemInfo["owner"]);
+    console.log(itemInfo["isLive"]);
+    console.log(itemInfo["price"]);
+    console.log(itemInfo["serviceType"]);
+    setIsLive(itemInfo["isLive"]);
 
-  const getOrdersSeller = useCallback(async () => {
-    let ordersSeller = [];
-    try {
-      const serverUrl = "https://gu15uqsbipep.usemoralis.com:2053/server";
-      const appId = "F28xSksEmA0YDFTQskgodpG3W5JSZK0uBm9Abnde";
-      const masterKey = "G5799rbYbzVEjmd9B2tFNfgX184JryV3ntW283dy";
-      await Moralis.start({ serverUrl, appId, masterKey });
-      const Item = Moralis.Object.extend("m4orders1");
-      const query = new Moralis.Query(Item);
-      //replace my address with user's address
-      const user = params.userId;
-      query.equalTo("seller", user);
-      const results = await query.find();
-      console.log(results.length);
-      for (let i = 0; i < results.length; i++) {
-        const object = results[i];
-        const orderId = object.get("orderId");
-        const itemId = object.get("itemId");
-        const price = object.get("price");
-        const serviceType = object.get("serviceType");
-        console.log(orderId);
-        console.log(itemId);
-        console.log(price);
-        console.log(serviceType);
+    fetch(itemInfo["metadata"])
+      .then((response) => response.json())
+      .then((data) => {
+        setListingData(data);
+        setLoading(false);
+      });
+  };
+  const getOrder = async () => {
+    const orderId = listing.orderId;
+    const web3 = new Web3(
+      new Web3.providers.HttpProvider(
+        "https://goerli.infura.io/v3/18c3956af9734c289bfed9eee03ee1a7"
+      )
+    );
+    const M4SContract = new web3.eth.Contract(
+      m4sAbi,
+      "0xC06130dB84fe3840c4CdB207EDd4b4e800aA957d"
+    );
 
-        ordersSeller.push({ orderId: orderId, itemId: itemId, price: price });
-      }
-      setListingsSeller(ordersSeller);
-      setLoading(false);
-    } catch (error) {
-      console.log("error");
-    }
-  }, [setLoading, setListingsSeller, params.userId]);
+    const orderInfo = await M4SContract.methods.orderInfo(orderId).call();
+
+    console.log(orderInfo["id"]);
+    console.log(orderInfo["itemId"]);
+    console.log(orderInfo["orderTotal"]);
+    console.log(orderInfo["created"]);
+    console.log(orderInfo["fee"]);
+    console.log(orderInfo["itemPrice"]);
+    console.log(orderInfo["chainLinkPrice"]);
+    console.log(orderInfo["buyerState"]);
+    console.log(orderInfo["sellerState"]);
+    console.log(orderInfo["isLive"]);
+    console.log(orderInfo["buyer"]);
+    console.log(orderInfo["seller"]);
+
+    window.itemId = orderInfo["itemId"];
+
+    setIsLive(orderInfo["isLive"]);
+    setOrderCreated(orderInfo["created"]);
+
+    // fetch(orderInfo["metadata"])
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     setOrderCreated(data);
+    //     setLoading(false);
+    //   });
+  };
+
   useEffect(() => {
-    getOrdersBuyer();
-    getOrdersSeller();
+    getItem();
+    getOrder();
 
     setLoading(false);
-  }, [])
+  }, []);
+
+  console.log(
+    `OID:${listing.orderId}`,
+    `itID:${listing.itemId}`,
+    `Price:${listing.price}`,
+    `Created:${orderCreated}`,
+    `Live:${isLive}`
+  );
+  console.log(listingData.category);
   return (
     <>
       <div className="overflow-x-auto">
-        <table className="table table-compact w-full">
-          {/* <Switch isOn={value} handleToggle={() => setValue(!value)} /> */}
-          <Link className="table table-compact w-full" to="/order">
-            <thead>
-              <tr>
-                <th>Order Id</th>
-                <th>Item Id</th>
-                <th>Amount</th>
-                <th>Date</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-          </Link>
-          <tbody></tbody>
+        <table className="table  w-full">
+          <tbody>
+            <tr>
+              <td>
+                <div className="mx-5 text-center ">
+                  <div className=" pr-10 px-8 text-center">
+                    <Link
+                      // path="/order/:type/:orderId"
+                      to={`/order/${
+                        listing.serviceType === 0 ? "service" : "task"
+                      }/${listing.orderId}`}
+                      className="font-bold"
+                    >
+                      {listing.orderId}
+                    </Link>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div className=" flex text-center align-center justify-center">
+                  <div className="ml-5 pl-10 text-center">{listing.itemId}</div>
+                  <div className="badge badge-ghost badge-sm ml-5 mt-3">
+                    {listing.serviceType === 0 ? "service" : "task"}
+                  </div>
+                </div>
+              </td>
+              <td className="text-center align-center justify-center px-5">
+                <div className="ml-5 pl-10 ">
+                  <div className=" text-center align-center justify-center">
+                    <div className=" text-center mr-5">{`$${Number(
+                      listing.price
+                    ).toFixed(2)}`}</div>
+                  </div>
+                </div>
+              </td>
+              <td className="text-end align-end justify-end px-3">
+                <div className="mx-5 text-center ">
+                  <div className="  text-end align-end justify-end">
+                    02/22/22
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div className="mx-5text-center ">
+                  <div className=" text-center px-8">
+                    <div>{isLive === true ? "Open" : "Closed"}</div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
         </table>
       </div>
     </>
