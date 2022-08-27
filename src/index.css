@@ -3,7 +3,9 @@
 @tailwind utilities;
 
 body {
-  font-family: "Montserrat", sans-serif;
+  /* font-family: "Montserrat", sans-serif; */
+  /* font-family: "Roboto Mono", monospace; */
+  font-family: "Mukta", sans-serif;
   background-color: #f2f4f8;
   margin: 0;
   box-sizing: border-box;
@@ -77,7 +79,9 @@ nav {
   text-align: center;
 }
 .homeHeader {
-  font-family: "Montserrat", sans-serif;
+  /* font-family: "Montserrat", sans-serif; */
+  /* font-family: "Roboto Mono", monospace; */
+  font-family: "Mukta", sans-serif;
   font-weight: 900;
   color: rgba(43, 62, 135, 1);
   align-items: center;
@@ -87,7 +91,9 @@ nav {
   display: flex;
 }
 .infoContent {
-  font-family: "Montserrat", sans-serif;
+  /* font-family: "Montserrat", sans-serif; */
+  /* font-family: "Roboto Mono", monospace; */
+  font-family: "Mukta", sans-serif;
   font-weight: 500;
   color: rgba(104, 104, 104, 1);
 }
@@ -95,7 +101,9 @@ nav {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: "Montserrat", sans-serif;
+  /* font-family: "Montserrat", sans-serif; */
+  /* font-family: "Roboto Mono", monospace; */
+  font-family: "Mukta", sans-serif;
   font-weight: 700;
   color: rgba(43, 62, 135, 1);
 }
@@ -103,7 +111,9 @@ nav {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: "Montserrat", sans-serif;
+  /* font-family: "Montserrat", sans-serif; */
+  /* font-family: "Roboto Mono", monospace; */
+  font-family: "Mukta", sans-serif;
   font-weight: 700;
   color: black;
 }
@@ -112,7 +122,9 @@ nav {
   justify-content: right;
   margin-right: 150px;
   align-items: center;
-  font-family: "Montserrat", sans-serif;
+  /* font-family: "Montserrat", sans-serif; */
+  /* font-family: "Roboto Mono", monospace; */
+  font-family: "Mukta", sans-serif;
   font-weight: 700;
   color: rgba(43, 62, 135, 1);
 }
@@ -134,51 +146,67 @@ nav {
   padding-top: 10px;
 }
 .formLabel {
-  font-family: "Montserrat", sans-serif;
+  /* font-family: "Montserrat", sans-serif; */
+  /* font-family: "Roboto Mono", monospace; */
+  font-family: "Mukta", sans-serif;
   font-weight: 500;
   padding-right: 25px;
 }
 .formLabel2 {
-  font-family: "Montserrat", sans-serif;
+  /* font-family: "Montserrat", sans-serif; */
+  /* font-family: "Roboto Mono", monospace; */
+  font-family: "Mukta", sans-serif;
   font-weight: 500;
   padding-right: 45px;
 }
 .formLabel3 {
-  font-family: "Montserrat", sans-serif;
+  /* font-family: "Montserrat", sans-serif; */
+  /* font-family: "Roboto Mono", monospace; */
+  font-family: "Mukta", sans-serif;
   font-weight: 500;
   padding-right: 43px;
   padding-top: 5px;
   justify-content: center;
 }
 .formLabel4 {
-  font-family: "Montserrat", sans-serif;
+  /* font-family: "Montserrat", sans-serif; */
+  /* font-family: "Roboto Mono", monospace; */
+  font-family: "Mukta", sans-serif;
   font-weight: 500;
   padding-right: 36px;
   padding-left: 36px;
   justify-content: center;
 }
 .formLabel5 {
-  font-family: "Montserrat", sans-serif;
+  /* font-family: "Montserrat", sans-serif; */
+  /* font-family: "Roboto Mono", monospace; */
+  font-family: "Mukta", sans-serif;
   font-weight: 500;
   padding-right: 20px;
   justify-content: center;
 }
 .formLabel6 {
-  font-family: "Montserrat", sans-serif;
+  /* font-family: "Montserrat", sans-serif; */
+  /* font-family: "Roboto Mono", monospace; */
+  font-family: "Mukta", sans-serif;
   font-weight: 500;
   padding-right: 33px;
   padding-left: 33px;
   justify-content: center;
 }
 .formLabel7 {
-  font-family: "Montserrat", sans-serif;
+  /* font-family: "Montserrat", sans-serif; */
+  /* font-family: "Roboto Mono", monospace; */
+  font-family: "Mukta", sans-serif;
   font-weight: 500;
   padding-right: 22px;
   padding-left: 23px;
   justify-content: center;
 }
 .formLabel8 {
-  font-family: "Montserrat", sans-serif;
+  /* font-family: "Montserrat", sans-serif; */
+  /* font-family: "Roboto Mono", monospace; */
+  font-family: "Mukta", sans-serif;
   font-weight: 500;
   padding-right: 30px;
   padding-left: 29px;
@@ -186,7 +214,9 @@ nav {
 }
 
 .formLabel9 {
-  font-family: "Montserrat", sans-serif;
+  /* font-family: "Montserrat", sans-serif; */
+  /* font-family: "Roboto Mono", monospace; */
+  font-family: "Mukta", sans-serif;
   font-weight: 500;
   padding-right: 17px;
   padding-left: 18px;
@@ -194,7 +224,9 @@ nav {
 }
 
 .formLabel10 {
-  font-family: "Montserrat", sans-serif;
+  /* font-family: "Montserrat", sans-serif; */
+  /* font-family: "Roboto Mono", monospace; */
+  font-family: "Mukta", sans-serif;
   font-weight: 500;
   padding-right: 5px;
   padding-left: 5px;
@@ -206,12 +238,16 @@ nav {
   width: 35%;
   padding: 10px;
   justify-items: center;
-  font-family: "Montserrat", sans-serif;
+  /* font-family: "Montserrat", sans-serif; */
+  /* font-family: "Roboto Mono", monospace; */
+  font-family: "Mukta", sans-serif;
   font-weight: 700;
 }
 
 .smallHeader {
-  font-family: "Montserrat", sans-serif;
+  /* font-family: "Montserrat", sans-serif; */
+  /* font-family: "Roboto Mono", monospace; */
+  font-family: "Mukta", sans-serif;
   font-weight: 700;
   margin: auto;
   color: rgba(43, 62, 135, 1);
@@ -228,7 +264,9 @@ nav {
   height: 3rem;
   width: 100%;
   outline: solid;
-  font-family: "Montserrat", sans-serif;
+  /* font-family: "Montserrat", sans-serif; */
+  /* font-family: "Roboto Mono", monospace; */
+  font-family: "Mukta", sans-serif;
   padding: 0 3rem;
   font-size: 1rem;
 }
@@ -256,7 +294,9 @@ nav {
   top: 0px;
   background: #35aef1;
   border-radius: 37px;
-  font-family: "Montserrat", sans-serif;
+  /* font-family: "Montserrat", sans-serif; */
+  /* font-family: "Roboto Mono", monospace; */
+  font-family: "Mukta", sans-serif;
   font-weight: 700;
 }
 
@@ -268,7 +308,9 @@ nav {
   top: 0px;
   background: #35aef1;
   border-radius: 37px;
-  font-family: "Montserrat", sans-serif;
+  /* font-family: "Montserrat", sans-serif; */
+  /* font-family: "Roboto Mono", monospace; */
+  font-family: "Mukta", sans-serif;
   font-weight: 700;
 }
 
@@ -283,7 +325,9 @@ nav {
   height: 26px;
 
   top: calc(50% - 26px / 2 - 2px);
-  font-family: "Montserrat", sans-serif;
+  /* font-family: "Montserrat", sans-serif; */
+  /* font-family: "Roboto Mono", monospace; */
+  font-family: "Mukta", sans-serif;
   font-weight: 700;
   color: rgba(43, 62, 135, 1);
 }
@@ -299,7 +343,8 @@ nav {
   height: 26px;
   left: calc(50% - 56px / 2 + 241.5px);
   top: calc(50% - 26px / 2 - 1px);
-  font-family: "Montserrat", sans-serif;
+  /* font-family: "Montserrat", sans-serif; */
+  /* font-family: "Roboto Mono", monospace; */
   font-weight: 900;
   color: rgba(43, 62, 135, 1);
 }
