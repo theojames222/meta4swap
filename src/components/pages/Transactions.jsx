@@ -23,7 +23,7 @@ function Transactions({ userAddress }) {
       const appId = "F28xSksEmA0YDFTQskgodpG3W5JSZK0uBm9Abnde";
       const masterKey = "G5799rbYbzVEjmd9B2tFNfgX184JryV3ntW283dy";
       await Moralis.start({ serverUrl, appId, masterKey });
-      const Item = Moralis.Object.extend("OrderCreatedBuyer");
+      const Item = Moralis.Object.extend("m4orders1");
       const query = new Moralis.Query(Item);
       //replace my address with user's address
       const user = params.userId;
@@ -35,9 +35,11 @@ function Transactions({ userAddress }) {
         const orderId = object.get("orderId");
         const itemId = object.get("itemId");
         const price = object.get("price");
+        const serviceType = object.get("serviceType");
         console.log(orderId);
         console.log(itemId);
         console.log(price);
+        console.log(serviceType);
 
         ordersBuyer.push({ orderId: orderId, itemId: itemId, price: price });
       }
@@ -55,7 +57,7 @@ function Transactions({ userAddress }) {
       const appId = "F28xSksEmA0YDFTQskgodpG3W5JSZK0uBm9Abnde";
       const masterKey = "G5799rbYbzVEjmd9B2tFNfgX184JryV3ntW283dy";
       await Moralis.start({ serverUrl, appId, masterKey });
-      const Item = Moralis.Object.extend("OrderCreatedSeller");
+      const Item = Moralis.Object.extend("m4orders1");
       const query = new Moralis.Query(Item);
       //replace my address with user's address
       const user = params.userId;
@@ -67,9 +69,11 @@ function Transactions({ userAddress }) {
         const orderId = object.get("orderId");
         const itemId = object.get("itemId");
         const price = object.get("price");
+        const serviceType = object.get("serviceType");
         console.log(orderId);
         console.log(itemId);
         console.log(price);
+        console.log(serviceType);
 
         ordersSeller.push({ orderId: orderId, itemId: itemId, price: price });
       }
