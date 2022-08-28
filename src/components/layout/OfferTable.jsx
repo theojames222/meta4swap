@@ -1,11 +1,17 @@
 import React from "react";
 import { useState, useCallback, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
+import m4sAbi from "../abi/m4s_abi.json";
+import Web3 from "web3/dist/web3.min.js";
 const Moralis = require("moralis-v1");
-function OfferTable({ id }) {
+function OfferTable({ id, userAddress, listingData }) {
   const [loading, setLoading] = useState(true);
+  const [quantity, setQuantity] = useState({ quantity: 1 });
   const [offersArr, setOffersArr] = useState([]);
+  const [btnDisabled, setbtnDisabled] = useState(true);
+
   const params = useParams();
+  const navigate = useNavigate();
   let itemId = id;
   console.log(itemId);
   const getOffers = useCallback(async () => {
@@ -40,7 +46,7 @@ function OfferTable({ id }) {
     } catch (error) {
       console.log("error");
     }
-  }, [setLoading, setOffersArr, params.userId]);
+  }, [setLoading, setOffersArr, itemId]);
 
   const acceptOffer = async (e) => {
     e.preventDefault();
@@ -82,13 +88,13 @@ function OfferTable({ id }) {
   useEffect(() => {
     // getItem();
     getOffers();
-
+    userAddress === listingData.id
+      ? setbtnDisabled(false)
+      : setbtnDisabled(true);
     setLoading(false);
   }, []);
   console.log(offersArr);
-  const acceptOffer = () => {
-    console.log("offer accepted");
-  };
+
   return (
     <>
       <h1 className="smallHeader pb-3">Current Offers</h1>
@@ -111,6 +117,7 @@ function OfferTable({ id }) {
                       <button
                         className="btn btn-sm btn-primary mr-3"
                         onClick={acceptOffer}
+                        disabled={btnDisabled}
                       >
                         Accept Offer
                       </button>

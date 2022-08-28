@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
-import Logo from "../assets/logo2.png";
+// import Logo from "../assets/logo2.png";
 import accountIcon from "../assets/user-286 (1).svg";
+import NewLogo from "../assets/New Logo.png";
 
 function NavbarTest({ connected, userAddress }) {
   const isConnected = connected;
@@ -28,7 +29,7 @@ function NavbarTest({ connected, userAddress }) {
     <header className="flex flex-col">
       <nav className="fixed z-50 w-full bg-white top-0 flex flex-wrap items-center justify-between px-2 py-3 shadow-lg">
         <Link to="/" className="flex ml-5 ">
-          <img src={Logo} alt="" className="logo" />
+          <img src={NewLogo} alt="" className="logo" />
         </Link>
 
         <div className="nav2 ">
