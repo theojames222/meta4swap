@@ -19,7 +19,7 @@ function ServicePage({ userAddress }) {
   const navigate = useNavigate();
   const params = useParams();
   let itemId = params.listingId;
-
+  let fLCapital = (s) => (s = s.charAt(0).toUpperCase() + s.slice(1));
   useEffect(() => {
     const fetchEthPrice = async () => {
       const web3 = new Web3(
@@ -152,7 +152,9 @@ function ServicePage({ userAddress }) {
               <div class=" overscroll-contain overflow-x-auto col-span-2">
                 <div className="container pb-5">
                   <h2 className="smallHeader text-xl">{`Service Name:`}</h2>
-                  <h3 className="text-xl">{`${listingData.itemName}`}</h3>
+                  <h3 className="text-xl">{`${fLCapital(
+                    listingData.itemName
+                  )}`}</h3>
                 </div>
                 <div className="container pb-5">
                   <h2 className="smallHeader">{`Creator: `}</h2>
@@ -179,7 +181,7 @@ function ServicePage({ userAddress }) {
 
                 <h2 className="smallHeader">{`Service Description`}</h2>
                 <p className="Description w-3/4 pb-10">
-                  {listingData.description}
+                  {`${fLCapital(listingData.description)}`}
                 </p>
                 {page.includes("task") ? (
                   <OfferTable listingData={listingData} />
@@ -198,7 +200,7 @@ function ServicePage({ userAddress }) {
                       className="card-title text-2xl text-center justify-center pb-5"
                       style={{ color: "gray" }}
                     >
-                      {listingData.itemName}
+                      {`${fLCapital(listingData.itemName)}`}
                     </h2>
                     <h2 className="card-title text-2xl justify-center pb-2 ">
                       Price:
