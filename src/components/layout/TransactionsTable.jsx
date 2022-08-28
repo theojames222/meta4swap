@@ -11,44 +11,44 @@ import { useParams } from "react-router-dom";
 // Call the data base for usertransactions here
 function TransactionsTable({ listing, id }) {
   //   const [value, setValue] = useState(false);
-  const [listingData, setListingData] = useState([]);
+  // const [listingData, setListingData] = useState([]);
   const [orderCreated, setOrderCreated] = useState("");
   const [loading, setLoading] = useState(true);
   const [isLive, setIsLive] = useState(true);
   //   Add on Toggle instead
   // Display data in map function in tbody
 
-  const params = useParams();
-  const page = window.location.href;
-  const getItem = async () => {
-    const itemId = listing.itemId;
-    const web3 = new Web3(
-      new Web3.providers.HttpProvider(
-        "https://goerli.infura.io/v3/18c3956af9734c289bfed9eee03ee1a7"
-      )
-    );
-    const M4SContract = new web3.eth.Contract(
-      m4sAbi,
-      "0xC06130dB84fe3840c4CdB207EDd4b4e800aA957d"
-    );
+  // const params = useParams();
+  // const page = window.location.href;
+  // const getItem = async () => {
+  //   const itemId = listing.itemId;
+  //   const web3 = new Web3(
+  //     new Web3.providers.HttpProvider(
+  //       "https://goerli.infura.io/v3/18c3956af9734c289bfed9eee03ee1a7"
+  //     )
+  //   );
+  //   const M4SContract = new web3.eth.Contract(
+  //     m4sAbi,
+  //     "0xC06130dB84fe3840c4CdB207EDd4b4e800aA957d"
+  //   );
 
-    const itemInfo = await M4SContract.methods.itemInfo(itemId).call();
+  //   const itemInfo = await M4SContract.methods.itemInfo(itemId).call();
 
-    console.log(itemInfo["id"]);
-    console.log(itemInfo["metadata"]);
-    console.log(itemInfo["owner"]);
-    console.log(itemInfo["isLive"]);
-    console.log(itemInfo["price"]);
-    console.log(itemInfo["serviceType"]);
-    setIsLive(itemInfo["isLive"]);
+  //   console.log(itemInfo["id"]);
+  //   console.log(itemInfo["metadata"]);
+  //   console.log(itemInfo["owner"]);
+  //   console.log(itemInfo["isLive"]);
+  //   console.log(itemInfo["price"]);
+  //   console.log(itemInfo["serviceType"]);
+  //   setIsLive(itemInfo["isLive"]);
 
-    fetch(itemInfo["metadata"])
-      .then((response) => response.json())
-      .then((data) => {
-        setListingData(data);
-        setLoading(false);
-      });
-  };
+  //   fetch(itemInfo["metadata"])
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       setListingData(data);
+  //       setLoading(false);
+  //     });
+  // };
   const getOrder = async () => {
     const orderId = listing.orderId;
     const web3 = new Web3(
@@ -90,7 +90,7 @@ function TransactionsTable({ listing, id }) {
   };
 
   useEffect(() => {
-    getItem();
+    // getItem();
     getOrder();
 
     setLoading(false);
@@ -103,7 +103,12 @@ function TransactionsTable({ listing, id }) {
     `Created:${orderCreated}`,
     `Live:${isLive}`
   );
-  console.log(listingData.category);
+  console.log(typeof orderCreated);
+  console.log(orderCreated);
+  const dateNum = Number(orderCreated);
+  const dateCreated = new Date(dateNum).toLocaleDateString();
+  console.log(dateCreated);
+  // console.log(listingData.category);
   return (
     <>
       <div className="overflow-x-auto">
@@ -142,13 +147,13 @@ function TransactionsTable({ listing, id }) {
                   </div>
                 </div>
               </td>
-              {/* <td className="text-end align-end justify-end px-3">
+              <td className="text-end align-end justify-end px-3">
                 <div className="mx-5 text-center ">
                   <div className="  text-end align-end justify-end">
-                    {`${new Date(orderCreated).toDateString()}`}
+                    {orderCreated}
                   </div>
                 </div>
-              </td> */}
+              </td>
               <td>
                 <div className="mx-5text-center ">
                   <div className=" text-center px-8">
