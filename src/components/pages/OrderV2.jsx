@@ -48,7 +48,7 @@ function OrderV2({ userAddress }) {
       console.log(orderInfo["seller"]);
 
       window.itemId = orderInfo["itemId"];
-      setListingId(Number(orderInfo["itemId"]) + 4);
+      setListingId(orderInfo["itemId"]);
       //setIsLive(itemInfo["isLive"]);
       /*
       fetch(itemInfo["metadata"])
@@ -93,7 +93,7 @@ function OrderV2({ userAddress }) {
     getItem();
   }, [navigate, params.listingId]);
   console.log(itemId);
-
+  console.log(orderId);
   const disputeOrder = async (e) => {
     e.preventDefault();
     const web3 = new Web3(window.ethereum);

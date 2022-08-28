@@ -20,6 +20,7 @@ function NewTransactions({ userAddress }) {
   const [value, setValue] = useState(false);
   const params = useParams();
   const page = window.location.href;
+  
   const getOrdersBuyer = useCallback(async () => {
     let ordersBuyer = [];
     try {

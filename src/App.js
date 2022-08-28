@@ -68,8 +68,8 @@ function App() {
   console.log(connected);
   return (
     <Router>
-      <div className="flex flex-col ">
-        {/* <div className="flex flex-col bg-primary-content"> */}
+      {/* <div className="flex flex-col "> */}
+      <div className="flex flex-col bg-neutral-content">
         <NavbarTest connected={connected} userAddress={userAddress} />
         {/* <Navbar connected={connected} userAddress={userAddress} /> */}
         <main className="mt-24">

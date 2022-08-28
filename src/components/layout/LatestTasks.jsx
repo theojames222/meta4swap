@@ -32,11 +32,11 @@ function LatestTasks() {
             .then((response) => response);
           tasks.push({ id: itemId, data: response });
           setListings(tasks);
-          setLoading(false);
+          // setLoading(false);
         })
       );
       // setListings(services);
-      // setLoading(false);
+      setLoading(false);
     } catch (error) {
       console.log("error");
     }
