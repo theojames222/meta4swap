@@ -10,7 +10,7 @@ function Content() {
       icon: form,
       header: "Create Listing",
       content: `Use Meta4Swap create form to immediately list freelance
-  services or create a task to find talent for your next project right on Ethereum blockchain!`,
+  services or create a task to find talent for your next project right on Ethereum!`,
     },
     {
       icon: market,

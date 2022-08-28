@@ -1,13 +1,15 @@
 import React from "react";
-import Image1 from "../assets/5402207.jpg";
+// import Image1 from "../assets/5402207.jpg";
+import Image2 from "../assets/6229495.jpg";
+
 import { Link } from "react-router-dom";
 
 function NewHero() {
   return (
-    <div className="hero h-96 align-center w-auto mx-10 bg-primary-content ">
+    <div className="hero h-84 align-center w-auto mx-10 bg-primary-content ">
       <div className="hero-content flex-col lg:flex-row-reverse">
         <img
-          src={Image1}
+          src={Image2}
           alt="hero"
           className="max-w-lg rounded-lg shadow-2xl"
         />

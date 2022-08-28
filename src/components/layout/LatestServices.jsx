@@ -31,11 +31,11 @@ function LatestServices() {
             .then((response) => response);
           services.push({ id: itemId, data: response });
           setListings(services);
-          setLoading(false);
+          // setLoading(false);
         })
       );
       // setListings(services);
-      // setLoading(false);
+      setLoading(false);
     } catch (error) {
       console.log("error");
     }
