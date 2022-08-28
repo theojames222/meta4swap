@@ -132,8 +132,10 @@ function TransactionsTable({ listing, id }) {
               </td>
               <td>
                 <div className=" flex text-center align-center justify-center">
-                  <div className="ml-5 pl-10 text-center">{listing.itemId}</div>
-                  <div className="badge badge-ghost badge-sm ml-5 mt-3">
+                  <div className="ml-5 pl-10 text-center align-center justify-center">
+                    {listing.itemId}
+                  </div>
+                  <div className="badge badge-ghost badge-sm ml-5 mt-3 align-center justify-center">
                     {listing.serviceType === 0 ? "service" : "task"}
                   </div>
                 </div>

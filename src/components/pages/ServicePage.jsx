@@ -218,11 +218,7 @@ function ServicePage({ userAddress }) {
                 <p className="Description w-3/4 pb-10">
                   {`${fLCapital(listingData.description)}`}
                 </p>
-                {page.includes("task") ? (
-                  <OfferTable listingData={listingData} />
-                ) : (
-                  ""
-                )}
+                {page.includes("task") ? <OfferTable id={itemId} /> : ""}
               </div>
 
               <div className="fixed right-0 mr-10">

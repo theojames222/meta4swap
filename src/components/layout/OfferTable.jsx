@@ -2,11 +2,12 @@ import React from "react";
 import { useState, useCallback, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 const Moralis = require("moralis-v1");
-function OfferTable({ listingData }) {
+function OfferTable({ id }) {
   const [loading, setLoading] = useState(true);
-  const [offers, setOffers] = useState([]);
+  const [offersArr, setOffersArr] = useState([]);
   const params = useParams();
-  let itemId = listingData.id;
+  let itemId = id;
+  console.log(itemId);
   const getOffers = useCallback(async () => {
     let offers = [];
     try {
@@ -32,20 +33,21 @@ function OfferTable({ listingData }) {
         offers.push({
           worker: worker,
         });
+        console.log(offers);
       }
-      setOffers(offers);
+      setOffersArr(offers);
       setLoading(false);
     } catch (error) {
       console.log("error");
     }
-  }, [setLoading, params.userId]);
+  }, [setLoading, setOffersArr, params.userId]);
   useEffect(() => {
     // getItem();
     getOffers();
 
     setLoading(false);
   }, []);
-  console.log(offers);
+  console.log(offersArr);
   return (
     <>
       <h1 className="smallHeader pb-3">Current Offers</h1>
@@ -53,11 +55,30 @@ function OfferTable({ listingData }) {
         <table className="table table-compact w-3/4">
           <thead>
             <tr>
-              <th className="smallHeader">User</th>
-              <th></th>
+              <th className="">User</th>
             </tr>
           </thead>
-          <tbody></tbody>
+          <tbody>
+            <table className="table-auto table-compact w-full">
+              {offersArr.map((item) => (
+                <>
+                  <tr className="">
+                    <td key={item.id} className="">
+                      {item.worker}
+                    </td>
+                    <td>
+                      <button
+                        className="btn btn-sm btn-primary mr-3"
+                        onClick={acceptOffer}
+                      >
+                        Accept Offer
+                      </button>
+                    </td>
+                  </tr>
+                </>
+              ))}
+            </table>
+          </tbody>
         </table>
       </div>
     </>
