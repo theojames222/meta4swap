@@ -4,11 +4,13 @@ import Content from "../layout/Content";
 // import FeaturedService from "../layout/FeaturedService";
 import LatestServices from "../layout/LatestServices";
 import LatestTasks from "../layout/LatestTasks";
+import NewHero from "../layout/NewHero";
 
 function Home() {
   return (
     <>
-      <Hero />
+      {/* <Hero /> */}
+      <NewHero />
       <LatestServices />
       <LatestTasks />
       <Content />
