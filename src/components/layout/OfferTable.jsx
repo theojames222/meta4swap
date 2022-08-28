@@ -41,6 +41,44 @@ function OfferTable({ id }) {
       console.log("error");
     }
   }, [setLoading, setOffersArr, params.userId]);
+
+  const acceptOffer = async (e) => {
+    e.preventDefault();
+    const web3 = new Web3(window.ethereum);
+    await window.ethereum.enable();
+    const accounts = await window.ethereum.request({
+      method: "eth_requestAccounts",
+    });
+    var account = accounts[0];
+
+    const M4SContract = new web3.eth.Contract(
+      m4sAbi,
+      "0xC06130dB84fe3840c4CdB207EDd4b4e800aA957d",
+      {
+        from: account,
+      }
+    );
+
+    const orderPrice =
+      ((listingData.price * 10 ** 18) / window.ethPrice) *
+      10 ** 8 *
+      quantity["quantity"];
+    const slippage = parseInt((orderPrice * 100) / 10000);
+    console.log(orderPrice);
+    console.log(slippage);
+    console.log(orderPrice / 10 ** 18);
+
+    M4SContract.methods
+      .acceptOffer(itemId)
+      .send({
+        from: account,
+        value: orderPrice + slippage,
+      })
+      .on("receipt", function () {
+        navigate(`/transactions/${userAddress}`);
+      });
+  };
+
   useEffect(() => {
     // getItem();
     getOffers();
