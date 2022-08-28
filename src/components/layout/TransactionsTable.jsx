@@ -136,9 +136,9 @@ function TransactionsTable({ listing, id }) {
               <td className="text-center align-center justify-center px-5">
                 <div className="ml-5 pl-10 ">
                   <div className=" text-center align-center justify-center">
-                    <div className=" text-center mr-5">{`$${Number(
-                      listing.price
-                    ).toFixed(2)}`}</div>
+                    <div className=" text-center mr-5">{`${Number(
+                      listing.price / 10 ** 18
+                    ).toFixed(8)} ETH`}</div>
                   </div>
                 </div>
               </td>
