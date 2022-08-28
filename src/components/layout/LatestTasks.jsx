@@ -45,10 +45,10 @@ function LatestTasks() {
   useEffect(() => {
     getTasks();
 
-    console.log(listings);
+    // console.log(listings);
 
     setLoading(false);
-  }, []);
+  }, [setLoading, getTasks]);
 
   return (
     <div className="category">

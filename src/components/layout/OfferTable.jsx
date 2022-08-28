@@ -48,6 +48,9 @@ function OfferTable({ id }) {
     setLoading(false);
   }, []);
   console.log(offersArr);
+  const acceptOffer = () => {
+    console.log("offer accepted");
+  };
   return (
     <>
       <h1 className="smallHeader pb-3">Current Offers</h1>
