@@ -2,7 +2,7 @@ import { useState } from "react";
 import { JsonUpload } from "../actions/JsonUpload";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
-import Skills from "./Skills";
+import RemoveIcon from "../assets/remove.png";
 
 function CreateForm({ connected, userAddress }) {
   const [defaultAccount, setDefaultAccount] = useState(null);
@@ -232,20 +232,48 @@ function CreateForm({ connected, userAddress }) {
                 </h4>
               </header>
               <div>
-                <div>
-                  <input type="text" value={skill} onChange={handleChange} />
-                  <button type="button" onClick={handleAdd}>
-                    Add
+                <div className="pb-3">
+                  <input
+                    type="text"
+                    value={skill}
+                    onChange={handleChange}
+                    placeholder="Add Skill"
+                    className="input input-bordered w-1/2 mr-5"
+                  />
+                  <button
+                    type="button"
+                    onClick={handleAdd}
+                    className="btn btn-sm btn-primary"
+                  >
+                    Add Skill
                   </button>
                 </div>
 
                 <ul>
                   {skillsArr.map((item) => (
                     <>
-                      <div className="flex">
-                        <li key={item.id}>{item.skill}</li>
-                        <button onClick={() => handleDelete(item.id)}>
-                          (-)
+                      <div className="flex justify-center ">
+                        <li key={item.id} className="mr-2 skills">
+                          {`Skill #${item.id}: ${item.skill}`}
+                        </li>
+                        <button
+                          onClick={() => handleDelete(item.id)}
+                          className="btn btn-xs btn-circle btn-outline btn-primary"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-3 w-3"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M6 18L18 6M6 6l12 12"
+                            />
+                          </svg>
                         </button>
                       </div>
                     </>

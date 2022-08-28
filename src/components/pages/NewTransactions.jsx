@@ -31,6 +31,7 @@ function NewTransactions({ userAddress }) {
       const query = new Moralis.Query(Item);
       //replace my address with user's address
       const user = params.userId;
+      //Delete user2 for final version
       const user2 = "0x5f5b7c5c23f2826b0fdc25d21944bceaf146fd78";
       console.log(user);
       query.equalTo("buyer", user2);
@@ -71,8 +72,9 @@ function NewTransactions({ userAddress }) {
       const Item = Moralis.Object.extend("m4orders1");
       const query = new Moralis.Query(Item);
       //replace my address with user's address
-      const user = params.userId;
-      query.equalTo("seller", user);
+      // const user = params.userId;
+      const user2 = "0x5f5b7c5c23f2826b0fdc25d21944bceaf146fd78";
+      query.equalTo("seller", user2);
       const results = await query.find();
       console.log(results.length);
       for (let i = 0; i < results.length; i++) {
@@ -193,7 +195,7 @@ function NewTransactions({ userAddress }) {
                             </th>
                           </tr>
                         </thead>
-                        <table className="table w-full ">
+                        <table className="table-auto w-full ">
                           <main>
                             <ul>
                               {listingsBuyer.map((listing) => (
@@ -213,18 +215,27 @@ function NewTransactions({ userAddress }) {
                     <>
                       <div className=" infoHeader mt-8">Items Sold</div>
                       <div className=" flex justify-center">
-                        <div className="overflow-x-auto">
-                          <table className="table table-compact w-full">
-                            <thead>
-                              <tr>
-                                <th>Order Id</th>
-                                <th>Item Id</th>
-                                <th>Amount</th>
-                                <th>Date</th>
-                                <th>Status</th>
-                              </tr>
-                            </thead>
-
+                        <div className="overflow-x-auto w-full">
+                          <thead
+                            className="table w-full "
+                            style={{
+                              backgroundColor: "lightgray",
+                              alignContent: "center",
+                              justifyContent: "center",
+                              alignItems: "center",
+                            }}
+                          >
+                            <tr>
+                              <th className="px-5 text-center">Order Id</th>
+                              <th className="text-center">Item Id</th>
+                              <th className="text-center">Amount</th>
+                              {/* <th className="text-center">Date</th> */}
+                              <th className="pl-5 justify-center text-center">
+                                Status
+                              </th>
+                            </tr>
+                          </thead>
+                          <table className="table-auto w-full ">
                             <main>
                               <ul>
                                 {listingsSeller.map((listing) => (
@@ -238,7 +249,7 @@ function NewTransactions({ userAddress }) {
                             </main>
                           </table>
                         </div>
-                      </div>{" "}
+                      </div>
                     </>
                   ) : (
                     <div className=" flex justify-center mt-5">

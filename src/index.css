@@ -252,6 +252,14 @@ nav {
   margin: auto;
   color: rgba(43, 62, 135, 1);
 }
+.skills {
+  /* font-family: "Montserrat", sans-serif; */
+  /* font-family: "Roboto Mono", monospace; */
+  font-family: "Mukta", sans-serif;
+  font-weight: 500;
+
+  color: rgba(43, 62, 135, 1);
+}
 .nameInput,
 .categoryInput,
 .descriptionInput,

@@ -18,7 +18,7 @@ const Switch = ({ isOn, handleToggle }) => {
         >
           <span className={`react-switch-button`} />
         </label>
-        <p className="mx-3 mt-1"> Tasks </p>
+        <p className="mx-3 mt-1"> Sold </p>
       </div>
     </>
   );
