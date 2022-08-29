@@ -5,7 +5,7 @@ export const useFetchEthPrice = async () => {
   const provider = new ethers.providers.JsonRpcProvider(
     "https://goerli.infura.io/v3/18c3956af9734c289bfed9eee03ee1a7"
   );
-  const addr = "0xC06130dB84fe3840c4CdB207EDd4b4e800aA957d";
+  const addr = "0xC774Cf50715DCF2d50b7333e1c216bEF67E7D4E4";
   const priceFeed = new ethers.Contract(addr, m4sAbi, provider);
   // We get the data from the last round of the contract
   const chainLinkPrice = await priceFeed.getLatestPrice();

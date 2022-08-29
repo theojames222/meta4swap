@@ -30,7 +30,7 @@ function Product({ userAddress }) {
       );
       const M4SContract = new web3.eth.Contract(
         m4sAbi,
-        "0xC06130dB84fe3840c4CdB207EDd4b4e800aA957d"
+        "0xC774Cf50715DCF2d50b7333e1c216bEF67E7D4E4"
       );
 
       const ethPrice = await M4SContract.methods.getLatestPrice().call();
@@ -48,7 +48,7 @@ function Product({ userAddress }) {
       );
       const M4SContract = new web3.eth.Contract(
         m4sAbi,
-        "0xC06130dB84fe3840c4CdB207EDd4b4e800aA957d"
+        "00xC774Cf50715DCF2d50b7333e1c216bEF67E7D4E4"
       );
 
       const itemInfo = await M4SContract.methods.itemInfo(itemId).call();
@@ -90,7 +90,7 @@ function Product({ userAddress }) {
 
     const M4SContract = new web3.eth.Contract(
       m4sAbi,
-      "0xC06130dB84fe3840c4CdB207EDd4b4e800aA957d",
+      "0xC774Cf50715DCF2d50b7333e1c216bEF67E7D4E4",
       {
         from: account,
       }
