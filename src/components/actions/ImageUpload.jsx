@@ -11,17 +11,17 @@ import {
   Badge,
 } from "react-bootstrap";
 
-const projectId = '2DSQcwzwT76SmNIGvQhj2xU1lVW';
-const projectSecret = '214d0b37f4845f97cbdf513eee8248ff';
+const projectId = "2DSQcwzwT76SmNIGvQhj2xU1lVW";
+const projectSecret = "214d0b37f4845f97cbdf513eee8248ff";
 const auth =
-    'Basic ' + Buffer.from(projectId + ':' + projectSecret).toString('base64');
+  "Basic " + Buffer.from(projectId + ":" + projectSecret).toString("base64");
 
 const client = create({
-  host: 'ipfs.infura.io',
+  host: "ipfs.infura.io",
   port: 5001,
-  protocol: 'https',
+  protocol: "https",
   headers: {
-      authorization: auth,
+    authorization: auth,
   },
 });
 

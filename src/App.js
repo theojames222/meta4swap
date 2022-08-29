@@ -1,11 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
 import Home from "./components/pages/Home";
-import Create from "./components/pages/Create";
-import Shop from "./components/pages/Shop";
-import Product from "./components/pages/Product";
-import Order from "./components/pages/Order";
 import { useState, useEffect } from "react";
 import UserPage from "./components/pages/UserPage";
 import Transactions from "./components/pages/Transactions";

@@ -119,7 +119,7 @@ function NewTransactions({ userAddress }) {
         <>
           <div className="flex justify-center align-center mt-3 mx-5">
             <button
-              className={`btn btn-outline btn-primary btn-${
+              className={`btn btn-outline btn-ghost btn-${
                 listing === true ? "active" : ""
               } w-1/2 ${listing === true ? "text-white" : ""}`}
               onClick={onClick}
@@ -127,7 +127,7 @@ function NewTransactions({ userAddress }) {
               Listings
             </button>
             <button
-              className={`btn btn-outline btn-primary btn-${
+              className={`btn btn-outline btn-ghost btn-${
                 transactions === true ? "active" : ""
               } w-1/2  `}
               onClick={onClick2}
@@ -141,10 +141,9 @@ function NewTransactions({ userAddress }) {
       ) : (
         <div className="content mx-20 pb-10">
           <div className="pb-10">
-            <Headlines text="My Account :" content={`${userAddress}`} />
             <div className="flex justify-center align-center mt-3">
               <button
-                className={`btn btn-outline btn-primary btn-${
+                className={`btn btn-outline btn-ghost btn-${
                   listing === true ? "active" : ""
                 } w-1/2 ${listing === true ? "text-white" : ""}`}
                 onClick={onClick}
@@ -152,7 +151,7 @@ function NewTransactions({ userAddress }) {
                 Listings
               </button>
               <button
-                className={`btn btn-outline btn-primary btn-${
+                className={`btn btn-outline btn-ghost btn-${
                   transactions === true ? "active" : ""
                 } w-1/2  `}
                 onClick={onClick2}
@@ -160,6 +159,8 @@ function NewTransactions({ userAddress }) {
                 Transactions
               </button>
             </div>
+            <Headlines text="My Account :" content={`${userAddress}`} />
+            <div className="divider"></div>
           </div>
           {/* ADD TOGGLE FOR SERVICES AND TASKS INSTEAD OF BUTTONS */}
           {/* <TransactionsTable /> */}
