@@ -1,11 +1,9 @@
 import { useState } from "react";
-// import { v4 as uuidv4 } from "uuid";
+
 import { create } from "ipfs-http-client";
 import m4sAbi from "../abi/m4s_abi.json";
 import Web3 from "web3/dist/web3.min.js";
-// import { db } from "../../firebase.config";
-// import { setDoc, doc, serverTimestamp } from "firebase/firestore";
-import { useNavigate } from "react-router-dom";
+
 import { Buffer } from "buffer";
 
 const projectId = "2DSQcwzwT76SmNIGvQhj2xU1lVW";
@@ -26,19 +24,16 @@ export const JsonUpload = ({
   disabled,
   metaData2,
   whatsapp,
-  // imageUrl,
+
   id,
   userAddress,
   hidden,
-  // skills,
 }) => {
   const metaData = {
     id: id,
     ...metaData2,
     whatsapp: whatsapp,
-    // skills: skills,
-    // imageUrl: imageUrl,
-    // timestamp: serverTimestamp(),
+
     date: new Intl.DateTimeFormat("en-US", {
       year: "numeric",
       month: "2-digit",
@@ -60,7 +55,6 @@ export const JsonUpload = ({
   const [price, setPrice] = useState(0);
   const [btnDisabled, setbtnDisabled] = useState(true);
   const [productType, setProductType] = useState(0);
-  const navigate = useNavigate();
 
   console.log(price, live, metaDataUrl, productType);
 
@@ -99,7 +93,7 @@ export const JsonUpload = ({
 
   const uploadText = async (e) => {
     e.preventDefault();
-    // const docId = uuidv4();
+
     try {
       const added = await client.add(metaDataJSONString);
       const url = `https://meta4swap.infura-ipfs.io/ipfs/${added.path}`;
@@ -113,16 +107,11 @@ export const JsonUpload = ({
         setProductType(1);
       }
       setbtnDisabled(false);
-      // await setDoc(doc(db, "listings", docId), metaData);
     } catch (err) {
       console.log("Error uploading the file : ", err);
     }
   };
 
-  // const uploadText = (e) => {
-  //   console.log(metaData, metaDataJSONString);
-  //   console.log(whatsapp, whatsapp.slice(1));
-  // };
   return (
     <div hidden={hidden}>
       <button className="btn btn-primary" onClick={uploadText}>

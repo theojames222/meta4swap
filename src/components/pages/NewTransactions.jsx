@@ -1,7 +1,7 @@
 import React from "react";
 import Headlines from "../layout/Headlines";
 import { useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import UserPage from "./UserPage";
 import TransactionsTable from "../layout/TransactionsTable";
 import { useCallback } from "react";
@@ -19,7 +19,7 @@ function NewTransactions({ userAddress }) {
   const [loading, setLoading] = useState(true);
   const [value, setValue] = useState(false);
   const params = useParams();
-  const page = window.location.href;
+  
 
   const getOrdersBuyer = useCallback(async () => {
     let ordersBuyer = [];

@@ -1,10 +1,10 @@
 import React from "react";
-import avax from "../assets/avalanche-avax-logo.png";
+
 
 import { Link } from "react-router-dom";
 
 function ListingItem({ listing, id }) {
-  const avaxSym = <img className="eth" src={avax} alt="avax" />;
+
 
   //console.log(listing.imageUrl);
   console.log(id);
@@ -24,7 +24,7 @@ function ListingItem({ listing, id }) {
                   <h2 className="h-26 max-h-full card-title justify-center text-center overflow-y-auto ... line-clamp-2">
                     {`${fLCapital(listing.itemName)}`}
                   </h2>
-                  {/* <div class="divider"></div> */}
+                
                 </div>
               </div>
               <div className="h-20 pb-3 text-ellipsis overflow-hidden ... ">

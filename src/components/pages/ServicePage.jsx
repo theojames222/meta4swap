@@ -1,20 +1,17 @@
 import Spinner from "../shared/Spinner";
-// import ethSymbol from "../assets/Ethereum-Symbol.png";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 
 import m4sAbi from "../abi/m4s_abi.json";
 import Web3 from "web3/dist/web3.min.js";
 import OfferTable from "../layout/OfferTable";
-const Moralis = require("moralis-v1");
+// const Moralis = require("moralis-v1");
 
 function ServicePage({ userAddress }) {
-  // const ethSym = <img className="eth" src={ethSymbol} alt="eth" />;
   const page = window.location.href;
   const [loading, setLoading] = useState(true);
 
-  const [quantity, setQuantity] = useState({ quantity: 1 });
   const [listingData, setListingData] = useState({});
   const [isLive, setIsLive] = useState(null);
 
@@ -96,8 +93,7 @@ function ServicePage({ userAddress }) {
     console.log(window.ethPrice);
 
     const orderPrice =
-      ((listingData.price * 10 ** 18) / window.ethPrice) *
-      10 ** 8;
+      ((listingData.price * 10 ** 18) / window.ethPrice) * 10 ** 8;
     const slippage = parseInt((orderPrice * 100) / 10000);
     console.log(orderPrice);
     console.log(slippage);
@@ -137,39 +133,6 @@ function ServicePage({ userAddress }) {
         navigate(`/transactions/${userAddress}`);
       });
   };
-
-  // const getOffers = useCallback(async () => {
-  //   let offers = [];
-  //   try {
-  //     const serverUrl = "https://gu15uqsbipep.usemoralis.com:2053/server";
-  //     const appId = "F28xSksEmA0YDFTQskgodpG3W5JSZK0uBm9Abnde";
-  //     const masterKey = "G5799rbYbzVEjmd9B2tFNfgX184JryV3ntW283dy";
-  //     await Moralis.start({ serverUrl, appId, masterKey });
-  //     const Item = Moralis.Object.extend("m4offers1");
-  //     const query = new Moralis.Query(Item);
-  //     //replace my address with user's address
-  //     const user = params.userId;
-  //     //Delete user2 for final version
-  //     const user2 = "0x5f5b7c5c23f2826b0fdc25d21944bceaf146fd78";
-  //     console.log(user);
-  //     query.equalTo("itemId", itemId);
-  //     const results = await query.find();
-  //     console.log(results.length);
-  //     for (let i = 0; i < results.length; i++) {
-  //       const object = results[i];
-  //       const worker = object.get("worker");
-  //       console.log(worker);
-
-  //       offers.push({
-  //         worker: worker,
-  //       });
-  //     }
-  //     //setListingsBuyer(ordersBuyer);
-  //     //setLoading(false);
-  //   } catch (error) {
-  //     console.log("error");
-  //   }
-  // }, [setLoading, setListingsBuyer, params.userId]);
 
   console.log(listingData);
   return (

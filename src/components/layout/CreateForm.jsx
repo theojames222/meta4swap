@@ -2,12 +2,11 @@ import { useState } from "react";
 import { JsonUpload } from "../actions/JsonUpload";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
-import RemoveIcon from "../assets/remove.png";
+
 
 function CreateForm({ connected, userAddress }) {
   const [defaultAccount, setDefaultAccount] = useState(null);
-  const [skillsArr, setSkillsArr] = useState([]);
-  const [skill, setSkill] = useState("");
+
 
   const [formData, setFormData] = useState({
     itemName: "",
@@ -24,7 +23,6 @@ function CreateForm({ connected, userAddress }) {
   const [hidden, setHidden] = useState(true);
   const [messageName, setMessageName] = useState("");
   const [messageDescription, setMessageDescription] = useState("");
-  const [messageSkills, setMessageSkills] = useState("");
   const [btnDisabled, setBtnDisabled] = useState(true);
   const [value, setValue] = useState("");
 
@@ -61,13 +59,7 @@ function CreateForm({ connected, userAddress }) {
         ...prevState,
         [e.target.id]: `https://discord.gg/${e.target.value}`,
       }));
-    } //else if (e.target.id === "whatsapp" && value !== "") {
-    //   setBtnDisabled(false);
-    //   setFormData((prevState) => ({
-    //     ...prevState,
-    //     [e.target.id]: `https://wa.me/${value}`,
-    //   }));
-    // }
+    } 
   };
   const onChange3 = (e) => {
     if (e.target.value === "" || 0) {
@@ -115,7 +107,7 @@ function CreateForm({ connected, userAddress }) {
       ...prevState,
       category: "service",
     }));
-    //set hidden required in both click functions for task and service buttons
+
   };
   const onClick2 = () => {
     setTaskForm(true);
@@ -126,28 +118,7 @@ function CreateForm({ connected, userAddress }) {
       category: "task",
     }));
   };
-  // const handleChange = (e) => {
-  //   setSkill(e.target.value);
-  // };
-
-  // const handleAdd = () => {
-  //   if (skillsArr.length < 5) {
-  //     const newList = skillsArr.concat({ skill, id: skillsArr.length + 1 });
-  //     setSkillsArr(newList);
-  //     setSkill("");
-  //   } else {
-  //     setMessageSkills("***Maximum 5 skills***");
-  //   }
-  // };
-  // function handleDelete(id) {
-  //   const newList = skillsArr.filter((item) => item.id !== id);
-  //   setSkillsArr(newList);
-  //   if (skillsArr.length >= 5) {
-  //     setMessageSkills("");
-  //   }
-  // }
-  // console.log(skillsArr);
-  // // console.log(formData, value);
+ 
   return (
     <>
       <div className="content ">
@@ -222,71 +193,6 @@ function CreateForm({ connected, userAddress }) {
                 </div>
               )}
             </div>
-            {/* <div className="form-control">
-              <header className="mt-6">
-                <h2 className="smallHeader">{`Skills Needed (Optional)`}</h2>
-                <h4 className="text-sm pb-2">
-                  {`Add up to 5 skills needed to complete ${
-                    serviceForm === true ? "service" : "task"
-                  }.`}
-                </h4>
-              </header>
-              <div>
-                <div className="pb-3">
-                  <input
-                    type="text"
-                    value={skill}
-                    onChange={handleChange}
-                    placeholder="Add Skill"
-                    className="input input-bordered w-1/2 mr-5"
-                  />
-                  <button
-                    type="button"
-                    onClick={handleAdd}
-                    className="btn btn-sm btn-primary"
-                  >
-                    Add Skill
-                  </button>
-                </div>
-
-                <ul>
-                  {skillsArr.map((item) => (
-                    <>
-                      <div className="flex justify-center ">
-                        <li key={item.id} className="mr-2 skills">
-                          {`Skill #${item.id}: ${item.skill}`}
-                        </li>
-                        <button
-                          onClick={() => handleDelete(item.id)}
-                          className="btn btn-xs btn-circle btn-outline btn-primary"
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="h-3 w-3"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                          >
-                            <path
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="2"
-                              d="M6 18L18 6M6 6l12 12"
-                            />
-                          </svg>
-                        </button>
-                      </div>
-                    </>
-                  ))}
-                </ul>
-                {messageSkills && (
-                  <div className="text-sm" style={{ color: "red" }}>
-                    {messageSkills}
-                  </div>
-                )}
-              </div>
-              {/* <Skills /> */}
-            {/* </div> */}
             <div className="form-control">
               <header className="mt-6">
                 <h2 className="smallHeader">{`${
@@ -370,19 +276,12 @@ function CreateForm({ connected, userAddress }) {
                   onChange={value === null ? "" : setValue}
                   id="whatsapp"
                 />
-                {/* <input
-                  type="text"
-                  placeholder={`phone # (ex. 1112223333)`}
-                  className="input input-bordered w-full"
-                  id="whatsapp"
-                  onChange={onChange2}
-                /> */}
+              
               </label>
             </div>
           </form>
 
           <JsonUpload
-            // skills={skillsArr}
             metaData2={formData}
             whatsapp={value}
             id={defaultAccount}

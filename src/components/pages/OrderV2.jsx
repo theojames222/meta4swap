@@ -73,38 +73,8 @@ function OrderV2({ userAddress }) {
       setIsLive(orderInfo["isLive"]);
     };
 
-    // const getItem = async () => {
-    //   const web3 = new Web3(
-    //     new Web3.providers.HttpProvider(
-    //       "https://goerli.infura.io/v3/18c3956af9734c289bfed9eee03ee1a7"
-    //     )
-    //   );
-    //   const M4SContract = new web3.eth.Contract(
-    //     m4sAbi,
-    //     "0xC774Cf50715DCF2d50b7333e1c216bEF67E7D4E4"
-    //   );
-
-    //   const itemInfo = await M4SContract.methods.itemInfo(itemId).call();
-
-    //   console.log(itemInfo["id"]);
-    //   console.log(itemInfo["metadata"]);
-    //   console.log(itemInfo["owner"]);
-    //   console.log(itemInfo["isLive"]);
-    //   console.log(itemInfo["price"]);
-    //   console.log(itemInfo["serviceType"]);
-    //   setIsLive(itemInfo["isLive"]);
-
-    //   fetch(itemInfo["metadata"])
-    //     .then((response) => response.json())
-    //     .then((data) => {
-    //       setListingData(data);
-    //       setLoading(false);
-    //     });
-    // };
-
     getOrder();
     getMetaData();
-    // getItem();
   }, [navigate, params.listingId]);
   console.log(itemId);
   console.log(orderId);
@@ -241,43 +211,10 @@ function OrderV2({ userAddress }) {
                 <p className="Description w-3/4 pb-20" hidden={hidden}>
                   {listingData.description}
                 </p>
-                {/* <div className="overflow-x-auto">
-                  <table className="table table-compact w-3/4">
-                    <thead>
-                      <tr>
-                        <th>User</th>
-                        <th></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>{listingData.id}</td>
-                        <td>
-                          <button className="btn-sm btn-primary">Buy</button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>{listingData.id}</td>
-                        <td>
-                          <button className="btn-sm btn-primary">Buy</button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>{listingData.id}</td>
-                        <td>
-                          <button className="btn-sm btn-primary">Buy</button>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div> */}
               </div>
 
               <div className="fixed right-0 mr-10">
                 <div className="card w-96 bg-base-100 shadow-xl ">
-                  {/* <figure>
-                  <img src="https://placeimg.com/400/225/arch" alt="Shoes" />
-                </figure> */}
                   <div className="card-body">
                     <h2
                       className="card-title text-2xl text-center justify-center pb-5"
@@ -297,7 +234,6 @@ function OrderV2({ userAddress }) {
                           10 ** 8) /
                         10 ** 18
                       ).toFixed(3)} ETH`}
-                      {/* {ethSym} */}
                     </h2>
                     <div
                       className="container items-center justify-center"
@@ -334,20 +270,6 @@ function OrderV2({ userAddress }) {
                         </li>
                       </ul>
                     </div>
-                    {/* <div className="card-actions justify-center">
-                      <button
-                        className="btn btn-primary"
-                        onClick={
-                          listingData.category === "task" ? offerNow : buyNow
-                        }
-                      >
-                        {`${
-                          listingData.category === "task"
-                            ? "Offer Now"
-                            : "Buy Now"
-                        }`}
-                      </button>
-                    </div> */}
                   </div>
                 </div>
               </div>

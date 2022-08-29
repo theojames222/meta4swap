@@ -3,7 +3,6 @@ import Footer from "./components/layout/Footer";
 import Home from "./components/pages/Home";
 import { useState, useEffect } from "react";
 import UserPage from "./components/pages/UserPage";
-import Transactions from "./components/pages/Transactions";
 import Web3 from "web3/dist/web3.min.js";
 import m4sAbi from "./abi/m4s_abi.json";
 import CategoryTask from "./components/pages/CategoryTask";
@@ -96,10 +95,6 @@ function App() {
               path="/order/:type/:orderId"
               // path="/order"
               element={<OrderV2 userAddress={userAddress} />}
-            />
-            <Route
-              path="/transactions/:userId"
-              element={<Transactions userAddress={userAddress} />}
             />
           </Routes>
         </main>

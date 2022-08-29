@@ -1,4 +1,4 @@
-import logo from "../assets/logo3.png";
+
 import { Link } from "react-router-dom";
 import NewLogo from "../assets/New Logo.png";
 function Footer() {
