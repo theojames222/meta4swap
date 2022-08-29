@@ -33,9 +33,9 @@ function NewTransactions({ userAddress }) {
       //replace my address with user's address
       const user = params.userId;
       //Delete user2 for final version
-      const user2 = "0x5f5b7c5c23f2826b0fdc25d21944bceaf146fd78";
-      console.log(user);
-      query.equalTo("buyer", user2);
+      // const user2 = "0x5f5b7c5c23f2826b0fdc25d21944bceaf146fd78";
+      // console.log(typeof user2);
+      query.equalTo("buyer", user);
       const results = await query.find();
       console.log(results.length);
       for (let i = 0; i < results.length; i++) {
@@ -73,9 +73,9 @@ function NewTransactions({ userAddress }) {
       const Item = Moralis.Object.extend("m4orders1");
       const query = new Moralis.Query(Item);
       //replace my address with user's address
-      // const user = params.userId;
-      const user2 = "0x5f5b7c5c23f2826b0fdc25d21944bceaf146fd78";
-      query.equalTo("seller", user2);
+      const user = params.userId;
+      // const user2 = "0x5f5b7c5c23f2826b0fdc25d21944bceaf146fd78";
+      query.equalTo("seller", user);
       const results = await query.find();
       console.log(results.length);
       for (let i = 0; i < results.length; i++) {
@@ -166,7 +166,8 @@ function NewTransactions({ userAddress }) {
           <div className="category mb-10">
             {loading ? (
               <Spinner />
-            ) : listingsBuyer && listingsBuyer.length > 0 ? (
+            ) : (listingsBuyer && listingsBuyer.length > 0) ||
+              (listingsSeller && listingsSeller.length > 0) ? (
               <>
                 <div>
                   <Switch isOn={value} handleToggle={() => setValue(!value)} />
