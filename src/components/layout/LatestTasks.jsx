@@ -31,12 +31,10 @@ function LatestTasks() {
             .then((resp) => resp.json())
             .then((response) => response);
           tasks.push({ id: itemId, data: response });
-          setListings(tasks);
-          // setLoading(false);
+          setLoading(false);
         })
-      );
-      // setListings(services);
-      setLoading(false);
+        );
+      setListings(tasks);
     } catch (error) {
       console.log("error");
     }
@@ -44,10 +42,6 @@ function LatestTasks() {
 
   useEffect(() => {
     getTasks();
-
-    // console.log(listings);
-
-    setLoading(false);
   }, [setLoading, getTasks]);
 
   return (
@@ -58,7 +52,7 @@ function LatestTasks() {
       ) : listings && listings.length > 0 ? (
         <>
           <div
-            className="container items-center mx-2 justify-center"
+            className="container items-center mx-2 justify-center ml-auto mr-auto"
             style={{
               alignContent: "center",
               alignItems: "center",

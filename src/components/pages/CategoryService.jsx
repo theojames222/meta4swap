@@ -20,7 +20,7 @@ function CategoryService() {
       query.equalTo("itemType", "0");
       const results = await query.find();
       await Promise.all(
-        results.map(async (item) => {
+        await results.map(async (item) => {
           const metadata = item.get("metadata");
           const itemId = item.get("itemId");
           const ipfsURL = metadata;
@@ -28,10 +28,10 @@ function CategoryService() {
             .then((resp) => resp.json())
             .then((response) => response);
           services.push({ id: itemId, data: response });
-          setListings(services);
           setLoading(false);
         })
       );
+      setListings(services);
     } catch (error) {
       console.log("error");
     }
@@ -39,10 +39,6 @@ function CategoryService() {
 
   useEffect(() => {
     getServices();
-
-    console.log(listings);
-
-    setLoading(false);
   }, []);
 
   return (
@@ -52,7 +48,7 @@ function CategoryService() {
         content="Shop services with Meta4Swap"
       />
       <div
-        className="container items-center mx-2 "
+        className="container items-center mx-2 ml-auto mr-auto"
         style={{
           // justifyContent: "space-evenly",
           alignContent: "center",

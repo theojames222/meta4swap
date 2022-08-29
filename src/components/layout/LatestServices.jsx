@@ -30,12 +30,10 @@ function LatestServices() {
             .then((resp) => resp.json())
             .then((response) => response);
           services.push({ id: itemId, data: response });
-          setListings(services);
           setLoading(false);
         })
-      );
-      // setListings(services);
-      // setLoading(false);
+        );
+      setListings(services);
     } catch (error) {
       console.log("error");
     }
@@ -43,10 +41,6 @@ function LatestServices() {
 
   useEffect(() => {
     getServices();
-
-    console.log(listings);
-
-    setLoading(false);
   }, []);
 
   return (
@@ -60,7 +54,7 @@ function LatestServices() {
       ) : listings && listings.length > 0 ? (
         <>
           <div
-            className="container items-center mx-2 justify-center"
+            className="container items-center mx-2 justify-center ml-auto mr-auto"
             style={{
               // justifyContent: "space-evenly",
               alignContent: "center",

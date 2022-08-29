@@ -28,10 +28,10 @@ function CategoryTask() {
             .then((resp) => resp.json())
             .then((response) => response);
           tasks.push({ id: itemId, data: response });
-          setListings(tasks);
           setLoading(false);
         })
-      );
+        );
+      setListings(tasks);
     } catch (error) {
       console.log("error");
     }
@@ -39,17 +39,13 @@ function CategoryTask() {
 
   useEffect(() => {
     getTasks();
-
-    console.log(listings);
-
-    setLoading(false);
   }, []);
 
   return (
     <>
       <Headlines text="Task Listings" content="Shop tasks with Meta4Swap" />
       <div
-        className="container items-center mx-2 "
+        className="container items-center mx-2 mr-auto ml-auto"
         style={{
           // justifyContent: "space-evenly",
           alignContent: "center",
