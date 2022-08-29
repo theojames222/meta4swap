@@ -126,28 +126,28 @@ function CreateForm({ connected, userAddress }) {
       category: "task",
     }));
   };
-  const handleChange = (e) => {
-    setSkill(e.target.value);
-  };
+  // const handleChange = (e) => {
+  //   setSkill(e.target.value);
+  // };
 
-  const handleAdd = () => {
-    if (skillsArr.length < 5) {
-      const newList = skillsArr.concat({ skill, id: skillsArr.length + 1 });
-      setSkillsArr(newList);
-      setSkill("");
-    } else {
-      setMessageSkills("***Maximum 5 skills***");
-    }
-  };
-  function handleDelete(id) {
-    const newList = skillsArr.filter((item) => item.id !== id);
-    setSkillsArr(newList);
-    if (skillsArr.length >= 5) {
-      setMessageSkills("");
-    }
-  }
-  console.log(skillsArr);
-  // console.log(formData, value);
+  // const handleAdd = () => {
+  //   if (skillsArr.length < 5) {
+  //     const newList = skillsArr.concat({ skill, id: skillsArr.length + 1 });
+  //     setSkillsArr(newList);
+  //     setSkill("");
+  //   } else {
+  //     setMessageSkills("***Maximum 5 skills***");
+  //   }
+  // };
+  // function handleDelete(id) {
+  //   const newList = skillsArr.filter((item) => item.id !== id);
+  //   setSkillsArr(newList);
+  //   if (skillsArr.length >= 5) {
+  //     setMessageSkills("");
+  //   }
+  // }
+  // console.log(skillsArr);
+  // // console.log(formData, value);
   return (
     <>
       <div className="content ">
@@ -209,8 +209,8 @@ function CreateForm({ connected, userAddress }) {
                   className="textarea textarea-bordered w-full h-28"
                   placeholder={`${
                     serviceForm === true
-                    ? "describe your service in more detail and include what the buyer will receive."
-                    : `describe the task in more detail and include what you need help with.`
+                      ? "describe your service in more detail and include what the buyer will receive."
+                      : `describe the task in more detail and include what you need help with.`
                   }`}
                   id="description"
                   onChange={onChange4}
@@ -222,7 +222,7 @@ function CreateForm({ connected, userAddress }) {
                 </div>
               )}
             </div>
-            <div className="form-control">
+            {/* <div className="form-control">
               <header className="mt-6">
                 <h2 className="smallHeader">{`Skills Needed (Optional)`}</h2>
                 <h4 className="text-sm pb-2">
@@ -286,7 +286,7 @@ function CreateForm({ connected, userAddress }) {
                 )}
               </div>
               {/* <Skills /> */}
-            </div>
+            {/* </div> */}
             <div className="form-control">
               <header className="mt-6">
                 <h2 className="smallHeader">{`${
@@ -322,7 +322,8 @@ function CreateForm({ connected, userAddress }) {
               </label>
               {formData.price !== 0 ? (
                 <h3>{`Price in ETH: ${(
-                  (((Number((formData.price).replace(/\,/g,'')) * 10 ** 18) / window.ethPrice) *
+                  (((Number(formData.price.replace(/\,/g, "")) * 10 ** 18) /
+                    window.ethPrice) *
                     10 ** 8) /
                   10 ** 18
                 ).toFixed(3)}`}</h3>
@@ -381,7 +382,7 @@ function CreateForm({ connected, userAddress }) {
           </form>
 
           <JsonUpload
-            skills={skillsArr}
+            // skills={skillsArr}
             metaData2={formData}
             whatsapp={value}
             id={defaultAccount}

@@ -30,13 +30,13 @@ export const JsonUpload = ({
   id,
   userAddress,
   hidden,
-  skills,
+  // skills,
 }) => {
   const metaData = {
     id: id,
     ...metaData2,
     whatsapp: whatsapp,
-    skills: skills,
+    // skills: skills,
     // imageUrl: imageUrl,
     // timestamp: serverTimestamp(),
     date: new Intl.DateTimeFormat("en-US", {
@@ -84,10 +84,15 @@ export const JsonUpload = ({
     console.log(M4SContract);
     console.log(metaDataUrl);
     console.log(live);
-    console.log(web3.utils.toWei(price.replace(/\,/g,'')));
+    console.log(web3.utils.toWei(price.replace(/\,/g, "")));
     console.log(productType);
     M4SContract.methods
-      .create(metaDataUrl, live, web3.utils.toWei(price.replace(/\,/g,'')), productType)
+      .create(
+        metaDataUrl,
+        live,
+        web3.utils.toWei(price.replace(/\,/g, "")),
+        productType
+      )
       .send();
     // .on("receipt", navigate(`/account/${userAddress}`));
   };

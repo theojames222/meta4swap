@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 function NewHero() {
   return (
-    <div className="hero h-84 align-center w-auto mx-10 bg-primary-content ">
+    <div className="hero h-84 align-center w-auto mx-10 bg-primary-content drop-shadow-lg ">
       <div className="hero-content flex-col lg:flex-row-reverse">
         <img
           src={Image2}

@@ -19,7 +19,7 @@ function LatestServices() {
       const Item = Moralis.Object.extend("m4services1");
       const query = new Moralis.Query(Item);
       query.equalTo("itemType", "0");
-      query.limit(5);
+      query.limit(4);
       const results = await query.find();
       await Promise.all(
         results.map(async (item) => {
@@ -50,7 +50,7 @@ function LatestServices() {
   }, []);
 
   return (
-    <div className="category">
+    <div className="category drop-shadow-lg">
       <Headlines
         text="Latest Services"
         content="Most recently created services"

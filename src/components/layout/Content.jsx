@@ -29,7 +29,7 @@ function Content() {
     },
   ];
   return (
-    <div className="category">
+    <div className="category drop-shadow-lg">
       <Headlines
         text="Meta4Swap Benefits"
         content="Effortlessly find talent, create and list freelance services on the Blockchain"
