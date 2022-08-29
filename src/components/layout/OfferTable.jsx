@@ -48,7 +48,7 @@ function OfferTable({ id, userAddress, listingData }) {
     }
   }, [setLoading, setOffersArr, itemId]);
 
-  const acceptOffer = async (worker) => {
+  const acceptOffer = async (itemId, worker) => {
     const web3 = new Web3(window.ethereum);
     await window.ethereum.enable();
     const accounts = await window.ethereum.request({
@@ -115,7 +115,7 @@ function OfferTable({ id, userAddress, listingData }) {
                     <td>
                       <button
                         className="btn btn-sm btn-primary mr-3"
-                        onClick={() => acceptOffer(item.worker)}
+                        onClick={() => acceptOffer(itemId, item.worker)}
                         disabled={btnDisabled}
                       >
                         Accept Offer
