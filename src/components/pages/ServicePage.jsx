@@ -92,10 +92,12 @@ function ServicePage({ userAddress }) {
       }
     );
 
+    console.log(listingData.price);
+    console.log(window.ethPrice);
+
     const orderPrice =
       ((listingData.price * 10 ** 18) / window.ethPrice) *
-      10 ** 8 *
-      quantity["quantity"];
+      10 ** 8;
     const slippage = parseInt((orderPrice * 100) / 10000);
     console.log(orderPrice);
     console.log(slippage);
@@ -105,7 +107,7 @@ function ServicePage({ userAddress }) {
       .buy(itemId)
       .send({
         from: account,
-        value: orderPrice + slippage,
+        value: Math.round(orderPrice) + slippage,
       })
       .on("receipt", function () {
         navigate(`/transactions/${userAddress}`);

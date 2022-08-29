@@ -6,8 +6,9 @@ import { Link } from "react-router-dom";
 function ListingItem({ listing, id }) {
   const avaxSym = <img className="eth" src={avax} alt="avax" />;
 
-  console.log(listing.imageUrl);
+  //console.log(listing.imageUrl);
   console.log(id);
+  console.log(listing.price);
   let fLCapital = (s) => (s = s.charAt(0).toUpperCase() + s.slice(1));
   return (
     <>
@@ -39,7 +40,7 @@ function ListingItem({ listing, id }) {
 
                 <h4 className="text-sm text-base justify-center text-center p-0">
                   {`(${(
-                    (((listing.price * 10 ** 18) / window.ethPrice) * 10 ** 8) /
+                    (((listing.price.replace(/\,/g,'') * 10 ** 18) / window.ethPrice) * 10 ** 8) /
                     10 ** 18
                   ).toFixed(3)}) ETH`}
                 </h4>
