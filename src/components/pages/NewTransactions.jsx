@@ -121,7 +121,7 @@ function NewTransactions({ userAddress }) {
             <button
               className={`btn btn-outline btn-ghost btn-${
                 listing === true ? "active" : ""
-              } w-1/2 ${listing === true ? "text-white" : ""}`}
+              } w-1/2 ${listing === true ? "active" : ""}`}
               onClick={onClick}
             >
               Listings
