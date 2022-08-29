@@ -54,7 +54,7 @@ function LatestServices() {
       ) : listings && listings.length > 0 ? (
         <>
           <div
-            className="container items-center mx-2 justify-center"
+            className="container items-center mx-2 justify-center ml-auto mr-auto"
             style={{
               // justifyContent: "space-evenly",
               alignContent: "center",

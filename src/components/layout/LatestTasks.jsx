@@ -52,7 +52,7 @@ function LatestTasks() {
       ) : listings && listings.length > 0 ? (
         <>
           <div
-            className="container items-center mx-2 justify-center"
+            className="container items-center mx-2 justify-center ml-auto mr-auto"
             style={{
               alignContent: "center",
               alignItems: "center",
