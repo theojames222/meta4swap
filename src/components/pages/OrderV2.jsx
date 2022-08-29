@@ -19,6 +19,7 @@ function OrderV2({ userAddress }) {
   //   let itemId = params.listingId;
   let itemId = listingId;
   const orderId = params.orderId;
+  
   const getMetaData = async () => {
     const serverUrl = "https://gu15uqsbipep.usemoralis.com:2053/server";
     const appId = "F28xSksEmA0YDFTQskgodpG3W5JSZK0uBm9Abnde";
@@ -28,7 +29,8 @@ function OrderV2({ userAddress }) {
     const query = new Moralis.Query(Item);
     query.equalTo("orderId", orderId);
     const results = await query.find();
-    const metadata = results[0].metadata;
+    console.log(results[0]);
+    const metadata = results[0].get("metadata");
     console.log(metadata);
   };
   useEffect(() => {
