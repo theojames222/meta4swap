@@ -19,7 +19,7 @@ function OrderV2({ userAddress }) {
   //   let itemId = params.listingId;
   let itemId = listingId;
   const orderId = params.orderId;
-  
+
   const getMetaData = async () => {
     const serverUrl = "https://gu15uqsbipep.usemoralis.com:2053/server";
     const appId = "F28xSksEmA0YDFTQskgodpG3W5JSZK0uBm9Abnde";
@@ -32,6 +32,13 @@ function OrderV2({ userAddress }) {
     console.log(results[0]);
     const metadata = results[0].get("metadata");
     console.log(metadata);
+    fetch(metadata)
+      .then((response) => response.json())
+      .then((data) => {
+        setListingData(data);
+        setLoading(false);
+      });
+    console.log(listingData);
   };
   useEffect(() => {
     const getOrder = async () => {
@@ -64,13 +71,6 @@ function OrderV2({ userAddress }) {
       window.itemId = orderInfo["itemId"];
       setListingId(orderInfo["itemId"]);
       setIsLive(orderInfo["isLive"]);
-
-      fetch(orderInfo["metadata"])
-        .then((response) => response.json())
-        .then((data) => {
-          setListingData(data);
-          setLoading(false);
-        });
     };
 
     // const getItem = async () => {
