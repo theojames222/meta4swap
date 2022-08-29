@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import m4sAbi from "../abi/m4s_abi.json";
 import Web3 from "web3/dist/web3.min.js";
-
+const Moralis = require("moralis-v1");
 function OrderV2({ userAddress }) {
   // const ethSym = <img className="eth" src={ethSymbol} alt="eth" />;
 
@@ -19,7 +19,18 @@ function OrderV2({ userAddress }) {
   //   let itemId = params.listingId;
   let itemId = listingId;
   const orderId = params.orderId;
-
+  const getMetaData = async () => {
+    const serverUrl = "https://gu15uqsbipep.usemoralis.com:2053/server";
+    const appId = "F28xSksEmA0YDFTQskgodpG3W5JSZK0uBm9Abnde";
+    const masterKey = "G5799rbYbzVEjmd9B2tFNfgX184JryV3ntW283dy";
+    await Moralis.start({ serverUrl, appId, masterKey });
+    const Item = Moralis.Object.extend("m4orders1");
+    const query = new Moralis.Query(Item);
+    query.equalTo("orderId", orderId);
+    const results = await query.find();
+    const metadata = results[0].metadata;
+    console.log(metadata);
+  };
   useEffect(() => {
     const getOrder = async () => {
       const web3 = new Web3(
@@ -46,51 +57,52 @@ function OrderV2({ userAddress }) {
       console.log(orderInfo["isLive"]);
       console.log(orderInfo["buyer"]);
       console.log(orderInfo["seller"]);
+      console.log(orderInfo["metadata"]);
 
       window.itemId = orderInfo["itemId"];
       setListingId(orderInfo["itemId"]);
-      //setIsLive(itemInfo["isLive"]);
-      /*
-      fetch(itemInfo["metadata"])
-        .then((response) => response.json())
-        .then((data) => {
-          setListingData(data);
-          setLoading(false);
-        });
-      */
-    };
+      setIsLive(orderInfo["isLive"]);
 
-    const getItem = async () => {
-      const web3 = new Web3(
-        new Web3.providers.HttpProvider(
-          "https://goerli.infura.io/v3/18c3956af9734c289bfed9eee03ee1a7"
-        )
-      );
-      const M4SContract = new web3.eth.Contract(
-        m4sAbi,
-        "0xC774Cf50715DCF2d50b7333e1c216bEF67E7D4E4"
-      );
-
-      const itemInfo = await M4SContract.methods.itemInfo(itemId).call();
-
-      console.log(itemInfo["id"]);
-      console.log(itemInfo["metadata"]);
-      console.log(itemInfo["owner"]);
-      console.log(itemInfo["isLive"]);
-      console.log(itemInfo["price"]);
-      console.log(itemInfo["serviceType"]);
-      setIsLive(itemInfo["isLive"]);
-
-      fetch(itemInfo["metadata"])
+      fetch(orderInfo["metadata"])
         .then((response) => response.json())
         .then((data) => {
           setListingData(data);
           setLoading(false);
         });
     };
+
+    // const getItem = async () => {
+    //   const web3 = new Web3(
+    //     new Web3.providers.HttpProvider(
+    //       "https://goerli.infura.io/v3/18c3956af9734c289bfed9eee03ee1a7"
+    //     )
+    //   );
+    //   const M4SContract = new web3.eth.Contract(
+    //     m4sAbi,
+    //     "0xC774Cf50715DCF2d50b7333e1c216bEF67E7D4E4"
+    //   );
+
+    //   const itemInfo = await M4SContract.methods.itemInfo(itemId).call();
+
+    //   console.log(itemInfo["id"]);
+    //   console.log(itemInfo["metadata"]);
+    //   console.log(itemInfo["owner"]);
+    //   console.log(itemInfo["isLive"]);
+    //   console.log(itemInfo["price"]);
+    //   console.log(itemInfo["serviceType"]);
+    //   setIsLive(itemInfo["isLive"]);
+
+    //   fetch(itemInfo["metadata"])
+    //     .then((response) => response.json())
+    //     .then((data) => {
+    //       setListingData(data);
+    //       setLoading(false);
+    //     });
+    // };
 
     getOrder();
-    getItem();
+    getMetaData();
+    // getItem();
   }, [navigate, params.listingId]);
   console.log(itemId);
   console.log(orderId);
