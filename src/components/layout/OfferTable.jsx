@@ -48,8 +48,7 @@ function OfferTable({ id, userAddress, listingData }) {
     }
   }, [setLoading, setOffersArr, itemId]);
 
-  const acceptOffer = async (e) => {
-    e.preventDefault();
+  const acceptOffer = async (worker) => {
     const web3 = new Web3(window.ethereum);
     await window.ethereum.enable();
     const accounts = await window.ethereum.request({
@@ -75,7 +74,7 @@ function OfferTable({ id, userAddress, listingData }) {
     console.log(orderPrice / 10 ** 18);
 
     M4SContract.methods
-      .acceptOffer(itemId)
+      .acceptOffer(itemId, worker)
       .send({
         from: account,
         value: orderPrice + slippage,
@@ -116,7 +115,7 @@ function OfferTable({ id, userAddress, listingData }) {
                     <td>
                       <button
                         className="btn btn-sm btn-primary mr-3"
-                        onClick={acceptOffer}
+                        onClick={() => acceptOffer(item.worker)}
                         disabled={btnDisabled}
                       >
                         Accept Offer
