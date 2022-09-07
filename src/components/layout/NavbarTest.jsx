@@ -7,9 +7,9 @@ import NewLogo from "../assets/New Logo.png";
 function NavbarTest({ connected, userAddress, childToParent, data }) {
   const isConnected = connected;
   const navigate = useNavigate();
-  const reloadPage = () => {
-    window.location.reload();
-  };
+  // const reloadPage = () => {
+  //   window.location.reload();
+  // };
 
   const btnhandler = () => {
     if (window.ethereum) {
@@ -23,8 +23,8 @@ function NavbarTest({ connected, userAddress, childToParent, data }) {
           } else {
             alert("Sign into MetaMask to create and buy with Meta4Swap");
           }
-        })
-        .then(userAddress !== "" ? reloadPage() : "");
+        });
+      // .then(userAddress !== "" ? reloadPage() : "");
     } else {
       alert("install metamask extension!!");
     }
