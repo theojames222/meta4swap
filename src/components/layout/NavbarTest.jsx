@@ -17,7 +17,8 @@ function NavbarTest({ connected, userAddress, childToParent, data }) {
         .request({ method: "eth_requestAccounts" })
         .then((result) => {
           if (result[0] !== "") {
-            childToParent(true);
+            console.log(result[0]);
+            childToParent(true, result[0]);
             //reloadPage();
           } else {
             alert("Sign into MetaMask to create and buy with Meta4Swap");
@@ -29,7 +30,7 @@ function NavbarTest({ connected, userAddress, childToParent, data }) {
   };
   const btnhandler2 = () => {
     window.data = false;
-    childToParent(false);
+    childToParent(false, "");
     navigate('/');
   };
 

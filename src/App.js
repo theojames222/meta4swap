@@ -13,15 +13,17 @@ import NavbarTest from "./components/layout/NavbarTest";
 import NewTransactions from "./components/pages/NewTransactions";
 import OrderV2 from "./components/pages/OrderV2";
 
-async function checkIfWalletIsConnected(onConnected) {
+async function checkIfWalletIsConnected(onConnected, userAddress) {
   if (window.ethereum) {
     const accounts = await window.ethereum.request({
       method: "eth_accounts",
     });
 
     if (accounts.length > 0) {
+      console.log(accounts[0]);
       const account = accounts[0];
       onConnected(account);
+      console.log(userAddress);
       return;
     }
   }
@@ -53,13 +55,14 @@ function App() {
   const [connected, setConnected] = useState(false);
   const [data, setData] = useState('');
 
-  const childToParent = (childdata) => {
+  const childToParent = (childdata, userAddress) => {
     console.log(childdata);
     setData(childdata);
+    setUserAddress(userAddress);
   }
 
   useEffect(() => {
-    checkIfWalletIsConnected(setUserAddress);
+    checkIfWalletIsConnected(setUserAddress, userAddress);
     fetchEthPrice();
   }, []);
 
