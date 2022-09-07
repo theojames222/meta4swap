@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
 import Footer from "./components/layout/Footer";
 import Home from "./components/pages/Home";
 import { useState, useEffect } from "react";
@@ -44,9 +44,19 @@ const fetchEthPrice = async () => {
   window.ethPrice = ethPrice;
 };
 
+
+
+
+
 function App() {
   const [userAddress, setUserAddress] = useState("");
   const [connected, setConnected] = useState(false);
+  const [data, setData] = useState('');
+
+  const childToParent = (childdata) => {
+    console.log(childdata);
+    setData(childdata);
+  }
 
   useEffect(() => {
     checkIfWalletIsConnected(setUserAddress);
@@ -60,11 +70,12 @@ function App() {
   }, [userAddress]);
 
   console.log(connected);
+  console.log(data);
   return (
     <Router>
       {/* <div className="flex flex-col "> */}
       <div className="flex flex-col bg-neutral-content">
-        <NavbarTest connected={connected} userAddress={userAddress} />
+        <NavbarTest connected={connected} userAddress={userAddress} childToParent={childToParent} data={data} />
         {/* <Navbar connected={connected} userAddress={userAddress} /> */}
         <main className="mt-24">
           <Routes>

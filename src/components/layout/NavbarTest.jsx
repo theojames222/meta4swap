@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom";
 // import Logo from "../assets/logo2.png";
+import {useNavigate} from 'react-router-dom';
 import accountIcon from "../assets/user-286 (1).svg";
 import NewLogo from "../assets/New Logo.png";
 
-function NavbarTest({ connected, userAddress }) {
+function NavbarTest({ connected, userAddress, childToParent, data }) {
   const isConnected = connected;
+  const navigate = useNavigate();
   const reloadPage = () => {
     window.location.reload();
   };
@@ -15,7 +17,8 @@ function NavbarTest({ connected, userAddress }) {
         .request({ method: "eth_requestAccounts" })
         .then((result) => {
           if (result[0] !== "") {
-            reloadPage();
+            childToParent(true);
+            //reloadPage();
           } else {
             alert("Sign into MetaMask to create and buy with Meta4Swap");
           }
@@ -23,6 +26,11 @@ function NavbarTest({ connected, userAddress }) {
     } else {
       alert("install metamask extension!!");
     }
+  };
+  const btnhandler2 = () => {
+    window.data = false;
+    childToParent(false);
+    navigate('/');
   };
 
   return (
@@ -59,11 +67,15 @@ function NavbarTest({ connected, userAddress }) {
               Create
             </Link>
           </button>
-          {isConnected ? (
+          
+          {isConnected && data ? (
+            
             <Link to={`/account/${userAddress}`}>
               {" "}
               <img src={accountIcon} alt="account" className="accountIcon" />
+
             </Link>
+            
           ) : (
             <button
               className="btnConnect text-white text-2xl mr-2"
@@ -71,7 +83,22 @@ function NavbarTest({ connected, userAddress }) {
             >
               Connect
             </button>
+            
           )}
+          {data ? (
+            
+            <button
+              className="btnConnect text-white text-2xl mr-2"
+              onClick={btnhandler2}
+            >
+              Disconnect
+            </button>
+            
+          ) : (
+            
+            ""
+          )}
+          
         </div>
       </nav>
     </header>
