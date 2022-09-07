@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 // import Logo from "../assets/logo2.png";
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import accountIcon from "../assets/user-286 (1).svg";
 import NewLogo from "../assets/New Logo.png";
 
@@ -23,7 +23,8 @@ function NavbarTest({ connected, userAddress, childToParent, data }) {
           } else {
             alert("Sign into MetaMask to create and buy with Meta4Swap");
           }
-        });
+        })
+        .then(userAddress !== "" ? reloadPage() : "");
     } else {
       alert("install metamask extension!!");
     }
@@ -31,7 +32,7 @@ function NavbarTest({ connected, userAddress, childToParent, data }) {
   const btnhandler2 = () => {
     window.data = false;
     childToParent(false, "");
-    navigate('/');
+    navigate("/");
   };
 
   return (
@@ -68,15 +69,12 @@ function NavbarTest({ connected, userAddress, childToParent, data }) {
               Create
             </Link>
           </button>
-          
+
           {isConnected && data ? (
-            
             <Link to={`/account/${userAddress}`}>
               {" "}
               <img src={accountIcon} alt="account" className="accountIcon" />
-
             </Link>
-            
           ) : (
             <button
               className="btnConnect text-white text-2xl mr-2"
@@ -84,22 +82,17 @@ function NavbarTest({ connected, userAddress, childToParent, data }) {
             >
               Connect
             </button>
-            
           )}
           {data ? (
-            
             <button
               className="btnConnect text-white text-2xl mr-2"
               onClick={btnhandler2}
             >
               Disconnect
             </button>
-            
           ) : (
-            
             ""
           )}
-          
         </div>
       </nav>
     </header>
